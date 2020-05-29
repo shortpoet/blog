@@ -9,6 +9,7 @@ module.exports = {
     publicPath: '/dist/'
   },
   module: {
+    // decides which files to load
     rules: [
       {
         test: /\.vue$/,
@@ -29,6 +30,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin()
   ],
+  // auto update code on save
   devServer: {
     overlay: true
   }

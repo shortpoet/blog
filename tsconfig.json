@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // enables the use of older js modules such as moment
     "esModuleInterop": true
   }
 }
