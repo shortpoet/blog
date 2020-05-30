@@ -35,12 +35,12 @@ describe('Timeline.vue', () => {
     const $thisWeek = wrapper.findAll('[data-test="period"]')[1]
     await $thisWeek.trigger('click')
 
-    expect(wrapper.findAll('[data="post"]')).toHaveLength(2)
+    expect(wrapper.findAll('[data-test="post"]')).toHaveLength(2)
 
     const $thisMonth = wrapper.findAll('[data-test="period"]')[2]
     await $thisMonth.trigger('click')
 
-    expect(wrapper.findAll('[data="post"]')).toHaveLength(3)
+    expect(wrapper.findAll('[data-test="post"]')).toHaveLength(3)
   })
 
 })
