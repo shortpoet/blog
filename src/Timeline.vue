@@ -24,13 +24,11 @@
 
 <script lang="ts">
 import { Period, Post } from './types'
-import {today, thisWeek, thisMonth} from './mocks'
 import TimelinePost from './TimelinePost.vue'
 import { ref, computed, defineComponent } from 'vue'
+import { useStore } from './store'
 
 import moment from 'moment'
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export default defineComponent({
   components: {
@@ -42,10 +40,20 @@ export default defineComponent({
     // ref is generic type
     const selectedPeriod = ref<Period>('today')
 
-    await delay(2000)
+    const store = useStore()
+
+    if (!store.getState().posts.loaded) {
+      await store.fetchPosts()
+    }
+
+    // this uses the mapper to return with O(1) instead of O(n) by searching by id insead of looping over an array
+    const allPosts = store.getState().posts.ids.reduce<Post[]>((accumulator, id) => {
+      const post = store.getState().posts.all[id]
+      return accumulator.concat(post)
+    }, [])
 
     // computed automatically recalculates and updates the DOM anytime a reactive reference changes 
-    const posts = computed(() => [today, thisWeek, thisMonth].filter(post => {
+    const posts = computed(() => allPosts.filter(post => {
       if (
         selectedPeriod.value === 'today' &&
         post.created.isAfter(moment().subtract(1, 'day'))

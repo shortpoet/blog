@@ -9,7 +9,6 @@ module.exports = {
     publicPath: '/dist/'
   },
   module: {
-    // decides which files to load
     rules: [
       {
         test: /\.vue$/,
@@ -17,10 +16,17 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        loader: 'ts-loader', 
+        loader: 'ts-loader',
         options: {
           appendTsSuffixTo: [/\.vue/]
         }
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+        ]
       }
     ]
   },
@@ -30,8 +36,8 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin()
   ],
-  // auto update code on save
   devServer: {
-    overlay: true
+    overlay: true,
+    historyApiFallback: true
   }
 }

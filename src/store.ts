@@ -13,8 +13,10 @@ interface State {
 }
 
 const initialPostsState = () : PostsState => ({
-  ids: [],
-  all: {},
+  ids: [
+  ],
+  all: {
+  },
   loaded: false
 })
 
@@ -40,12 +42,21 @@ class Store {
     const ids: string[] = []
     const all: Record<string, Post> = {}
     for (const post of response.data) {
-      ids.push(post.id)
+      ids.push(post.id.toString())
+      // using number as key to JS object, it implicitly assumes it is a string and calls .toString() automatically
+      all[post.id] = post
     }
 
+    this.state.posts = {
+      ids,
+      all,
+      loaded: true
+    }
   }
 
 }
 
 const store = new Store(initialState())
 store.getState()
+
+export const useStore = () => store
