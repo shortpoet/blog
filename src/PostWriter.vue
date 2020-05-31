@@ -27,24 +27,34 @@
         <div v-html="html"></div>
       </div>
     </div>
+    <div class="columns">
+      <div class="column">
+        <button @click="submit" class="button is-primary is-pulled-right">
+          Submit
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from 'vue'
-import NavBar from './Navbar.vue'
 import { Post } from './types'
-import { parse } from 'marked'
+import { parse, MarkedOptions } from 'marked'
+import { highlightAuto } from "highlight.js"
+import debounce from 'lodash/debounce'
 
 export default defineComponent({
   name: 'PostWriter',
+
   props: {
     post: {
       type: Object as () => Post,
       required: true
     }
   },
-  setup(props) {
+  
+  setup(props, ctx) {
     const title = ref(props.post.title)
 
     // declare new ref with initial value null
@@ -55,16 +65,60 @@ export default defineComponent({
 
     const html = ref('')
 
+    const options : MarkedOptions =  {
+      // takes function that return code with syntax hightlighting
+      highlight: (code: string) => highlightAuto(code).value
+    }
+
     const handleEdit = () => {
       markdown.value = contentEditable.value.innerText
     }
 
+    // debouncing
+    // pass a timer
+    // calls function
+    // if function called again during duration
+    // restarts timer
+    // only calls function after time has passed
+    
+    // wrap function in debounce for added performance
+    // const update = debounce(
+    //   (value: string) => html.value = parse(value, options),
+    //   500
+    // )
+
+    // watch(
+    //   () => markdown.value, 
+    //   (value) => update(value),
+    //   // use optional 3rd arguement to have watch function called onMounted instead of manually copying logic in that hook
+    //   { immediate: true }
+    // )
+
+    // when passing same variable to diff functions - good chance to refactor
+
+    const update = (value: string) => html.value = parse(value, options)
+
     watch(
-      () => markdown.value, 
-      (value) => html.value = parse(value),
+      () => markdown.value,
+      // still a function with same signature - just a func returning string so can pass in like this
+      debounce(update, 500),
       // use optional 3rd arguement to have watch function called onMounted instead of manually copying logic in that hook
       { immediate: true }
     )
+
+    const post: Post = {
+      ...props.post,
+      title: title.value,
+      markdown: markdown.value,
+      html: html.value
+    }
+
+    const submit = () => { 
+      ctx.emit(
+        'save',
+        post
+      )     
+    }
 
     // need to use on mounted hook to manually update a dom element to ensure it isn't null
     onMounted(() => {
@@ -76,7 +130,8 @@ export default defineComponent({
       contentEditable,
       handleEdit,
       markdown,
-      html
+      html,
+      submit
     }
   }
 })

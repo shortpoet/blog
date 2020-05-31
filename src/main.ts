@@ -3,6 +3,8 @@ import axios from 'axios'
 import * as mockData from './mocks'
 import { router } from './router'
 
+import 'highlight.js/styles/solarized-dark.css'
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 // override axios get for mock/development purposes

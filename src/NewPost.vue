@@ -1,5 +1,5 @@
 <template>
-  <PostWriter :post="post" />
+  <PostWriter :post="post" @save="save"/>
 </template>
 
 <script lang="ts">
@@ -25,8 +25,10 @@ export default defineComponent({
       created: moment(),
       authorId: 0
     }
+    const save = (post: Post) => console.log('SaVED', post)
     return {
-       post
+       post,
+       save
     }
   }
 })
