@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import axios from 'axios'
 import * as mockData from './mocks'
 import { router } from './router'
+import random from 'lodash/random'
 
 import 'highlight.js/styles/solarized-dark.css'
 
@@ -19,7 +20,19 @@ axios.get = async (url: string) => {
   }
 }
 
+// @ts-ignore
+axios.post = async (url: string, payload: Post) => {
+  if (url === '/posts') {
+    await delay(1000)
+    const id = random(100, 10000)
+    return Promise.resolve({
+      data: {id, ...payload}
+    })
+  }
+}
+
 import App from './App.vue'
+import { Post } from './types'
 console.log(App)
 
 const app = createApp(App)

@@ -1,17 +1,19 @@
 <template>
   <div>
+
     <div class="columns">
       <div class="column">
         <div class="field">
           <div class="label">Post Title</div>
           <div class="control">
-            <input type="text" v-model="title" class="input" />
+            <input type="text" v-model="title" class="input" data-test="post-title" />
             <!-- vue automatically calls .value on a ref -->
             {{ title }}
           </div>
         </div>
       </div>
     </div>
+
     <div class="columns">
       <div class="column is-one-half">
         <!-- input only uses text on one line
@@ -20,20 +22,22 @@
         but can't use with v-model - implementation here -->
 
         <!-- new kind of ref 'template ref' to keep track of user entered value instead of v-model -->
-        <div contenteditable id="markdown" ref="contentEditable" @input="handleEdit">
+        <div contenteditable id="markdown" ref="contentEditable" @input="handleEdit" data-test="markdown">
         </div>
       </div>
       <div class="column is-one-half">
         <div v-html="html"></div>
       </div>
     </div>
+
     <div class="columns">
       <div class="column">
-        <button @click="submit" class="button is-primary is-pulled-right">
+        <button @click="submit" class="button is-primary is-pulled-right" data-test="submit-post">
           Submit
         </button>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -106,18 +110,22 @@ export default defineComponent({
       { immediate: true }
     )
 
-    const post: Post = {
-      ...props.post,
-      title: title.value,
-      markdown: markdown.value,
-      html: html.value
-    }
 
-    const submit = () => { 
+    const submit = () => {
+
+      const post: Post = {
+        // spread 
+        ...props.post,
+        title: title.value,
+        markdown: markdown.value,
+        html: html.value
+      }
+
       ctx.emit(
         'save',
         post
-      )     
+      )
+
     }
 
     // need to use on mounted hook to manually update a dom element to ensure it isn't null

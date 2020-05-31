@@ -8,6 +8,8 @@ import NavBar from './Navbar.vue'
 import PostWriter from './PostWriter.vue'
 import { Post } from './types'
 import moment from 'moment'
+import { useStore } from './store'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'NewPost',
@@ -25,7 +27,21 @@ export default defineComponent({
       created: moment(),
       authorId: 0
     }
-    const save = (post: Post) => console.log('SaVED', post)
+
+    // composition functions
+    // useRouter internally use inject and provide
+    // if moved to within a different context eg nested function get error
+    // inject can only be used within setup function
+
+    const store = useStore()
+
+    const router = useRouter()
+
+    const save = async (post: Post) => {
+      await store.createPost(post)
+      router.push('/')
+    }
+    
     return {
        post,
        save
