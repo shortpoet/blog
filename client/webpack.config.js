@@ -38,6 +38,10 @@ module.exports = {
   ],
   devServer: {
     overlay: true,
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+    watchOptions: {
+      // necessary for docker but not for host
+      poll: true
+    }
+  },
 }

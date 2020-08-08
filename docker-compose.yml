@@ -22,8 +22,11 @@ services:
       - notused:/usr/src/app/node_modules
     networks:
       - vccnet
-    # command: webpack-dev-server
-    command: vite
+    # command: vite
+    # https://github.com/webpack/webpack-dev-server/issues/547#issuecomment-284737321
+    # https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae0e73243db4#.v0vhqvvjl
+    # --host 0.0.0.0
+    command: webpack-dev-server --host 0.0.0.0
     entrypoint: /usr/local/bin/docker-entrypoint-client-a.sh
 
   # kanban.server:
