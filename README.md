@@ -90,3 +90,7 @@ yarn global add typeorm
 typeorm init --database postgres
 yarn add --dev ts-jest @types/jest express express-graphql graphql @types/cors @types/express @vue/test-utils@next class-validator cors ts-node-dev type-graphql vite
 ```
+
+## vite
+
+- make sure to add `<script type="module" src="/src/main.ts"></script>`

@@ -28,7 +28,7 @@ const initialState = () : State => ({
 class Store {
   protected state: State
   constructor(initialState: State) {
-    this.state = reactive(initialState)
+    this.state = reactive<State>(initialState) as State
   }
 
   public getState(): State {
