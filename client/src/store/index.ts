@@ -32,7 +32,7 @@ class Store {
   }
 
   public getState(): State {
-    return readonly(this.state)
+    return readonly(this.state) as State
   }
 
   async createUser(user: User) {
