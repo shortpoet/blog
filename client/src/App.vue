@@ -18,11 +18,12 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
-import NavBar from './NavBar.vue'
 import FormInput from './FormInput.vue'
 import { useModal } from './useModal'
 import { required, length, validate, Status } from './validators'
 import { provideStore } from './store'
+import NavBar from './NavBar.vue'
+
 export default defineComponent({
   name: 'App',
   components: {

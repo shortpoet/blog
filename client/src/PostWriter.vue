@@ -44,8 +44,8 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from 'vue'
 import { Post } from './types'
-import { parse, MarkedOptions } from 'marked'
-import { highlightAuto } from "highlight.js"
+import marked from 'marked'
+import highlightAuto  from "highlight.js"
 import debounce from 'lodash/debounce'
 
 export default defineComponent({
@@ -69,7 +69,7 @@ export default defineComponent({
 
     const html = ref('')
 
-    const options : MarkedOptions =  {
+    const options : marked.MarkedOptions =  {
       // takes function that return code with syntax hightlighting
       highlight: (code: string) => highlightAuto(code).value
     }
@@ -100,7 +100,7 @@ export default defineComponent({
 
     // when passing same variable to diff functions - good chance to refactor
 
-    const update = (value: string) => html.value = parse(value, options)
+    const update = (value: string) => html.value = marked.parse(value, options)
 
     watch(
       () => markdown.value,

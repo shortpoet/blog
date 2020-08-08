@@ -1,11 +1,11 @@
+import 'highlight.js/styles/solarized-dark.css'
+import { router } from './router'
+import * as mockData from './mocks'
+import App from './App.vue'
+import { Post } from './types'
+import random from 'lodash/random'
 import { createApp } from 'vue'
 import axios from 'axios'
-import * as mockData from './mocks'
-import { router } from './router'
-import random from 'lodash/random'
-
-import 'highlight.js/styles/solarized-dark.css'
-
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 // override axios get for mock/development purposes
@@ -31,11 +31,8 @@ axios.post = async (url: string, payload: Post) => {
   }
 }
 
-import App from './App.vue'
-import { Post } from './types'
 console.log(App)
 
 const app = createApp(App)
 app.use(router)
 app.mount('#app')
-
