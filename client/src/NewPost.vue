@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import NavBar from './Navbar.vue'
 import PostWriter from './PostWriter.vue'
 import { Post } from './types'
 import moment from 'moment'
@@ -14,7 +13,6 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'NewPost',
   components: {
-    NavBar,
     PostWriter
   },
   setup () {
