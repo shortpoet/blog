@@ -9,10 +9,10 @@
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
 import FormInput from './FormInput.vue'
-import { required, length, validate, Status } from './validators'
-import { useStore } from './store'
-import { useModal } from './useModal'
-import  { User } from './types'
+import { required, length, validate, Status } from '../../utils/validators'
+import { useStore } from '../store'
+import { useModal } from '../composables/useModal'
+import  { User } from '../interfaces/User'
 
 export default defineComponent({
   name: 'Signup',

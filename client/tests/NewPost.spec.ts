@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils"
 import NewPost from './NewPost.vue'
-import { createStore } from "./store"
-import { log } from './colorLog'
-import { Post } from "./types"
+import { createStore } from "../src/store"
+import { log } from '../utils/colorLog'
+import { Post } from "../src/interfaces/Post"
 
 // simple mock implementation of vue router
 const mockRoutes = []

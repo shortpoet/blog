@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from 'vue'
-import { Post } from './types'
+import { Post } from '../interfaces/Post'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import debounce from 'lodash/debounce'

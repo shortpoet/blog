@@ -5,9 +5,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PostWriter from './PostWriter.vue'
-import { Post } from './types'
+import { Post } from '../interfaces/Post'
 import moment from 'moment'
-import { useStore } from './store'
+import { useStore } from '../store'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({

@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Post } from "./types";
+import { Post } from "../interfaces/Post";
 
 export default defineComponent({
   props: {
@@ -27,4 +27,3 @@ export default defineComponent({
 
 })
 </script>
-

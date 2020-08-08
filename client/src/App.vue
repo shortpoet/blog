@@ -22,7 +22,7 @@ import FormInput from './FormInput.vue'
 import { useModal } from './useModal'
 import { required, length, validate, Status } from './validators'
 import { provideStore } from './store'
-import NavBar from './NavBar.vue'
+import NavBar from './components/NavBar.vue'
 
 export default defineComponent({
   name: 'App',

@@ -23,10 +23,11 @@
 </template>
 
 <script lang="ts">
-import { Period, Post } from './types'
+import { Period } from '../interfaces/Period'
+import { Post } from '../interfaces/Post'
 import TimelinePost from './TimelinePost.vue'
 import { ref, computed, defineComponent } from 'vue'
-import { useStore } from './store'
+import { useStore } from '../store'
 
 import moment from 'moment'
 

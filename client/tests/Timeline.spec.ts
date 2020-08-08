@@ -3,7 +3,7 @@ import Home from './Home.vue'
 import { nextTick } from "vue"
 import flushPromises from 'flush-promises'
 import { today, thisWeek, thisMonth } from "./mocks"
-import { createStore } from "./store"
+import { createStore } from "../src/store"
 
 // wrapping the curly brackets in parentheses makes the function 'return'
 jest.mock(('axios'), () => ({

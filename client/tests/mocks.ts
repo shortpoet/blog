@@ -1,4 +1,4 @@
-import { Post } from "./types";
+import { Post } from "../src/interfaces/Post";
 import moment from "moment";
 
 export const basePost : Post = {

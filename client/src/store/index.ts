@@ -1,6 +1,7 @@
 import { reactive, readonly, provide, inject } from "vue"
 import axios from "axios"
-import { Post, User } from "./types"
+import { User } from "../interfaces/User"
+import { Post } from "../interfaces/Post"
 
 interface PostsState {
   ids: string[]

@@ -1,8 +1,8 @@
 import 'highlight.js/styles/solarized-dark.css'
 import { router } from './router'
-import * as mockData from './mocks'
+import * as mockData from '../tests/mocks'
 import App from './App.vue'
-import { Post } from './types'
+import { Post } from "./interfaces/Post"
 
 // technically correct method for vite due to native ES imports not supporting bare module imports
 // but vue has special treatment and will error if you do it the other way
