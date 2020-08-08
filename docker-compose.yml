@@ -3,8 +3,8 @@ version: "3.4"
 services:
   vcc.client:
     image: vcc.client:alpine
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     build:
       context: .
       dockerfile: docker/Dockerfile.client.alpine
@@ -12,7 +12,7 @@ services:
     stdin_open: true
     working_dir: /usr/src/app
     env_file:
-      - "docker.env"
+      - ".env"
     environment:
       NODE_ENV: production
     ports:
@@ -21,16 +21,16 @@ services:
       - ./client:/usr/src/app
       - notused:/usr/src/app/node_modules
     networks:
-      - vccnet
-    # command: vite
+      - ${COMPOSE_PROJECT_NAME}net
+    command: vite
     # https://github.com/webpack/webpack-dev-server/issues/547#issuecomment-284737321
     # https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae0e73243db4#.v0vhqvvjl
     # --host 0.0.0.0
-    command: webpack-dev-server --host 0.0.0.0
+    # command: webpack-dev-server --host 0.0.0.0
     entrypoint: /usr/local/bin/docker-entrypoint-client-a.sh
 
-  # kanban.server:
-  #   image: kanban.server:alpine
+  # vcc.server:
+  #   image: vcc.server:alpine
   #   depends_on:
   #     - db
   #   build:
@@ -41,8 +41,6 @@ services:
   #   working_dir: /usr/src/app
   #   env_file:
   #     - "docker.env"
-  #   environment:
-  #     NODE_ENV: production
   #   ports:
   #     - 4000:4000
   #     - 5000:5000
@@ -50,30 +48,30 @@ services:
   #     - ./server:/usr/src/app
   #     - /usr/src/app/node_modules
   #   networks:
-  #     - kanbannet
+  #     - vccnet
   #   command: yarn start:graph
-  #   # entrypoint: /usr/src/app/docker-entrypoint.sh
 
   # # https://gist.github.com/onjin/2dd3cc52ef79069de1faa2dfd456c945
-  # db:
-  #   image: postgres:12
-  #   # restart: always
-  #   restart: unless-stopped
-  #   # file must end in .sql not .psql
-  #   volumes:
-  #     - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql:ro
-  #     - ./sql/seed_data.sql:/docker-entrypoint-initdb.d/seed_data.sql:ro
-  #     - ./postgres-data:/var/lib/postgresql/data:Z
-  #   env_file:
-  #     - "docker.env"
-  #   ports:
-  #     - 5432:5432
-  #   networks:
-  #     - kanbannet
+  # :Z for linux
+  db:
+    image: postgres:12
+    # restart: always
+    restart: unless-stopped
+    # file must end in .sql not .psql
+    volumes:
+      - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql:ro
+      - ./sql/seed_data.sql:/docker-entrypoint-initdb.d/seed_data.sql:ro
+      - ./postgres-data:/var/lib/postgresql/data:Z
+    env_file:
+      - ".env"
+    ports:
+      - 5432:5432
+    networks:
+      - ${COMPOSE_PROJECT_NAME}net
 
 networks:
-  vccnet:
+  ${COMPOSE_PROJECT_NAME}net:
 
 volumes:
   notused:
-  # postgres-data:
+  postgres-data:

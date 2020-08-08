@@ -1,7 +1,11 @@
 #!/bin/bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+PARENT=$(dirname $DIR)
+source "$PARENT/.env"
 source "$DIR/colors.cfg"
-echo -e "${Cyan}The ${Yellow}vcc client (alpine) shell ${Cyan}script has been executed"
+filename=$(basename ${BASH_SOURCE})
+
+echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
 winpty docker exec -it vuejs-composition-course_vcc.client_1 sh "$@"

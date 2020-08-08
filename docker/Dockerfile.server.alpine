@@ -1,0 +1,27 @@
+FROM node:12.2.0-alpine
+
+WORKDIR /usr/src
+
+COPY client/package*.json ./
+
+RUN npm install --quiet --silent --no-optional && npm cache clean --force
+
+ENV PATH /usr/src/node_modules/.bin:$PATH
+
+WORKDIR /usr/src/app
+
+COPY ./client .
+
+EXPOSE 8080
+
+COPY docker/docker-entrypoint-server-a.sh /usr/local/bin/
+
+# RUN chmod +x /docker-entrypoint-client.sh
+
+ENTRYPOINT ["docker-entrypoint-server-a.sh"]
+
+LABEL maintainer="Carlos Soriano <shortpoet@github>"
+
+# CMD ["yarn", "--help"]
+
+# docker run --rm -it -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules -p 3000:3000 vcc.server:alpine
