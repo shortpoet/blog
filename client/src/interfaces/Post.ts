@@ -5,6 +5,6 @@ export interface Post {
   title: string;
   markdown: string;
   html: string;
-  authorId: number;
+  userId: number;
   created: Moment;
 }

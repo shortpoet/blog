@@ -1,5 +1,5 @@
 const path = require('path')
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
@@ -8,6 +8,14 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/'
   },
+  plugins: [
+    // new HtmlWebpackPlugin({
+    //     // hash: true,
+    //     filename: 'index.html',
+    //     template: path.resolve(__dirname, './src/index.html'),
+    //     // chunks: ['main']
+    // })
+  ],
   module: {
     rules: [
       {
@@ -37,6 +45,8 @@ module.exports = {
     new VueLoaderPlugin()
   ],
   devServer: {
+    // contentBase: path.join(__dirname, "./dist"),
+    // publicPath: '/',
     overlay: true,
     historyApiFallback: true,
     watchOptions: {
