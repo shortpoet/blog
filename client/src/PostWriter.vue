@@ -45,7 +45,7 @@
 import { defineComponent, ref, onMounted, watch } from 'vue'
 import { Post } from './types'
 import marked from 'marked'
-import highlightAuto  from "highlight.js"
+import hljs from 'highlight.js'
 import debounce from 'lodash/debounce'
 
 export default defineComponent({
@@ -71,7 +71,7 @@ export default defineComponent({
 
     const options : marked.MarkedOptions =  {
       // takes function that return code with syntax hightlighting
-      highlight: (code: string) => highlightAuto(code).value
+      highlight: (code: string) => hljs.highlightAuto(code).value
     }
 
     const handleEdit = () => {
