@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import PostWriter from './PostWriter.vue'
+import PostWriter from '../src/components/PostWriter.vue'
 import { basePost } from './mocks'
 import { log } from '../utils/colorLog.js'
 // make assertion on event that gets emitted

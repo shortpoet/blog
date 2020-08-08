@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils"
-import NewPost from './NewPost.vue'
+import NewPost from '../src/components/NewPost.vue'
 import { createStore } from "../src/store"
 import { log } from '../utils/colorLog'
 import { Post } from "../src/interfaces/Post"

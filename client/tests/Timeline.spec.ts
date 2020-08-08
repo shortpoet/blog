@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils"
-import Home from './Home.vue'
+import Home from '../src/views/Home.vue'
 import { nextTick } from "vue"
 import flushPromises from 'flush-promises'
 import { today, thisWeek, thisMonth } from "./mocks"
