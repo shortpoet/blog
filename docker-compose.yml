@@ -68,9 +68,8 @@ services:
     restart: unless-stopped
     # file must end in .sql not .psql
     volumes:
-      - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql:ro
-      - ./sql/seed_data.sql:/docker-entrypoint-initdb.d/seed_data.sql:ro
-      - ./postgres-data:/var/lib/postgresql/data:Z
+      - ./db/init:/docker-entrypoint-initdb.d/:ro
+      - ./db/data/postgres-data:/var/lib/postgresql/data:Z
     env_file:
       - ".env"
     ports:

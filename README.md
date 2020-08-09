@@ -80,13 +80,13 @@ docker-compose up
 ./docker/client-a-shell.sh
 ```
 
-## setup
+## server setup
 
 ```bash
-git init
+mkdir server && cd server
 yarn init
 yarn add --dev typeorm reflect-metadata @types/node pg
-yarn global add typeorm
+# yarn global add typeorm # optional as needed
 typeorm init --database postgres
 yarn add --dev ts-jest @types/jest express express-graphql graphql @types/cors @types/express @vue/test-utils@next class-validator cors ts-node-dev type-graphql vite
 ```

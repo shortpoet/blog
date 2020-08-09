@@ -1,7 +1,7 @@
 begin;
 
 -- Insert rows into table 'users'
-INSERT INTO users
+INSERT INTO "admin"."users"
 ( -- columns to insert data into
  id, username, password
 )
