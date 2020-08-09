@@ -11,7 +11,7 @@
 -- env vars create primary db
 -- must do this before creating schema with that USER
 -- on docker we are logged in as test from beginning
-CREATE DATABASE vcc;
+-- CREATE DATABASE vcc;
+-- GRANT ALL ON DATABASE vcc TO test;
 CREATE DATABASE vcc_test;
-GRANT ALL ON DATABASE vcc TO test;
 GRANT ALL ON DATABASE vcc_test TO test;

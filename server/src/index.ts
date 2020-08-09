@@ -7,18 +7,29 @@ import { generateSchema } from "./graphQL/generateSchema";
 import { UserResolver } from './graphQL/user.resolvers';
 import { buildSchema } from 'type-graphql';
 
-(async () => {
-  const app = express();
-  app.use(cors());
-  const connection = await createConnection();
-  // const schema = generateSchema(UserResolver);
-  const schema = await buildSchema({
-    resolvers: [UserResolver]
-  });
+// const config = require('../ormconfig.js');
 
-  app.use('/graphql', graphqlHTTP({
-    schema,
-    graphiql: true
-  }))
-  app.listen(5000)
+const util = require('util');
+(async () => {
+  console.log("$# START @7");
+  // console.log(config);
+  // could insert config as options into createConnection 
+  // if need to read from.env to have node modules up a directory 
+  const connection = await createConnection();
+  // console.log(`name ${connection.name}`);
+  // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
+  if (connection) {
+    const app = express();
+    app.use(cors());
+    // const schema = generateSchema(UserResolver);
+    const schema = await buildSchema({
+      resolvers: [UserResolver]
+    });
+  
+    app.use('/graphql', graphqlHTTP({
+      schema,
+      graphiql: true
+    }))
+    app.listen(5000)
+  }
 })();

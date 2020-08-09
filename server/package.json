@@ -8,7 +8,6 @@
       "@types/express": "^4.17.7",
       "@types/jest": "^26.0.9",
       "@types/node": "^8.0.29",
-      "@vue/test-utils": "^2.0.0-beta.2",
       "class-validator": "^0.12.2",
       "cors": "^2.8.5",
       "express": "^4.17.1",
@@ -22,8 +21,7 @@
       "ts-node-dev": "^1.0.0-pre.56",
       "type-graphql": "^1.0.0-rc.3",
       "typeorm": "^0.2.25",
-      "typescript": "^3.9.7",
-      "vite": "^1.0.0-rc.4"
+      "typescript": "^3.9.7"
    },
    "dependencies": {
       "moment": "^2.27.0",
@@ -32,6 +30,7 @@
       "typeorm": "^0.2.25"
    },
    "scripts": {
-      "start": "ts-node src/index.ts"
+      "start": "ts-node src/index.ts",
+      "dev": "ts-node-dev src/index.ts"
    }
 }

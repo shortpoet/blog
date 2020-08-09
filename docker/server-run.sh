@@ -8,4 +8,4 @@ filename=$(basename ${BASH_SOURCE})
 
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
-winpty docker exec -it vcc_vcc.client_1 sh "$@"
+docker run --rm -v ${PWD}/server:/usr/src/app -v notused:/usr/src/app/node_modules -p 5000:5000 vcc.server:alpine
