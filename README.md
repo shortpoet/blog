@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Repository for my course on Vue.js 3, the Composition API, TypeScript and testing. https://vuejs-course.com/
-
-=======
 # kanban
 
 This is an extension of a [course](https://vuejs-course.com/courses) by [@Lachlan19900](https://twitter.com/Lachlan19900).
@@ -98,4 +94,3 @@ yarn add --dev ts-jest @types/jest express express-graphql graphql @types/cors @
 ## vite
 
 - make sure to add `<script type="module" src="/src/main.ts"></script>`
->>>>>>> dir
