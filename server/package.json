@@ -14,6 +14,7 @@
       "express": "^4.17.1",
       "express-graphql": "^0.11.0",
       "graphql": "^15.3.0",
+      "jest": "^26.2.2",
       "pg": "^8.3.0",
       "reflect-metadata": "^0.1.13",
       "ts-jest": "^26.1.4",
@@ -21,10 +22,11 @@
       "ts-node-dev": "^1.0.0-pre.56",
       "type-graphql": "^1.0.0-rc.3",
       "typeorm": "^0.2.25",
-      "typescript": "3.3.3333",
+      "typescript": "^3.9.7",
       "vite": "^1.0.0-rc.4"
    },
    "dependencies": {
+      "moment": "^2.27.0",
       "pg": "^8.3.0",
       "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.25"

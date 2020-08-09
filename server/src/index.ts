@@ -1,21 +1,24 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import express = require('express');
+import cors = require('cors');
+import { createConnection } from "typeorm";
+const { graphqlHTTP } = require('express-graphql');
 
-createConnection().then(async connection => {
+import { generateSchema } from "./graphQL/generateSchema";
+import { UserResolver } from './graphQL/user.resolvers';
+import { buildSchema } from 'type-graphql';
 
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+(async () => {
+  const app = express();
+  app.use(cors());
+  const connection = await createConnection();
+  // const schema = generateSchema(UserResolver);
+  const schema = await buildSchema({
+    resolvers: [UserResolver]
+  });
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
-
-    console.log("Here you can setup and run express/koa/any other framework.");
-
-}).catch(error => console.log(error));
+  app.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: true
+  }))
+  app.listen(5000)
+})();

@@ -6,13 +6,13 @@ console.log(require('path').resolve(__dirname, '..'));
 
 module.exports = {
    "type": "postgres",
-   "host": process.env.POSTGRES_HOST,
+   "host": process.env.POSTGRES_HOST_LOCAL,
    "port": 5432,
    "username": process.env.POSTGRES_USER,
    "password": process.env.POSTGRES_PASSWORD,
    "database": process.env.POSTGRES_DB,
    "synchronize": false,
-   "logging": false,
+   "logging": true,
    "entities": [
       "src/entity/**/*.ts"
    ],
