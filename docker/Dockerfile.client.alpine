@@ -1,18 +1,12 @@
 FROM node:12.2.0-alpine
 
-# RUN mkdir /usr/src
-
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 RUN npm install -g --quiet --silent  webpack-dev-server
-# npm@latest
-
-WORKDIR /usr/src
 
 COPY client/package*.json ./
 
-RUN npm install --quiet --silent 
-# --no-optional && npm cache clean --force
+RUN npm install --quiet --silent --no-optional && npm cache clean --force
 
 ENV PATH /usr/src/node_modules/.bin:$PATH
 

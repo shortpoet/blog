@@ -1,4 +1,13 @@
-version: "3.4"
+version: "3.5"
+
+networks:
+  vccnet:
+    name: ${COMPOSE_PROJECT_NAME}net
+    # driver: bridge
+
+volumes:
+  notused:
+  postgres-data:
 
 services:
   vcc.client:
@@ -68,10 +77,3 @@ services:
       - 5432:5432
     networks:
       - ${COMPOSE_PROJECT_NAME}net
-
-networks:
-  ${COMPOSE_PROJECT_NAME}net:
-
-volumes:
-  notused:
-  postgres-data:
