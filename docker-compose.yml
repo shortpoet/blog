@@ -11,7 +11,7 @@ volumes:
 
 services:
   vcc.client:
-    image: vcc.client:alpine
+    image: ${COMPOSE_PROJECT_NAME}.client:alpine
     # depends_on:
     #   db:
     #     condition: service_healthy
@@ -42,7 +42,7 @@ services:
     entrypoint: /usr/local/bin/docker-entrypoint-client-a.sh
 
   vcc.server:
-    image: vcc.server:alpine
+    image: ${COMPOSE_PROJECT_NAME}.server:alpine
     # depends_on:
     #   db:
     #     condition: service_healthy
@@ -60,7 +60,7 @@ services:
       - ./server:/usr/src/app
       - /usr/src/app/node_modules
     networks:
-      - vccnet
+      - ${COMPOSE_PROJECT_NAME}net
     command: ["docker-entrypoint-server-a.sh", "db", "yarn", "start"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
     # https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y

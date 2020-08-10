@@ -18,18 +18,12 @@ const util = require('util');
   const connection = await createConnection();
   // console.log(`name ${connection.name}`);
   // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
-  if (connection) {
-    const app = express();
-    app.use(cors());
-    // const schema = generateSchema(UserResolver);
-    const schema = await buildSchema({
-      resolvers: [UserResolver]
-    });
-  
-    app.use('/graphql', graphqlHTTP({
-      schema,
-      graphiql: true
-    }))
-    app.listen(5000)
-  }
+  const app = express();
+  app.use(cors());
+  const schema = generateSchema(UserResolver);  
+  app.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: true
+  }))
+  app.listen(5000)
 })();
