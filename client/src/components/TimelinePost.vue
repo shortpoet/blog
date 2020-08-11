@@ -15,12 +15,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Post } from "../interfaces/Post";
+import { IPost } from "../interfaces/IPost";
 
 export default defineComponent({
   props: {
     post: {
-      type: Object as () => Post,
+      type: Object as () => IPost,
       required: true
     }
   }

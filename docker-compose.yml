@@ -10,13 +10,11 @@ volumes:
   postgres-data:
 
 services:
+
   vcc.client:
     image: ${COMPOSE_PROJECT_NAME}.client:alpine
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
-    #   vcc.server:
-    #     condition: service_healthy
+    depends_on:
+      - db
     build:
       context: .
       dockerfile: docker/Dockerfile.client.alpine
@@ -35,17 +33,11 @@ services:
     networks:
       - ${COMPOSE_PROJECT_NAME}net
     command: vite
-    # https://github.com/webpack/webpack-dev-server/issues/547#issuecomment-284737321
-    # https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae0e73243db4#.v0vhqvvjl
-    # --host 0.0.0.0
-    # command: webpack-dev-server --host 0.0.0.0
-    entrypoint: /usr/local/bin/docker-entrypoint-client-a.sh
 
   vcc.server:
     image: ${COMPOSE_PROJECT_NAME}.server:alpine
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
+    depends_on:
+      - db
     build:
       context: .
       dockerfile: docker/Dockerfile.server.alpine
@@ -61,27 +53,12 @@ services:
       - /usr/src/app/node_modules
     networks:
       - ${COMPOSE_PROJECT_NAME}net
-    command: ["docker-entrypoint-server-a.sh", "db", "yarn", "start"]
+    command: ["docker-entrypoint-server-a.sh", "${POSTGRES_HOST}", "yarn", "start"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
-    # https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y
-    # https://stackoverflow.com/a/31753726/12658653
-    # https://marcopeg.com/2019/docker-compose-healthcheck
-    # healthcheck:
-    #     test: ["CMD", "curl", "-f", "http://localhost:5000/graphql"]
-    #     interval: 45s
-    #     timeout: 10s
-    #     retries: 10
-    # links:
-    #   - db
-    restart: on-failure
 
-  # # https://gist.github.com/onjin/2dd3cc52ef79069de1faa2dfd456c945
-  # :Z for linux
   db:
     image: postgres:12
-    # restart: always
     restart: unless-stopped
-    # file must end in .sql not .psql
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d/:ro
       - ./db/data/postgres-data:/var/lib/postgresql/data:Z
@@ -91,8 +68,3 @@ services:
       - 5432:5432
     networks:
       - ${COMPOSE_PROJECT_NAME}net
-    # healthcheck:
-    #     test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
-    #     timeout: 45s
-    #     interval: 10s
-    #     retries: 10

@@ -4,7 +4,7 @@
   refactor possibility
 
 <PeriodSelector>
-   <Period name="today" />
+   <IPeriod name="today" />
 </PeriodSelector> 
 
 -->
@@ -23,8 +23,8 @@
 </template>
 
 <script lang="ts">
-import { Period } from '../interfaces/Period'
-import { Post } from '../interfaces/Post'
+import { IPeriod } from '../interfaces/IPeriod'
+import { IPost } from '../interfaces/IPost'
 import TimelinePost from './TimelinePost.vue'
 import { ref, computed, defineComponent } from 'vue'
 import { useStore } from '../store'
@@ -36,10 +36,10 @@ export default defineComponent({
     TimelinePost
   },
   async setup() {
-    const periods : Period[] = ['today', 'this week', 'this month']
+    const periods : IPeriod[] = ['today', 'this week', 'this month']
 
     // ref is generic type
-    const selectedPeriod = ref<Period>('today')
+    const selectedPeriod = ref<IPeriod>('today')
 
     const store = useStore()
 
@@ -48,7 +48,7 @@ export default defineComponent({
     }
 
     // this uses the mapper to return with O(1) instead of O(n) by searching by id insead of looping over an array
-    const allPosts = store.getState().posts.ids.reduce<Post[]>((accumulator, id) => {
+    const allPosts = store.getState().posts.ids.reduce<IPost[]>((accumulator, id) => {
       const post = store.getState().posts.all[id]
       return accumulator.concat(post)
     }, [])
@@ -76,7 +76,7 @@ export default defineComponent({
       return false
     })
     )
-    const setPeriod = (period: Period) => {
+    const setPeriod = (period: IPeriod) => {
       selectedPeriod.value = period
     }
 

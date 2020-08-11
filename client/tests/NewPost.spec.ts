@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils"
 import NewPost from '../src/components/NewPost.vue'
 import { createStore } from "../src/store"
 import { log } from '../utils/colorLog'
-import { Post } from "../src/interfaces/Post"
+import { IPost } from "../src/interfaces/IPost"
 
 // simple mock implementation of vue router
 const mockRoutes = []
@@ -16,7 +16,7 @@ jest.mock('vue-router', () => ({
 }))
 
 jest.mock('axios', () => ({
-  post: (url: string, payload: Post) => {
+  post: (url: string, payload: IPost) => {
     return { data: payload }
   }
 }))

@@ -1,5 +1,5 @@
 
-export interface User {
+export interface IUser {
   id: number;
   username: string;
   // in production app wouldn't include password here

@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 
-export interface Post {
+export interface IPost {
   id: number;
   title: string;
   markdown: string;

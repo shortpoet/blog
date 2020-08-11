@@ -1,0 +1,6 @@
+FROM postgres:12
+
+COPY ./db/init /docker-entrypoint-initdb.d/:ro
+COPY ./docker/colors.cfg /docker-entrypoint-initdb.d/colors.cfg
+
+RUN chmod +x /docker-entrypoint-initdb.d/colors.cfg

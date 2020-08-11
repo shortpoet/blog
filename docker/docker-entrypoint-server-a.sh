@@ -1,11 +1,10 @@
 #!/bin/sh
+set -e
+
 source colors.cfg
 filename=$(basename ${BASH_SOURCE[0]})
 
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
-set -e
-
-# export MY_DIR="${PWD:2}"
 
 # https://docs.docker.com/compose/startup-order/
 host="$1"

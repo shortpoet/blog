@@ -1,28 +1,46 @@
 import { reactive, readonly, provide, inject } from "vue"
 import axios from "axios"
-import { User } from "../interfaces/User"
-import { Post } from "../interfaces/Post"
+import { IUser } from "../interfaces/IUser"
+import { IPost } from "../interfaces/IPost"
+import { IAuthor } from "../interfaces/IAuthor"
 
-interface PostsState {
-  ids: string[]
-  all: Record<string, Post>
-  loaded: boolean
+interface StoreState<T> {
+  ids: string[];
+  all: Record<string, T>;
+  loaded: boolean;
+  currentId?: string;
 }
 
 interface State {
-  posts: PostsState
+  authors: StoreState<IAuthor>
+  posts: StoreState<IPost>
 }
 
-const initialPostsState = () : PostsState => ({
+// https://stackoverflow.com/questions/32308370/what-is-the-syntax-for-typescript-arrow-functions-with-generics
+
+function iSS<T>(): StoreState<T> {
+  return {
+    ids: [
+    ],
+    all: {
+    },
+    loaded: false,
+    currentId: undefined
+  }
+}
+
+const initialStoreState = <T extends {}>(x: T): StoreState<T> => ({
   ids: [
   ],
   all: {
   },
-  loaded: false
+  loaded: false,
+  currentId: undefined
 })
 
 const initialState = () : State => ({
-  posts: initialPostsState()
+  authors: iSS<IAuthor>(),
+  posts: initialStoreState<IPost>({} as IPost)
 })
 
 class Store {
@@ -35,12 +53,17 @@ class Store {
     return readonly(this.state) as State
   }
 
-  async createUser(user: User) {
-    // ..
+  async createUser(user: IUser) {
+    const response = await axios.post<IAuthor>('/users', user)
+    this.state.authors.all[response.data.id] = response.data
+    this.state.authors.ids.push(response.data.id.toString())
+    this.state.authors.currentId = response.data.id.toString()
+    console.log(this.state);
+    
   }
 
-  async createPost(post: Post) {
-    const response = await axios.post<Post>('/posts', post)
+  async createPost(post: IPost) {
+    const response = await axios.post<IPost>('/posts', post)
     this.state.posts.all[response.data.id] = response.data
     this.state.posts.ids.push(response.data.id.toString())
   }
@@ -48,13 +71,13 @@ class Store {
 
   async fetchPosts() {
     // get is generic so can specify type
-    const response = await axios.get<Post[]>('/posts')
+    const response = await axios.get<IPost[]>('/posts')
     // to avoid mutating at all costs can do 
     // response.data.reduce(...)
 
     // this initial code resets state
     // const ids: string[] = []
-    // const all: Record<string, Post> = {}
+    // const all: Record<string, IPost> = {}
 
     for (const post of response.data) {
 

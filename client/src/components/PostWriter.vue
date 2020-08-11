@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <div class="label">Post Title</div>
+          <div class="label">IPost Title</div>
           <div class="control">
             <input type="text" v-model="title" class="input" data-test="post-title" />
             <!-- vue automatically calls .value on a ref -->
@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from 'vue'
-import { Post } from '../interfaces/Post'
+import { IPost } from '../interfaces/IPost'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import debounce from 'lodash/debounce'
@@ -53,7 +53,7 @@ export default defineComponent({
 
   props: {
     post: {
-      type: Object as () => Post,
+      type: Object as () => IPost,
       required: true
     }
   },
@@ -113,7 +113,7 @@ export default defineComponent({
 
     const submit = () => {
 
-      const post: Post = {
+      const post: IPost = {
         // spread 
         ...props.post,
         title: title.value,

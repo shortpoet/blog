@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PostWriter from './PostWriter.vue'
-import { Post } from '../interfaces/Post'
+import { IPost } from '../interfaces/IPost'
 import moment from 'moment'
 import { useStore } from '../store'
 import { useRouter } from 'vue-router'
@@ -16,14 +16,14 @@ export default defineComponent({
     PostWriter
   },
   setup () {
-    const post: Post = {
+    const post: IPost = {
       // set id to -1 to represent post that has not yet been created in db
       id: -1,
-      title: 'New Post',
-      markdown: '## New Post\nEnter your post here...',
+      title: 'New IPost',
+      markdown: '## New IPost\nEnter your post here...',
       html: '',
       created: moment(),
-      authorId: 0
+      userId: 0
     }
 
     // composition functions
@@ -35,7 +35,7 @@ export default defineComponent({
 
     const router = useRouter()
 
-    const save = async (post: Post) => {
+    const save = async (post: IPost) => {
       await store.createPost(post)
       router.push('/')
     }

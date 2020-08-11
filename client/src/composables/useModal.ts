@@ -5,6 +5,7 @@ const visible = ref(false)
 export function useModal() {
   return {
     // make it private so that have to use public APIs (show/hide) for interaction / state change
+    component: null,
     visible: readonly(visible),
     showModal: () => visible.value = true,
     hideModal: () => visible.value = false,
