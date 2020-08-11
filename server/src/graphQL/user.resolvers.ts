@@ -11,6 +11,7 @@ export class UserResolver {
     @Arg('id') id: number,
     @Info() info: GraphQLResolveInfo
     ): Promise<User> {
+    console.log(id);
     
     // this joins on
     // INNER JOIN "content"."posts" "posts" ON "posts"."user_id"="user"."id" WHERE "user"."id" = $1

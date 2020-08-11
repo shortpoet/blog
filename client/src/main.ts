@@ -31,29 +31,29 @@ axios.get = async (url: string) => {
 }
 
 // @ts-ignore
-axios.post = async (url: string, payload: (IPost | IUser)) => {
-  if (url === '/posts') {
-    await delay(1000)
-    const id = random(100, 10000)
-    return Promise.resolve({
-      data: {id, ...payload}
-    })
-  }
+// axios.post = async (url: string, payload: (IPost | IUser)) => {
+//   if (url === '/posts') {
+//     await delay(1000)
+//     const id = random(100, 10000)
+//     return Promise.resolve({
+//       data: {id, ...payload}
+//     })
+//   }
 
-  if (url === '/users') {
-    console.log('users endpoint');
-    console.log(payload);
-    await delay(1000)
-    const id = random(100, 10000)
-    // trick to pluck out an entry from an object
-    const { id: oldId, password, ...rest } = payload
+//   if (url === '/users') {
+//     console.log('users endpoint');
+//     console.log(payload);
+//     await delay(1000)
+//     const id = random(100, 10000)
+//     // trick to pluck out an entry from an object
+//     const { id: oldId, password, ...rest } = payload
     
-    return Promise.resolve({
-      data: {id, ...rest}
-    })
-  }
+//     return Promise.resolve({
+//       data: {id, ...rest}
+//     })
+//   }
 
-}
+// }
 
 console.log(App)
 

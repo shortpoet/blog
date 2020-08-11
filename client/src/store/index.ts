@@ -59,7 +59,27 @@ class Store {
     this.state.authors.ids.push(response.data.id.toString())
     this.state.authors.currentId = response.data.id.toString()
     console.log(this.state);
-    
+  }
+
+  async getUsers() {
+    try {
+      const response = await axios.post('http://localhost:5000/graphql', {
+        query: `
+        {
+          users{
+            id
+            username
+            password
+          }
+        }
+        `
+      })
+      return response.data.data;
+      
+    } catch (error) {
+      console.log(`Error fetching users ${error}`);
+      
+    }
   }
 
   async createPost(post: IPost) {

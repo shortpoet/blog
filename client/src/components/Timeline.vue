@@ -42,6 +42,8 @@ export default defineComponent({
     const selectedPeriod = ref<IPeriod>('today')
 
     const store = useStore()
+    const users = await store.getUsers()
+    console.log(users);
 
     if (!store.getState().posts.loaded) {
       await store.fetchPosts()

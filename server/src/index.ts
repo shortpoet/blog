@@ -17,13 +17,15 @@ const util = require('util');
   // if need to read from.env to have node modules up a directory 
   const connection = await createConnection();
   // console.log(`name ${connection.name}`);
-  // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
-  const app = express();
-  app.use(cors());
-  const schema = generateSchema(UserResolver);  
-  app.use('/graphql', graphqlHTTP({
-    schema,
-    graphiql: true
-  }))
-  app.listen(5000)
+  if (connection) {
+    // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
+    const app = express();
+    app.use(cors());
+    const schema = await generateSchema(UserResolver);
+    app.use('/graphql', graphqlHTTP({
+      schema,
+      graphiql: true
+    }))
+    app.listen(5000)
+  }
 })();

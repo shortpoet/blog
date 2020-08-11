@@ -39,6 +39,10 @@ services:
     # https://github.com/webpack/webpack-dev-server/issues/547#issuecomment-284737321
     # https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae0e73243db4#.v0vhqvvjl
     # --host 0.0.0.0
+    # command: webpack-dev-server --host 0.0.0.0
+    # at one point webpack-dev-server couldn't be located unless the command didn't have yarn as middleman
+    # command: yarn dev:docker
+
 
   vcc.server:
     image: ${COMPOSE_PROJECT_NAME}.server:alpine

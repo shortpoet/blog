@@ -19,10 +19,6 @@ services:
       context: .
       dockerfile: docker/Dockerfile.client.alpine
     tty: true
-    stdin_open: true
-    working_dir: /usr/src/app
-    env_file:
-      - ".env"
     environment:
       NODE_ENV: production
     ports:
@@ -32,7 +28,7 @@ services:
       - notused:/usr/src/app/node_modules
     networks:
       - ${COMPOSE_PROJECT_NAME}net
-    command: vite
+    command: yarn vite
 
   vcc.server:
     image: ${COMPOSE_PROJECT_NAME}.server:alpine
@@ -61,7 +57,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d/:ro
-      - ./db/data/postgres-data:/var/lib/postgresql/data:Z
+      - ${PWD}/db/postgres-data:${PGVOLUME}
+
     env_file:
       - ".env"
     ports:
