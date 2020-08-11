@@ -66,10 +66,13 @@ class Store {
         }
       }
     `
-    const response = await await graphAxios(query);
-    this.state.authors.all[response.data.id] = response.data
-    this.state.authors.ids.push(response.data.id.toString())
-    this.state.authors.currentId = response.data.id.toString()
+    const response = await graphAxios(query);
+    const user: IUser = response.createUser
+    console.log(user);
+    
+    this.state.authors.all[user.id] = user
+    this.state.authors.ids.push(user.id.toString())
+    this.state.authors.currentId = user.id.toString()
     console.log(this.state);
   }
 

@@ -48,6 +48,8 @@ export class UserResolver {
     const repo = getRepository(User);
     // first must make call to save else doesn't have context for sequential id
     await repo.find();
-    return repo.save(<User>userInput)
+    const newUser = await repo.save(<User>userInput)
+    console.log(newUser.id);
+    return newUser
   }
 }
