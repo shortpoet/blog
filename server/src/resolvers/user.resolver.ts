@@ -1,7 +1,10 @@
-import { Resolver, Query, Arg, Info } from "type-graphql";
+import { Resolver, Query, Arg, Info, Mutation } from "type-graphql";
 import { User } from "../entity/User";
 import { getRepository } from "typeorm";
 import { GraphQLResolveInfo } from "graphql";
+import { ICreateUser } from "../interfaces/ICreateUser";
+import { IUser } from "../interfaces/IUser";
+import { UserInput } from "../inputs/user.input";
 
 @Resolver(of => User)
 export class UserResolver {
@@ -36,5 +39,15 @@ export class UserResolver {
   @Query(returns => [User])
   async users(): Promise<User[]> {
     return getRepository(User).find();
+  }
+
+  @Mutation(returns => User)
+  async createUser(@Arg("user") userInput: UserInput): Promise<User> {
+    const { username, password } = userInput;
+    // console.log(userInput);
+    const repo = getRepository(User);
+    // first must make call to save else doesn't have context for sequential id
+    await repo.find();
+    return repo.save(<User>userInput)
   }
 }

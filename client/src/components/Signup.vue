@@ -11,7 +11,7 @@ import { defineComponent, computed, ref } from 'vue'
 import FormInput from './FormInput.vue'
 import { required, length, validate, Status } from '../../utils/validators'
 import { useStore } from '../store'
-import { useModal } from '../composables/useModal'
+import { useModal } from './useModal'
 import  { IUser } from '../interfaces/IUser'
 
 export default defineComponent({

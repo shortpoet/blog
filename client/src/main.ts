@@ -21,14 +21,14 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 // override axios get for mock/development purposes
 // ignore ts compiler because actual get is quite complex
 // @ts-ignore
-axios.get = async (url: string) => {
-  if (url === '/posts') {
-    await delay(1000)
-    return Promise.resolve({
-      data: [mockData.today, mockData.thisWeek, mockData.thisMonth]
-    })
-  }
-}
+// axios.get = async (url: string) => {
+//   if (url === '/posts') {
+//     await delay(1000)
+//     return Promise.resolve({
+//       data: [mockData.today, mockData.thisWeek, mockData.thisMonth]
+//     })
+//   }
+// }
 
 // @ts-ignore
 // axios.post = async (url: string, payload: (IPost | IUser)) => {

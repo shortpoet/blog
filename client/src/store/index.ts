@@ -3,6 +3,9 @@ import axios from "axios"
 import { IUser } from "../interfaces/IUser"
 import { IPost } from "../interfaces/IPost"
 import { IAuthor } from "../interfaces/IAuthor"
+import * as mockData from '../../tests/mocks'
+import { graphAxios } from "../ajax"
+import { ICreateUser } from "../interfaces/ICreateUser"
 
 interface StoreState<T> {
   ids: string[];
@@ -42,6 +45,7 @@ const initialState = () : State => ({
   authors: iSS<IAuthor>(),
   posts: initialStoreState<IPost>({} as IPost)
 })
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 class Store {
   protected state: State
@@ -53,8 +57,16 @@ class Store {
     return readonly(this.state) as State
   }
 
-  async createUser(user: IUser) {
-    const response = await axios.post<IAuthor>('/users', user)
+  async createUser(createUser: ICreateUser) {
+    const query = `
+      mutation {
+        createUser (user: { username: "${createUser.username}", password: "${createUser.password}"}) {
+          id
+          username
+        }
+      }
+    `
+    const response = await await graphAxios(query);
     this.state.authors.all[response.data.id] = response.data
     this.state.authors.ids.push(response.data.id.toString())
     this.state.authors.currentId = response.data.id.toString()
@@ -63,8 +75,7 @@ class Store {
 
   async getUsers() {
     try {
-      const response = await axios.post('http://localhost:5000/graphql', {
-        query: `
+      const query = `
         {
           users{
             id
@@ -72,13 +83,10 @@ class Store {
             password
           }
         }
-        `
-      })
-      return response.data.data;
-      
+      `
+      return await graphAxios(query);
     } catch (error) {
       console.log(`Error fetching users ${error}`);
-      
     }
   }
 
@@ -91,7 +99,8 @@ class Store {
 
   async fetchPosts() {
     // get is generic so can specify type
-    const response = await axios.get<IPost[]>('/posts')
+    await delay(1000)
+    const response = {data: [mockData.today, mockData.thisWeek, mockData.thisMonth]}
     // to avoid mutating at all costs can do 
     // response.data.reduce(...)
 

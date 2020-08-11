@@ -1,7 +1,8 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field, ID, Arg } from "type-graphql";
 import { IUser } from "../interfaces/IUser";
 import { Post } from "./Post";
+import { ICreateUser } from "../interfaces/ICreateUser";
 
 @ObjectType()
 @Entity({ name: 'users', schema: 'admin' })
@@ -25,5 +26,6 @@ export class User implements IUser {
     nullable: true
   })
   posts?: Post[];
+
   
 }

@@ -16,28 +16,33 @@
     </div>
 
     <teleport to="#modal" v-if="modal.visible">
-      <component :is="modal.component" />
+      <component :is="modalComponent" />
     </teleport>
 
   </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, shallowRef, computed } from 'vue'
 import {useModal} from '../composables/useModal'
 import Signup from './Signup.vue'
 import { useStore } from '../store'
 
 export default defineComponent({
   name: 'NavBar',
+  components: {
+    Signup
+  },
   setup() {
     const modal = useModal()
     const store = useStore()
-    const authenticated = store.getState().authors.currentId
+    const authenticated = computed(() => store.getState().authors.currentId)
+    const modalComponent = shallowRef(Signup)
     const onSignUp = () => {
       console.log("on signup");
-      
+      modalComponent.value = Signup
       modal.component = Signup
+      // console.log(modal.component);
       
       modal.showModal()
     }
@@ -52,7 +57,7 @@ export default defineComponent({
       onSignIn,
       onSignOut,
       authenticated,
-      // Signup
+      modalComponent
     }
   }
 })

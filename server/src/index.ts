@@ -3,8 +3,8 @@ import cors = require('cors');
 import { createConnection } from "typeorm";
 const { graphqlHTTP } = require('express-graphql');
 
-import { generateSchema } from "./graphQL/generateSchema";
-import { UserResolver } from './graphQL/user.resolvers';
+import { generateSchema } from "./utils/generateSchema";
+import { UserResolver } from './resolvers/user.resolver';
 import { buildSchema } from 'type-graphql';
 
 // const config = require('../ormconfig.js');

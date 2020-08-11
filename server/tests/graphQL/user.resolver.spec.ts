@@ -4,8 +4,8 @@ import { graphql } from "graphql";
 import { createUser } from "../factories/users";
 import { User } from "../../src/entity/User";
 import { createPost } from "../factories/posts";
-import { generateSchema } from "../../src/graphQL/generateSchema";
-import { UserResolver } from "../../src/graphQL/user.resolvers";
+import { generateSchema } from "../../src/utils/generateSchema";
+import { UserResolver } from "../../src/resolvers/user.resolver";
 import config from '../../ormconfig.js'
 let connection: Connection;
 
