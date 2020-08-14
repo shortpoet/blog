@@ -17,7 +17,12 @@
     <Signin /> -->
 
     <teleport to="#modal" v-if="modal.visible">
-      <component :is="modal.component" />
+      <div>TEST</div>
+      <div>TEST</div>
+      <div>TEST</div>
+      <div>TEST</div>
+      <div>TEST</div>
+      <component :is="componentComputed" />
     </teleport>
 
   </nav>
@@ -43,27 +48,30 @@ export default defineComponent({
     // const modalComponent = markRaw(Signup)
     const onSignUp = async () => {
       console.log("on signup");
-      // modal.component = 'Signup'
       modal.component = Signup
+      console.log(modal);
       console.log(modal.component);
-      await nextTick()
+      console.log(modal.visible.value);
+      
       modal.showModal()
+      console.log(modal.visible.value);
     }
     const onSignIn = async () => {
       console.log("on signin");
-      // modalComponent.value = markRaw(Signin)
-      // modal.component = 'Signin'
       modal.component = Signin
+      console.log(modal);
       console.log(modal.component);
-      await nextTick()
+      console.log(modal.visible.value);
+      
       modal.showModal()
+      console.log(modal.visible.value);
     }
     const onSignOut = () => {}
     const componentComputed = computed(() => {
       console.log('computing component');
       console.log(modal.component);
       
-      return `${modal.component}`
+      return modal.component
     })
     return {
       modal,

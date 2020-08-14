@@ -43,7 +43,7 @@ export default defineComponent({
 
     const store = useStore()
     const users = await store.getUsers()
-    console.log(users);
+    // console.log(users);
 
     if (!store.getState().posts.loaded) {
       await store.fetchPosts()
