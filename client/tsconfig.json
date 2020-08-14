@@ -1,37 +1,5 @@
 {
-   "compilerOptions": {
-      "esModuleInterop": true,
-      // "moduleResolution": "node",
-      // "target": "es5",
-      // "module": "commonjs",
-      // "sourceMap": true,
-      // // "outDir": "./build",
-      // "emitDecoratorMetadata": true,
-      // "experimentalDecorators": true,
-      // "isolatedModules": false,
-      // "strict": false,
-      // "jsx": "preserve",
-      // "importHelpers": true,
-      // "allowSyntheticDefaultImports": true,
-      // "baseUrl": ".",
-      // "lib": [
-      //    "ES2019",
-      //    "esnext",
-      //    "dom",
-      //    "dom.iterable",
-      //    "scripthost",
-      //    "es5",
-      //    "es6"
-      //  ]
-     },
-   //   "include": [
-   //     "src/**/*.ts",
-   //     "src/**/*.tsx",
-   //     "src/**/*.vue",
-   //     "tests/**/*.ts",
-   //     "tests/**/*.tsx",
-   //     "shims-vue.d.ts"
-   //     // "shims-tsx.d.ts"
-   //   ],
-   //   "exclude": ["node_modules"]
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
 }

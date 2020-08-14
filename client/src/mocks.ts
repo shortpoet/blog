@@ -1,27 +1,29 @@
-import { IPost } from "../src/interfaces/IPost";
+import { Post } from "./types";
 import moment from "moment";
 
-export const basePost : IPost = {
+export const basePost: Post = {
   id: 1,
   title: 'Base post',
   markdown: 'Content',
   html: '<p>Content</p>',
-  userId: 1,
+  authorId: 1,
   created: moment()
 }
 
-export const today: IPost = {
+export const todayPost: Post = {
   ...basePost,
   id: 1,
   title: 'Today'
 }
-export const thisWeek: IPost = {
+
+export const thisWeek: Post = {
   ...basePost,
   id: 2,
   title: 'This Week',
   created: moment().subtract(2, 'days')
 }
-export const thisMonth: IPost = {
+
+export const thisMonth: Post = {
   ...basePost,
   id: 3,
   title: 'This Month',

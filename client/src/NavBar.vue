@@ -12,36 +12,57 @@
       </div>
     </div>
     <teleport to="#modal" v-if="modal.visible">
-      <component :is="modal.component" />
+      <component :is="componentComputed" />
     </teleport>
   </nav>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { useModal } from './useModal'
 import Signup from './Signup.vue'
-import { useModal } from '../composables/useModal'
-import { useStore } from '../store'
+import Signin from './Signin.vue'
+import { useStore } from './store'
 
 export default defineComponent({
   setup() {
     const modal = useModal()
     const store = useStore()
 
-    const authenticated = computed(() => store.getState().authors.currentId)
+    const authenticated = computed(() => store.getState().authors.currentUserId)
     const signup = () => {
+      console.log("on signup");
       modal.component = Signup
+      console.log(modal);
+      console.log(modal.component);
+      console.log(modal.visible.value);
+      
       modal.showModal()
+      console.log(modal.visible.value);
     }
     const signin = () => {
+      console.log("on signin");
+      modal.component = Signin
+      console.log(modal);
+      console.log(modal.component);
+      console.log(modal.visible.value);
+      
       modal.showModal()
+      console.log(modal.visible.value);
     }
+    const componentComputed = computed(() => {
+      console.log('computing component');
+      console.log(modal.component);
+      
+      return modal.component
+    })
 
     return {
       modal,
       authenticated,
       signup,
-      signin
+      signin,
+      componentComputed
     }
   }
 })
