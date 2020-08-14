@@ -1,7 +1,13 @@
 <template>
-  <a data-test="post" class="panel-block">
+  <a data-test="post" href="" class="panel-block">
     <div>
-      <a>{{ post.title  }}</a>
+
+      <!-- 
+        exercise for listener
+        title rendered correctly 
+      -->
+
+      <a>{{ post.title }}</a>
       <div>{{ post.created.format('Do MMM') }}</div>
     </div>
   </a>
@@ -9,14 +15,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Post } from "./types";
+import { IPost } from "../interfaces/IPost";
 
 export default defineComponent({
   props: {
     post: {
-      type: Object as () => Post,
+      type: Object as () => IPost,
       required: true
     }
   }
+
 })
 </script>

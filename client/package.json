@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "test": "yarn jest",
-    "dev": "yarn webpack-dev-server",
+    "dev": "webpack-dev-server",
+    "dev:docker": "webpack-dev-server --host 0.0.0.0",
+    "vite": "vite",
     "build": "yarn webpack --mode production"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
     "ts-jest": "^25.3.1",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
+    "vite": "^1.0.0-rc.4",
     "vue-jest": "^5.0.0-alpha.0",
     "vue-loader": "^16.0.0-alpha.3",
     "webpack": "^4.42.1",

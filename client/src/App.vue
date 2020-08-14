@@ -13,15 +13,16 @@
       <router-view />
     </div>
   </section>
+
 </template>
 
 <script lang="ts">
-import { required, length, validate, Status } from './validators'
 import { defineComponent, computed, ref } from 'vue'
-import NavBar from './NavBar.vue'
-import FormInput from './FormInput.vue'
-import { useModal } from './useModal'
-import { provideStore } from './store'
+import FormInput from './components/FormInput.vue'
+import { useModal } from './composables/useModal'
+import { required, length, validate, Status } from '../utils/validators'
+import { provideStore, useStore } from './store'
+import NavBar from './components/NavBar.vue'
 
 export default defineComponent({
   name: 'App',
@@ -31,29 +32,35 @@ export default defineComponent({
   },
 
   setup () {
+
     provideStore()
     const modal = useModal()
     const username = ref('username')
+    
+    // derive validity of username in computed property
+    // typed as status
     const usernameStatus = computed<Status>(() => {
-      return validate(username.value, [ required(), length({ min: 5, max: 10 })])
+      return validate(
+        username.value, 
+        [
+          required(),
+          length({
+            min: 5,
+            max: 20
+          })
+        ]
+      )
     })
 
-    const style = computed(() => {
-      console.log('modal vis');
-      console.log(modal.visible.value);
-      console.log(modal);
-      console.log(modal.component);
-      
-      return {
-        display: modal.visible.value ? 'block' : 'none'
-      }
-    })
+    const style = computed(() => ({
+      display: modal.visible.value ? 'block' : 'none'
+    }))
 
     return {
-      usernameStatus,
       style,
       modal,
       username,
+      usernameStatus
     }
   }
 })

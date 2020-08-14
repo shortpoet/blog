@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from './Home.vue'
-import NewPost from './NewPost.vue'
+import Home from '../views/Home.vue'
+import NewPost from '../components/NewPost.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -14,7 +14,15 @@ export const router = createRouter({
     {
       name: 'NewPost',
       path: '/posts/new',
-      component: NewPost
-    },
+      component: NewPost,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  next()
 })
