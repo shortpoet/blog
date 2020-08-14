@@ -14,7 +14,15 @@ export const router = createRouter({
     {
       name: 'NewPost',
       path: '/posts/new',
-      component: NewPost
+      component: NewPost,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  next()
 })

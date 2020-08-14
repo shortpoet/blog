@@ -1,7 +1,7 @@
 // base type
 
 interface Rule {
-  type: 'required' | 'length'
+  type: 'required' | 'length' | 'confirm'
 }
 
 // enforce that all types have minimum type value in Rule
@@ -19,6 +19,11 @@ interface Length extends Rule {
   options: MinMaxOptions
 }
 
+interface Confirm extends Rule {
+  type: 'confirm'
+  reference: string
+}
+
 export function required(): Require {
   return {
     type: 'required'
@@ -30,9 +35,15 @@ export function length(options: MinMaxOptions): Length {
     options
   }
 }
+export function confirm(reference: string): Confirm {
+  return {
+    type: 'confirm',
+    reference
+  }
+}
 
 // a union of all the validators available
-type Validator = Require | Length
+type Validator = Require | Length | Confirm
 
 export interface Status {
   valid: boolean
@@ -62,6 +73,15 @@ export function validate(value: string, validators: Validator[]): Status {
         message: `This field is has a minimum length of ${validator.options.min} and a maximum length of ${validator.options.max}`
       }
     }
+
+    // check for confirm validator
+    if (validator.type == 'confirm' && value != validator.reference) {
+      return {
+        valid: false,
+        message: `Passwords must match`
+      }
+    }
+
   }
 
   return {
