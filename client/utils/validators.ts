@@ -1,7 +1,7 @@
 // base type
 
 interface Rule {
-  type: 'required' | 'length' | 'confirm'
+  type: 'required' | 'length' | 'match'
 }
 
 // enforce that all types have minimum type value in Rule
@@ -20,7 +20,7 @@ interface Length extends Rule {
 }
 
 interface Confirm extends Rule {
-  type: 'confirm'
+  type: 'match'
   reference: string
 }
 
@@ -35,9 +35,9 @@ export function length(options: MinMaxOptions): Length {
     options
   }
 }
-export function confirm(reference: string): Confirm {
+export function match(reference: string): Confirm {
   return {
-    type: 'confirm',
+    type: 'match',
     reference
   }
 }
@@ -74,8 +74,8 @@ export function validate(value: string, validators: Validator[]): Status {
       }
     }
 
-    // check for confirm validator
-    if (validator.type == 'confirm' && value != validator.reference) {
+    // check for match validator
+    if (validator.type == 'match' && value != validator.reference) {
       return {
         valid: false,
         message: `Passwords must match`

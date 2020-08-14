@@ -1,3 +1,6 @@
+-- ####
+-- don't forget to connect to test before creating schema or seeding
+
 \connect vcc
 
 CREATE SCHEMA "content";
@@ -21,6 +24,8 @@ CREATE TABLE "admin"."users" (
   username TEXT NOT NULL,
   password TEXT NOT NULL
 );
+
+CREATE UNIQUE INDEX users_username_idx ON "admin"."users"(username);
 
 COMMENT ON TABLE "admin"."users" IS
 'This holds users for vue composition course db.';
@@ -50,6 +55,8 @@ CREATE TABLE "admin"."users" (
   username TEXT NOT NULL,
   password TEXT NOT NULL
 );
+
+CREATE UNIQUE INDEX users_username_idx ON "admin"."users"(username);
 
 COMMENT ON TABLE "admin"."users" IS
 'This holds users for vue composition course test db.';

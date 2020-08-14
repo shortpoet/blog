@@ -92,6 +92,29 @@ class Store {
       console.log(`Error fetching users ${error}`);
     }
   }
+  async getUser(username) {
+    try {
+      const query = `
+        {
+          user(username: "${username}"){
+            id
+            username
+            password
+            posts {
+              id
+              title
+              markdown
+              html
+              created
+            }
+          }
+        }
+      `
+      return await graphAxios(query);
+    } catch (error) {
+      console.log(`Error fetching users ${error}`);
+    }
+  }
 
   async createPost(post: IPost) {
     const response = await axios.post<IPost>('/posts', post)

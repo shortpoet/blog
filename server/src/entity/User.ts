@@ -12,6 +12,7 @@ export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
   
+  // @Field(type => ID)
   @Field()
   @Column()
   username: string;

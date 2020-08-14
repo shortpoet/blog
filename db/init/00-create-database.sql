@@ -15,3 +15,6 @@
 -- GRANT ALL ON DATABASE vcc TO test;
 CREATE DATABASE vcc_test;
 GRANT ALL ON DATABASE vcc_test TO test;
+
+-- ####
+-- don't forget to connect to test before creating schema or seeding

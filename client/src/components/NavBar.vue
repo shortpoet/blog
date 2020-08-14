@@ -31,38 +31,32 @@ import Signin from './Signin.vue'
 import { useStore } from '../store'
 
 export default defineComponent({
-  // name: 'NavBar',
-  // components: {
-  //   Signup,
-  //   Signin
-  // },
+  name: 'NavBar',
+  components: {
+    Signup,
+    Signin
+  },
   setup() {
     const modal = useModal()
     const store = useStore()
     const authenticated = computed(() => store.getState().authors.currentId)
-    // const modalComponent = markRaw(Signup)
     const onSignUp = async () => {
       console.log("on signup");
-      // modal.component = 'Signup'
-      modal.component = Signup
-      console.log(modal.component);
-      await nextTick()
+      modal.component = markRaw(Signup)
       modal.showModal()
     }
     const onSignIn = async () => {
       console.log("on signin");
-      // modalComponent.value = markRaw(Signin)
-      // modal.component = 'Signin'
-      modal.component = Signin
-      console.log(modal.component);
-      await nextTick()
+      // const user = await store.getUser('username')
+      // console.log(user);
+
+      modal.component = markRaw(Signin)
       modal.showModal()
     }
     const onSignOut = () => {}
     const componentComputed = computed(() => {
       console.log('computing component');
       console.log(modal.component);
-      
       return `${modal.component}`
     })
     return {

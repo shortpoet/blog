@@ -9,13 +9,13 @@ import { UserInput } from "../inputs/user.input";
 @Resolver(of => User)
 export class UserResolver {
 
-  @Query(returns => User)
+  // will return server error 500 if not set nullable: true
+  @Query(returns => User, { nullable: true })
   async user(
-    @Arg('id') id: number,
+    @Arg('username') username: string,
     @Info() info: GraphQLResolveInfo
     ): Promise<User> {
-    console.log(id);
-    
+    console.log(username);
     // this joins on
     // INNER JOIN "content"."posts" "posts" ON "posts"."user_id"="user"."id" WHERE "user"."id" = $1
       // fails if no posts
@@ -26,14 +26,22 @@ export class UserResolver {
     //   .getOne();
 
     // eager: true must be set on entity for this to work with nested query
-    const user = getRepository(User).findOne(id);
+    // const user = getRepository(User).findOne(id);
+    // const user = await getRepository(User).findOneOrFail({ username: username });
+    try {
+      const user = await getRepository(User).findOne({ username: username });
+      return user;
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
   
     // throwing error is cheaper than catching using try/catch
-    if (!user) {
-      throw new Error(`User with id ${id} not found`);
-    }
+    // if (!user) {
+    //   throw new Error(`User with username ${username} not found`);
+    // }
 
-    return user;
   }
 
   @Query(returns => [User])
@@ -44,7 +52,10 @@ export class UserResolver {
   @Mutation(returns => User)
   async createUser(@Arg("user") userInput: UserInput): Promise<User> {
     const { username, password } = userInput;
-    // console.log(userInput);
+    console.log('#### create user ####');
+    
+    console.log(username);
+    console.log(userInput);
     const repo = getRepository(User);
     // first must make call to save else doesn't have context for sequential id
     await repo.find();
