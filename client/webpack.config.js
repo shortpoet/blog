@@ -1,5 +1,4 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
@@ -9,14 +8,6 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/'
   },
-  plugins: [
-    // new HtmlWebpackPlugin({
-    //     // hash: true,
-    //     filename: 'index.html',
-    //     template: path.resolve(__dirname, './src/index.html'),
-    //     // chunks: ['main']
-    // })
-  ],
   module: {
     rules: [
       {
