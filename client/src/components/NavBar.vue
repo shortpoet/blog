@@ -10,11 +10,7 @@
         <button class="button" @click="onSignIn">Sign In</button>
         <button class="button" @click="onSignUp">Sign Up</button>
       </div>
-
-
     </div>
-    <!-- <Signup />
-    <Signin /> -->
 
     <teleport to="#modal" v-if="modal.visible">
       <component :is="component" />
@@ -32,49 +28,28 @@ import { useStore } from '../store'
 
 export default defineComponent({
   name: 'NavBar',
-  components: {
-    Signup,
-    Signin
-  },
   setup() {
     const modal = useModal()
     const store = useStore()
     const authenticated = computed(() => store.getState().authors.currentId)
-    const component = ref()
     const onSignUp = async () => {
       console.log("on signup");
-      // modal.component = markRaw(Signup)
-      // component.value = modal.component
-      component.value = markRaw(Signup)
+      modal.component.value = markRaw(Signup)
       modal.showModal()
     }
     const onSignIn = async () => {
       console.log("on signin");
-      // const user = await store.getUser('username')
-      // console.log(user);
-
-      // modal.component = markRaw(Signin)
-      // component.value = modal.component
-      component.value = markRaw(Signin)
+      modal.component.value = markRaw(Signin)
       modal.showModal()
     }
     const onSignOut = () => {}
-    const componentComputed = computed(() => {
-      console.log('computing component');
-      console.log(modal.component);
-      return `${modal.component}`
-    })
     return {
       modal,
       onSignUp,
       onSignIn,
       onSignOut,
       authenticated,
-      // Signin,
-      // Signup,
-      componentComputed,
-      component
-      // modalComponent
+      component: modal.component
     }
   }
 })
