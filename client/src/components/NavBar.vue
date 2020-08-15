@@ -3,7 +3,7 @@
     <div class="navbar-end">
 
       <div class="buttons" v-if="authenticated">
-        <router-link class="button" to="/posts/new">New IPost</router-link>
+        <router-link class="button" to="/posts/new">New Post</router-link>
         <button class="button" @click="onSignOut">Sign Out</button>
       </div>
       <div class="buttons" v-else>
@@ -13,7 +13,7 @@
     </div>
 
     <teleport to="#modal" v-if="modal.visible">
-      <component :is="component" />
+      <component :is="component" :modal="modal"/>
     </teleport>
 
   </nav>
@@ -42,7 +42,10 @@ export default defineComponent({
       modal.component.value = markRaw(Signin)
       modal.showModal()
     }
-    const onSignOut = () => {}
+    const onSignOut = () => {
+      console.log("on signout");
+      store.logout();
+    }
     return {
       modal,
       onSignUp,

@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <div class="label">IPost Title</div>
+          <div class="label">Post Title</div>
           <div class="control">
             <input type="text" v-model="title" class="input" data-test="post-title" />
             <!-- vue automatically calls .value on a ref -->

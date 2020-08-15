@@ -67,13 +67,44 @@ class Store {
       }
     `
     const response = await graphAxios(query);
-    const user: IUser = response.createUser
-    console.log(user);
+    const user: IUser = response.createUser;
+    this.setCurrentUser(user);
+    // console.log(user);
     
+    // this.state.authors.all[user.id] = user
+    // this.state.authors.ids.push(user.id.toString())
+    // this.state.authors.currentId = user.id.toString()
+    // console.log(this.state);
+  }
+
+  setCurrentUser(user: IUser): IAuthor {
     this.state.authors.all[user.id] = user
     this.state.authors.ids.push(user.id.toString())
     this.state.authors.currentId = user.id.toString()
-    console.log(this.state);
+    return this.state.authors.all[user.id]
+  }
+
+  async login(username: string, password: string): Promise<(IAuthor | null)> {
+    const query = `
+      {
+        user(username: "${username}"){
+          id
+          username
+          password
+        }
+      }
+    `
+    const data = await graphAxios(query);
+    const user: IUser = data.user
+    if (user.password == password) {
+      return this.setCurrentUser(user);
+    } else {
+      return null
+    }
+  }
+
+  logout() {
+    return this.state.authors.currentId = null
   }
 
   async getUsers() {
@@ -122,7 +153,6 @@ class Store {
     this.state.posts.all[response.data.id] = response.data
     this.state.posts.ids.push(response.data.id.toString())
   }
-
 
   async fetchPosts() {
     // get is generic so can specify type
