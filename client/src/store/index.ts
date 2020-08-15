@@ -87,7 +87,8 @@ class Store {
           }
         }
       `
-      return await graphAxios(query);
+      const data = await graphAxios(query);
+      return data.users
     } catch (error) {
       console.log(`Error fetching users ${error}`);
     }

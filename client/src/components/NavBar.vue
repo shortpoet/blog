@@ -17,7 +17,7 @@
     <Signin /> -->
 
     <teleport to="#modal" v-if="modal.visible">
-      <component :is="modal.component" />
+      <component :is="component" />
     </teleport>
 
   </nav>
@@ -40,9 +40,12 @@ export default defineComponent({
     const modal = useModal()
     const store = useStore()
     const authenticated = computed(() => store.getState().authors.currentId)
+    const component = ref()
     const onSignUp = async () => {
       console.log("on signup");
-      modal.component = markRaw(Signup)
+      // modal.component = markRaw(Signup)
+      // component.value = modal.component
+      component.value = markRaw(Signup)
       modal.showModal()
     }
     const onSignIn = async () => {
@@ -50,7 +53,9 @@ export default defineComponent({
       // const user = await store.getUser('username')
       // console.log(user);
 
-      modal.component = markRaw(Signin)
+      // modal.component = markRaw(Signin)
+      // component.value = modal.component
+      component.value = markRaw(Signin)
       modal.showModal()
     }
     const onSignOut = () => {}
@@ -67,7 +72,8 @@ export default defineComponent({
       authenticated,
       // Signin,
       // Signup,
-      componentComputed
+      componentComputed,
+      component
       // modalComponent
     }
   }

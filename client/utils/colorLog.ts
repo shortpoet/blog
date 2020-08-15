@@ -5,7 +5,7 @@ import {inspect} from 'util'
 
 export const log = (color, message) => console.log(chalk[`${color}`](`${inspect(message)}`))
 
-export const colorLog = (message, color, background) => {
+export const colorLog = (message, color = 'magenta', background = 'yellow') => {
   color = color || "black";
   if (background) {
     console.log(`%c` + `${message}`, `color:` + `${color};background:${background}`)
