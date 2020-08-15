@@ -30,8 +30,10 @@ VALUES
  1, 'Today', 'Content', '<p>Content</p>', 4, NOW()
 ),
 ( 
- 2, 'This Week','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '7'
+ 2, 'This Week','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '6'
 ),
 ( 
- 3, 'This Month','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '14'
+ 3, 'This Month','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '13'
 );
+
+-- update content.posts set created = (select current_date - integer '6') where id = 2;
