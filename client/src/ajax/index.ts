@@ -29,12 +29,13 @@ export const graphAxios
       // console.log(res);
 
       if (res.status == 200) {
-        colorLog("Graph Axios OK");
+        colorLog("Graph Axios OK", 1);
         return res.data.data
       }
-
+      
       if (res.status == 500) {
-        console.log("Graph Axios NOT OK");
+        // defaults to 0
+        colorLog("Graph Axios NOT OK", new Number().valueOf());
         return res
       }
 
