@@ -6,6 +6,7 @@ import { IAuthor } from "../interfaces/IAuthor"
 import * as mockData from '../../tests/mocks'
 import { graphAxios } from "../ajax"
 import { ICreateUser } from "../interfaces/ICreateUser"
+import moment from "moment"
 
 interface StoreState<T> {
   ids: string[];
@@ -155,6 +156,35 @@ class Store {
   }
 
   async fetchPosts() {
+    const query = `
+      {
+        posts {
+          id
+          title
+          markdown
+          html
+          userId
+          created
+        }
+      }
+    `
+    const response = await graphAxios(query)
+    const posts = response.posts.map(p => ({
+      ...p,
+      created: moment(p.created)
+    }))
+    if (posts) {
+      for (const post of posts) {
+        if (!this.state.posts.ids.includes(post.id.toString())) {
+          this.state.posts.ids.push(post.id.toString())
+        }
+        this.state.posts.all[post.id] = post
+      }
+    } 
+    this.state.posts.loaded = true
+  }
+
+  async _fetchPosts() {
     // get is generic so can specify type
     await delay(1000)
     const response = {data: [mockData.today, mockData.thisWeek, mockData.thisMonth]}

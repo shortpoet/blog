@@ -1,7 +1,7 @@
 -- ####
 -- don't forget to connect to test before creating schema or seeding
 
-\connect vcc
+\connect vcc test
 
 CREATE SCHEMA "content";
 
@@ -22,7 +22,7 @@ CREATE SCHEMA "admin";
 CREATE TABLE "admin"."users" (
   id serial primary key,
   username TEXT NOT NULL,
-  password TEXT NOT NULL
+  password TEXT CHECK(CHAR_LENGTH(password) > 9) NOT NULL
 );
 
 CREATE UNIQUE INDEX users_username_idx ON "admin"."users"(username);
@@ -32,7 +32,7 @@ COMMENT ON TABLE "admin"."users" IS
 
 ALTER TABLE "content"."posts" ADD FOREIGN KEY (user_id) REFERENCES "admin"."users"(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
-\connect vcc_test
+\connect vcc_test test
 
 CREATE SCHEMA "content";
 

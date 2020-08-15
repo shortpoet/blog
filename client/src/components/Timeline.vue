@@ -57,6 +57,8 @@ export default defineComponent({
 
     // computed automatically recalculates and updates the DOM anytime a reactive reference changes 
     const posts = computed(() => allPosts.filter(post => {
+      console.log(post.created);
+      
       if (
         selectedPeriod.value === 'today' &&
         post.created.isAfter(moment().subtract(1, 'day'))

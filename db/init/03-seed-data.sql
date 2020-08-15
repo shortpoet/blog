@@ -1,4 +1,5 @@
-begin;
+\connect vcc test
+
 
 -- Insert rows into table 'users'
 INSERT INTO "admin"."users"
@@ -7,29 +8,30 @@ INSERT INTO "admin"."users"
 )
 VALUES
 ( 
- 1, 'Shortpoet', 'haiku7'
+ 1, 'Shortpoet', 'haikuukiah'
 ),
 ( 
- 2, 'Poetshort', 'loeku7'
+ 2, 'Poetshort', 'loekutterr'
 ),
 ( 
- 3, 'Ryuken', 'uprku7'
+ 3, 'Ryuken', 'uprkutterr'
+),
+( 
+ 4, 'username', 'passwordkk'
 );
 
--- -- Insert rows into table 'posts'
--- INSERT INTO posts
--- ( -- columns to insert data into
---  id, title, markdown, html, userId, created
--- )
--- VALUES
--- ( 
---  1, 'To Do', ''
--- ),
--- ( 
---  2, 'Doing', 1
--- ),
--- ( 
---  3, 'Done', 1
--- );
-
-commit;
+-- Insert rows into table 'posts'
+INSERT INTO "content"."posts"
+( -- columns to insert data into
+ id, title, markdown, html, user_id, created
+)
+VALUES
+( 
+ 1, 'Today', 'Content', '<p>Content</p>', 4, NOW()
+),
+( 
+ 2, 'This Week','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '7'
+),
+( 
+ 3, 'This Month','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '14'
+);

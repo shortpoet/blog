@@ -9,6 +9,7 @@ import { UserResolver } from './resolvers/user.resolver';
 import { buildSchema } from 'type-graphql';
 import { isContext } from 'vm';
 import { User } from './entity/User';
+import { PostResolver } from './resolvers/post.resolver';
 
 // const config = require('../ormconfig.js');
 
@@ -50,7 +51,7 @@ const util = require('util');
       next();
     }
     app.use(loggingMiddleware);
-    const schema = await generateSchema(UserResolver);
+    const schema = await generateSchema(UserResolver, PostResolver);
     app.use('/graphql', graphqlHTTP((req) => ({
       schema,
       graphiql: true,
