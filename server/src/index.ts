@@ -3,6 +3,7 @@ import { Request } from 'express';
 import cors = require('cors');
 import { createConnection, getConnection } from "typeorm";
 const { graphqlHTTP } = require('express-graphql');
+const redis = require("redis");
 
 import { generateSchema } from "./utils/generateSchema";
 import { UserResolver } from './resolvers/user.resolver';
@@ -10,8 +11,12 @@ import { buildSchema } from 'type-graphql';
 import { isContext } from 'vm';
 import { User } from './entity/User';
 import { PostResolver } from './resolvers/post.resolver';
+import { loggingMiddleware } from './middleware/loggingMiddleware';
+import { redisMiddleware } from './middleware/redisMiddleware';
 
 // const config = require('../ormconfig.js');
+
+const redis_client = redis.createClient(6379)
 
 export class Context {
   private readonly req: Request;
@@ -38,24 +43,13 @@ const util = require('util');
     // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
     const app = express();
     app.use(cors());
-    const loggingMiddleware = (req: express.Request, res: express.Response, next) => {
-      // console.log(req);
-      // console.log(res);
-      // console.log(Object.keys(req));
-      console.log(req.statusCode);
-      console.log(req.res.statusCode);
-      console.log(res.statusCode);
-      
-      
-      console.log('ip:', req.ip);
-      next();
-    }
+    app.use(redisMiddleware);
     app.use(loggingMiddleware);
     const schema = await generateSchema(UserResolver, PostResolver);
     app.use('/graphql', graphqlHTTP((req) => ({
       schema,
       graphiql: true,
-      context: req
+      // context: req
     })))
     app.listen(5000)
   }
