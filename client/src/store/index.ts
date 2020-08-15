@@ -7,6 +7,9 @@ import * as mockData from '../../tests/mocks'
 import { graphAxios } from "../ajax"
 import { ICreateUser } from "../interfaces/ICreateUser"
 import moment from "moment"
+import { useStorage } from "../composables/useStorage"
+import { CURRENT_USER_ID_STORAGE_KEY } from "../constants"
+import { colorLog } from "../../utils/colorLog"
 
 interface StoreState<T> {
   ids: string[];
@@ -48,8 +51,11 @@ const initialState = () : State => ({
 })
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+const localStorage = useStorage();
+
 class Store {
   protected state: State
+  sessionStorage: string
   constructor(initialState: State) {
     this.state = reactive<State>(initialState) as State
   }
@@ -82,6 +88,7 @@ class Store {
     this.state.authors.all[user.id] = user
     this.state.authors.ids.push(user.id.toString())
     this.state.authors.currentId = user.id.toString()
+    localStorage.set(CURRENT_USER_ID_STORAGE_KEY, this.state.authors.currentId)
     return this.state.authors.all[user.id]
   }
 
@@ -95,9 +102,11 @@ class Store {
         }
       }
     `
+    // colorLog(query)
     const data = await graphAxios(query);
     const user: IUser = data.user
     if (user.password == password) {
+
       return this.setCurrentUser(user);
     } else {
       return null
@@ -105,6 +114,7 @@ class Store {
   }
 
   logout() {
+    localStorage.remove(CURRENT_USER_ID_STORAGE_KEY)
     return this.state.authors.currentId = null
   }
 
@@ -132,7 +142,28 @@ class Store {
           user(username: "${username}"){
             id
             username
-            password
+            posts {
+              id
+              title
+              markdown
+              html
+              created
+            }
+          }
+        }
+      `
+      return await graphAxios(query);
+    } catch (error) {
+      console.log(`Error fetching users ${error}`);
+    }
+  }
+  async getUserById(id) {
+    try {
+      const query = `
+        {
+          userById(id: ${id}){
+            id
+            username
             posts {
               id
               title
@@ -149,8 +180,26 @@ class Store {
     }
   }
 
-  async createPost(post: IPost) {
-    const response = await axios.post<IPost>('/posts', post)
+  async createPost(input: IPost) {
+    console.log(input);
+    const createPost: string = Object.entries(input).reduce((cur, [k, v]) => {
+      return cur += `${k}: "${v}", `
+    }, '')
+    console.log(createPost);
+
+    const query = `
+      mutation {
+        createPost (post: {${createPost}}) {
+          id
+          userId
+          title
+        }
+      }
+    `
+    console.log(query);
+    
+    const response = await graphAxios(query);
+    const post: IPost = response.post;
     this.state.posts.all[response.data.id] = response.data
     this.state.posts.ids.push(response.data.id.toString())
   }

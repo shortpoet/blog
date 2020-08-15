@@ -34,6 +34,7 @@ type Query {
   post(id: String!): Post
   posts: [Post!]!
   user(username: String!): User
+  userById(id: Float!): User!
   users: [User!]!
 }
 

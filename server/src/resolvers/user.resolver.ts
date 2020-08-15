@@ -44,6 +44,21 @@ export class UserResolver {
 
   }
 
+  @Query(returns => User)
+  async userById(
+    @Arg('id') id: number,
+    @Info() info: GraphQLResolveInfo
+    ): Promise<User> {
+  
+    // throwing error is cheaper than catching using try/catch
+    const user = await getRepository(User).findOne(id);
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+    return user;
+  }
+
+
   @Query(returns => [User])
   async users(): Promise<User[]> {
     return getRepository(User).find();

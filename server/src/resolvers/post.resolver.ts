@@ -39,6 +39,8 @@ export class PostResolver {
   @Mutation(returns => Post)
   async createPost(@Arg("post") postInput: PostInput): Promise<Post> {
     console.log('#### create post ####');
+    console.log(postInput);
+    
     const repo = getRepository(Post);
     // first must make call to save else doesn't have context for sequential id
     await repo.find();
