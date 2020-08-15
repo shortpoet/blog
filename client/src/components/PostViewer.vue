@@ -1,7 +1,8 @@
 <template>
-  <div>Show Post</div>
-  <div>{{ post }}</div>
-  <div>{{ post.title }}</div>
+  <router-link :to="to" class="button is-rounded is-link">
+    <i class="fas fa-edit" />
+  </router-link>
+  <div>Post Title is: {{ post.title }}</div>
 </template>
 
 <script lang="ts">
@@ -26,12 +27,13 @@ export default defineComponent({
     if (!store.getState().posts.loaded) {
       await store.fetchPosts()
     }
-    
+
     const id = route.params.id as string
     const post = store.getState().posts.all[route.params.id as string]
     // const post = store.getState().posts.all[id]
     return {
-      post
+      post,
+      to: `/posts/${post.id}/edit`
     }
   }
 })
