@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import PostWriter from '../src/components/PostWriter.vue'
 import { basePost } from './mocks'
-import { log } from '../utils/colorLog.js'
+import { chalkLog } from '../utils/chalkLog'
 // make assertion on event that gets emitted
 
 describe('PostWriter.vue', () => {
@@ -35,7 +35,7 @@ describe('PostWriter.vue', () => {
         expect(wrapper.emitted().save[0][0].title).toBe('New post title')
         expect(wrapper.emitted().save[0][0].markdown).toBe('### Content')
         expect(wrapper.emitted().save[0][0].html).toBe('<h3 id="content">Content</h3>\n')
-        log('green', wrapper.emitted().save)
+        chalkLog('green', wrapper.emitted().save)
         done()
       }, 
       550

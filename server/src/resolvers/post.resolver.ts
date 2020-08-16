@@ -4,6 +4,8 @@ import { getRepository } from "typeorm";
 import { GraphQLResolveInfo } from "graphql";
 import { IPost } from "../interfaces/IPost";
 import { PostInput } from "../inputs/post.input";
+import { redis_client } from "../middleware/redisMiddleware";
+import { chalkLog } from "../utils/chalkLog";
 
 @Resolver(of => Post)
 export class PostResolver {
@@ -33,6 +35,9 @@ export class PostResolver {
 
   @Query(returns => [Post])
   async posts(): Promise<Post[]> {
+    chalkLog('magentaBright', '#### database fetch ####')
+    chalkLog('magenta', await getRepository(Post).find())
+    redis_client.setex('posts', 54000, JSON.stringify(await getRepository(Post).find()))
     return getRepository(Post).find();
   }
 

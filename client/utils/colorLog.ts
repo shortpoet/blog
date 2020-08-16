@@ -1,10 +1,3 @@
-const chalk = require('chalk')
-import {inspect} from 'util'
-
-// const _log  = () => Function.prototype.bind.call(console.log, console, 'LOG_ALIAS')
-
-export const log = (color, message) => console.log(chalk[`${color}`](`${inspect(message)}`))
-
 type Options = {
   color: string;
   background: string

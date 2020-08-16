@@ -19,6 +19,7 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 
+// query type corresponds to key for redis cache
 export const graphAxios
   = async (query: any, queryType?: string): Promise<any> => {
     query = { query: query }

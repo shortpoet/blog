@@ -218,7 +218,7 @@ class Store {
         }
       }
     `
-    const response = await graphAxios(query)
+    const response = await graphAxios(query, 'posts')
     const posts = response.posts.map(p => ({
       ...p,
       created: moment(p.created)

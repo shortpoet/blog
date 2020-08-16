@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { chalkLog } from '../utils/colorLog';
+import { chalkLog } from '../utils/chalkLog';
 
 export const loggingMiddleware = (req: Request, res: Response, next) => {
   chalkLog('yellow', '#### logging middleware ####')

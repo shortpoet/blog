@@ -5,9 +5,8 @@ import { GraphQLResolveInfo } from "graphql";
 import { ICreateUser } from "../interfaces/ICreateUser";
 import { IUser } from "../interfaces/IUser";
 import { UserInput } from "../inputs/user.input";
-import { chalkLog } from "../utils/colorLog";
-const redis = require("redis");
-const redis_client = redis.createClient(6379)
+import { redis_client } from "../middleware/redisMiddleware";
+import { chalkLog } from "../utils/chalkLog";
 
 @Resolver(of => User)
 export class UserResolver {
@@ -67,6 +66,7 @@ export class UserResolver {
     const usersPromise = getRepository(User).find();
     const users = await usersPromise;
     try {
+      chalkLog('magentaBright', '#### database fetch ####')
       chalkLog('magenta', users)
       redis_client.setex('users', 54000, JSON.stringify(users))
     } catch (error) {

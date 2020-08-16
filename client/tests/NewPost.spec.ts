@@ -1,7 +1,6 @@
 import { mount } from "@vue/test-utils"
 import NewPost from '../src/components/NewPost.vue'
 import { createStore } from "../src/store"
-import { log } from '../utils/colorLog'
 import { IPost } from "../src/interfaces/IPost"
 
 // simple mock implementation of vue router

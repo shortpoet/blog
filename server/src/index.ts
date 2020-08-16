@@ -3,7 +3,6 @@ import { Request } from 'express';
 import cors = require('cors');
 import { createConnection, getConnection } from "typeorm";
 const { graphqlHTTP } = require('express-graphql');
-const redis = require("redis");
 
 import { generateSchema } from "./utils/generateSchema";
 import { UserResolver } from './resolvers/user.resolver';
@@ -16,7 +15,6 @@ import { redisMiddleware } from './middleware/redisMiddleware';
 
 // const config = require('../ormconfig.js');
 
-const redis_client = redis.createClient(6379)
 
 export class Context {
   private readonly req: Request;
