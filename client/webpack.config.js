@@ -6,10 +6,10 @@ const webpack = require('webpack')
 // from console warning
 // https://github.com/vuejs/vue-next/tree/master/packages/vue#bundler-build-feature-flags
 // https://webpack.js.org/plugins/define-plugin/
-const vueBundlerBuildFeatureFlagsPlugin = new webpack.DefinePlugin({
-  '__VUE_OPTIONS_API__': JSON.stringify(true),
-  '__VUE_PROD_DEVTOOLS_': JSON.stringify(false)
-});
+// const vueBundlerBuildFeatureFlagsPlugin = new webpack.DefinePlugin({
+//   '__VUE_OPTIONS_API__': JSON.stringify(true),
+//   '__VUE_PROD_DEVTOOLS_': JSON.stringify(false)
+// });
 
 module.exports = {
   entry: './src/main.ts',
@@ -21,14 +21,16 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        // exclude: /node_modules/
       },
       {
         test: /\.ts$/,
         loader: 'ts-loader',
         options: {
           appendTsSuffixTo: [/\.vue/]
-        }
+        },
+        // exclude: /node_modules/
       },
       {
         test: /\.css$/i,
@@ -45,7 +47,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new VueLoaderPlugin(),
-    vueBundlerBuildFeatureFlagsPlugin
+    // vueBundlerBuildFeatureFlagsPlugin
   ],
   devServer: {
     overlay: true,

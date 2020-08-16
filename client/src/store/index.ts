@@ -10,6 +10,7 @@ import moment from "moment"
 import { useStorage } from "../composables/useStorage"
 import { CURRENT_USER_ID_STORAGE_KEY } from "../constants"
 import { colorLog } from "../../utils/colorLog"
+import { chalkLog } from "../../utils/chalkLog"
 
 interface StoreState<T> {
   ids: string[];
@@ -254,6 +255,7 @@ class Store {
       }
     `
     const response = await graphAxios(query, 'posts')
+    // chalkLog('blueBright', response)
     const posts = response.posts.map(p => ({
       ...p,
       created: moment(p.created)
@@ -311,11 +313,14 @@ export const provideStore = () =>  {
   provide('store', store)
 }
 
-
-export const createStore = (initState?) => {
-  return initState
-    ? new Store(initState)
-    : new Store(initialState())
+// this way did not do default type checking without declaring type: State
+// export const createStore = (initState?: State) => {
+//   return initState
+//     ? new Store(initState)
+//     : new Store(initialState())
+// }
+export const createStore = (initState: State = initialState()) => {
+  return new Store(initState)
 }
 
 export const useStore = (): Store => {

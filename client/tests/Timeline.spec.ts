@@ -8,13 +8,11 @@ import { AxiosRequestConfig } from "axios"
 
 // wrapping the curly brackets in parentheses makes the function 'return'
 jest.mock(('axios'), () => ({
-  get: (url: string) => ({
-    posts: [today, thisWeek, thisMonth]
-  }),
   post: (url: string, query: string, config: AxiosRequestConfig) => ({
     data: {
       data: {
-        createPost: today
+        createPost: today,
+        posts: [today, thisWeek, thisMonth]
       }
     },
     status: 200  

@@ -1,5 +1,5 @@
 <template>
-  <router-link v-if="canEdit" :to="to" class="button is-rounded is-link">
+  <router-link data-test="can-edit" v-if="canEdit" :to="to" class="button is-rounded is-link">
     <i class="fas fa-edit" />
   </router-link>
   <div>Post Title is: {{ post.title }}</div>
@@ -32,9 +32,11 @@ export default defineComponent({
 
     const id = route.params.id as string
     const post = store.getState().posts.all[route.params.id as string]
-    console.log('post viewer');
+    // console.log('post viewer');
     
-    // chalkLog('green', post)
+    // chalkLog('green', `id: ${id}`)
+    // chalkLog('blue', `path: ${route.path}`)
+    // chalkLog('cyan', post)
     // chalkLog('green', id)
     const canEdit = post.userId == parseInt(store.getState().authors.currentId, 10)
     // const post = store.getState().posts.all[id]

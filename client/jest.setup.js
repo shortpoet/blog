@@ -3,10 +3,10 @@
 // // you need this to reformat the console.error
 // import { format } from 'util';
 
-// process.on('unhandledRejection', (error) => {
-//   // Will print "unhandledRejection err is not defined"
-//   console.error('unhandledRejection', error.message);
-// });
+process.on('unhandledRejection', (error) => {
+  // Will print "unhandledRejection err is not defined"
+  console.error('unhandledRejection', error.message);
+});
 
 // // this call will be set before every test
 // beforeEach(() => {

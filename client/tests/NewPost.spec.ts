@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils"
+import { mount, flushPromises } from "@vue/test-utils"
 import NewPost from '../src/components/NewPost.vue'
 import { createStore, initialState, State, initialStoreState, iSS } from "../src/store"
 import { IPost } from "../src/interfaces/IPost"
@@ -49,7 +49,7 @@ describe('NewPost.vue', () => {
       authors: {
         ...initialState().authors,
         // ...iSS<IAuthor>(),
-        currentId: 1
+        currentId: '1'
       }
     })
     const wrapper = mount(
@@ -67,8 +67,9 @@ describe('NewPost.vue', () => {
     expect(store.getState().posts.ids).toHaveLength(0)
     
     await wrapper.find('[data-test="submit-post"]').trigger('click')
-    await wrapper.vm.$nextTick()
+    // await wrapper.vm.$nextTick()
         
+    await flushPromises()
     expect(store.getState().posts.ids).toHaveLength(1)
     expect(mockRoutes).toEqual(['/'])
 
