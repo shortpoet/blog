@@ -129,7 +129,7 @@ class Store {
           }
         }
       `
-      const data = await graphAxios(query);
+      const data = await graphAxios(query, 'users');
       return data.users
     } catch (error) {
       console.log(`Error fetching users ${error}`);
@@ -174,7 +174,8 @@ class Store {
           }
         }
       `
-      return await graphAxios(query);
+      
+      return await graphAxios(query, 'getUserById');
     } catch (error) {
       console.log(`Error fetching users ${error}`);
     }

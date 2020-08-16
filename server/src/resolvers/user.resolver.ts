@@ -5,6 +5,7 @@ import { GraphQLResolveInfo } from "graphql";
 import { ICreateUser } from "../interfaces/ICreateUser";
 import { IUser } from "../interfaces/IUser";
 import { UserInput } from "../inputs/user.input";
+import { chalkLog } from "../utils/colorLog";
 const redis = require("redis");
 const redis_client = redis.createClient(6379)
 
@@ -63,9 +64,16 @@ export class UserResolver {
 
   @Query(returns => [User])
   async users(): Promise<User[]> {
-    const users = getRepository(User).find();
-    // redis_client.setex('users', users)
-    return users;
+    const usersPromise = getRepository(User).find();
+    const users = await usersPromise;
+    try {
+      chalkLog('magenta', users)
+      redis_client.setex('users', 54000, JSON.stringify(users))
+    } catch (error) {
+      console.log(error);
+    }
+
+    return usersPromise;
   }
 
   @Mutation(returns => User)

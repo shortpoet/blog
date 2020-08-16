@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { colorLog } from '../../utils/colorLog'
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
@@ -20,16 +20,24 @@ axios.interceptors.request.use(function (config) {
 });
 
 export const graphAxios
-  = async (query: string): Promise<any> => {
+  = async (query: any, queryType?: string): Promise<any> => {
+    query = { query: query }
+    const config: AxiosRequestConfig = {
+      validateStatus: (status) => status < 500
+    }
+    config.params = queryType ? { queryType: queryType } : null
     try {
-      const res = await axios.post('http://localhost:5000/graphql', {
-        query: query,
-        validateStatus: (status) => status < 500
-      })
+      const res = await axios.post(
+        'http://localhost:5000/graphql',
+        query,
+        config
+      )
       // console.log(res);
 
       if (res.status == 200) {
         colorLog("Graph Axios OK", 1);
+        console.log(res);
+        
         return res.data.data
       }
       
