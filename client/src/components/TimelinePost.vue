@@ -8,7 +8,7 @@
       -->
 
       <a>{{ post.title }}</a>
-      <div>{{ post.created.format('Do MMM') }}</div>
+      <div>{{ post.created.format('Do MMM HH:mm:ss') }}</div>
     </div>
   </router-link>
 </template>

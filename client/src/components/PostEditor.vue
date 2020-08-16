@@ -3,8 +3,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { IPeriod } from '../interfaces/IPeriod'
+import { IPost } from '../interfaces/IPost'
+import TimelinePost from './TimelinePost.vue'
+import { ref, computed, defineComponent } from 'vue'
+import { useStore } from '../store'
+
+import moment from 'moment'
+import { useRoute, useRouter } from 'vue-router'
+
 export default defineComponent({
-  name: 'PostEditor'
+  name: 'PostEditor',
+  async setup() {
+    const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
+
+    if (!store.getState().posts.loaded) {
+      await store.fetchPosts()
+    }
+
+    const id = route.params.id as string
+    const post = store.getState().posts.all[route.params.id as string]
+    // const post = store.getState().posts.all[id]
+    const canEdit = post.userId == parseInt(store.getState().authors.currentId, 10)
+    if (!canEdit) {
+      router.push('/')
+    }
+    return {
+      post,
+      to: `/posts/${post.id}/edit`
+    }
+  }
 })
 </script>

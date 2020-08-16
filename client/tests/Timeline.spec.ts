@@ -4,12 +4,25 @@ import { nextTick } from "vue"
 import flushPromises from 'flush-promises'
 import { today, thisWeek, thisMonth } from "./mocks"
 import { createStore } from "../src/store"
+import { AxiosRequestConfig } from "axios"
 
 // wrapping the curly brackets in parentheses makes the function 'return'
 jest.mock(('axios'), () => ({
   get: (url: string) => ({
-    data: [today, thisWeek, thisMonth]
-  })
+    posts: [today, thisWeek, thisMonth]
+  }),
+  post: (url: string, query: string, config: AxiosRequestConfig) => ({
+    data: {
+      data: {
+        createPost: today
+      }
+    },
+    status: 200  
+}),
+  interceptors: {
+    request: { use: jest.fn(), eject: jest.fn() },
+    response: { use: jest.fn(), eject: jest.fn() }
+  }
 }))
 
 // vs

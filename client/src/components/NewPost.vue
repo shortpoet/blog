@@ -45,6 +45,8 @@ export default defineComponent({
     const router = useRouter()
 
     const save = async (post: IPost) => {
+      console.log('save');
+      
       await store.createPost(post)
       router.push('/')
     }

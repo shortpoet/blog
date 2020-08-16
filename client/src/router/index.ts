@@ -8,40 +8,48 @@ import { colorLog } from '../../utils/colorLog'
 import { useStorage } from '../composables/useStorage'
 import { CURRENT_USER_ID_STORAGE_KEY } from '../constants'
 
+export const routes =  [
+  {
+    name: 'Home',
+    path: '/',
+    component: Home
+  },
+  {
+    name: 'ShowPost',
+    path: '/posts/:id',
+    component: ShowPost
+  },
+  {
+    name: 'NewPost',
+    path: '/posts/new',
+    component: NewPost,
+    meta: {
+      requiresAuth: true
+    },
+    props: {
+      currentUserId: store.getState().authors.currentId
+    }
+  },
+  {
+    name: 'EditPost',
+    path: '/posts/:id/edit',
+    component: EditPost,
+    meta: {
+      requiresAuth: true
+    }
+  }
+]
+
 export const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    {
-      name: 'Home',
-      path: '/',
-      component: Home
-    },
-    {
-      name: 'ShowPost',
-      path: '/posts/:id',
-      component: ShowPost
-    },
-    {
-      name: 'NewPost',
-      path: '/posts/new',
-      component: NewPost,
-      meta: {
-        requiresAuth: true
-      },
-      props: {
-        currentUserId: store.getState().authors.currentId
-      }
-    },
-    {
-      name: 'EditPost',
-      path: '/posts/:id/edit',
-      component: EditPost,
-      meta: {
-        requiresAuth: true
-      }
-    }
-  ]
+  routes: routes
 })
+
+export const makeRouter = () => createRouter({
+  history: createWebHistory(),
+  routes: routes
+})
+
 const localStorage = useStorage();
 
 router.beforeEach(async (to, from, next) => {

@@ -20,7 +20,7 @@ export const redisMiddleware = (req: Request, res: Response, next) => {
         res.status(500).send(err);
       }
       if (data != null) {
-        chalkLog('yellow', JSON.parse(data))
+        // chalkLog('yellow', JSON.parse(data))
         const out = { data: {} }
         out.data[queryType.toString()] = JSON.parse(data);
         res.send(out);

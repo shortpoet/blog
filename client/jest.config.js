@@ -9,5 +9,6 @@ module.exports = {
   moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
   moduleNameMapper: {
     "\\.txt$": 'identity-obj-proxy'
-  }
+  },
+  setupFilesAfterEnv: ['./jest.setup.js']
 }

@@ -36,18 +36,15 @@ export class PostResolver {
   @Query(returns => [Post])
   async posts(): Promise<Post[]> {
     chalkLog('magentaBright', '#### database fetch ####')
-    chalkLog('magenta', await getRepository(Post).find())
-    redis_client.setex('posts', 54000, JSON.stringify(await getRepository(Post).find()))
     const data = await getRepository(Post).find()
-    chalkLog('red', data)
+    // chalkLog('magenta', data)
+    redis_client.setex('posts', 54000, JSON.stringify(data))
     return data;
   }
 
   @Mutation(returns => Post)
   async createPost(@Arg("post") postInput: PostInput): Promise<Post> {
     console.log('#### create post ####');
-    console.log(postInput);
-    
     const repo = getRepository(Post);
     // first must make call to save else doesn't have context for sequential id
     return await repo.save(<Post>postInput);

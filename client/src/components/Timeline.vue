@@ -43,11 +43,14 @@ export default defineComponent({
 
     const store = useStore()
     const users = await store.getUsers()
-    console.log(users);
+    // const _posts = await store.fetchPosts()
 
     if (!store.getState().posts.loaded) {
       await store.fetchPosts()
     }
+    // console.log(_posts);
+    
+    console.log(users);
 
     // this uses the mapper to return with O(1) instead of O(n) by searching by id insead of looping over an array
     const allPosts = store.getState().posts.ids.reduce<IPost[]>((accumulator, id) => {

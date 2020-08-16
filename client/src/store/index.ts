@@ -18,14 +18,14 @@ interface StoreState<T> {
   currentId?: string;
 }
 
-interface State {
+export interface State {
   authors: StoreState<IAuthor>
   posts: StoreState<IPost>
 }
 
 // https://stackoverflow.com/questions/32308370/what-is-the-syntax-for-typescript-arrow-functions-with-generics
 
-function iSS<T>(): StoreState<T> {
+export function iSS<T>(): StoreState<T> {
   return {
     ids: [
     ],
@@ -36,7 +36,7 @@ function iSS<T>(): StoreState<T> {
   }
 }
 
-const initialStoreState = <T extends {}>(x: T): StoreState<T> => ({
+export const initialStoreState = <T extends {}>(x: T): StoreState<T> => ({
   ids: [
   ],
   all: {
@@ -45,7 +45,7 @@ const initialStoreState = <T extends {}>(x: T): StoreState<T> => ({
   currentId: undefined
 })
 
-const initialState = () : State => ({
+export const initialState = () : State => ({
   authors: iSS<IAuthor>(),
   posts: initialStoreState<IPost>({} as IPost)
 })
@@ -224,11 +224,20 @@ class Store {
       }
     `
     console.log(query);
-    
     const response = await graphAxios(query);
-    const post: IPost = response.post;
+    console.log(response);
+    console.log(response.createPost);
+    console.log(response.createPost.id);
+    
+    // const post: IPost = {
+    //   ...response.createPost,
+    //   created: moment(response.createPost.created)
+    // }
+    // console.log(post);
+    
     this.state.posts.all[response.createPost.id] = response.createPost
     this.state.posts.ids.push(response.createPost.id.toString())
+
   }
 
   async fetchPosts() {
@@ -303,8 +312,10 @@ export const provideStore = () =>  {
 }
 
 
-export const createStore = () => {
-  return new Store(initialState())
+export const createStore = (initState?) => {
+  return initState
+    ? new Store(initState)
+    : new Store(initialState())
 }
 
 export const useStore = (): Store => {

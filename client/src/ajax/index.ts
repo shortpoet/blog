@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { colorLog } from '../../utils/colorLog'
+// import { chalkLog } from '../../utils/chalkLog';
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
   console.log('intercept before');
@@ -22,6 +23,7 @@ axios.interceptors.request.use(function (config) {
 // query type corresponds to key for redis cache
 export const graphAxios
   = async (query: any, queryType?: string): Promise<any> => {
+    // chalkLog('green', 'graphAxios')
     query = { query: query }
     const config: AxiosRequestConfig = {
       validateStatus: (status) => status < 500
@@ -33,12 +35,14 @@ export const graphAxios
         query,
         config
       )
-      // console.log(res);
+      // chalkLog('green', 'graphAxios')
+      // chalkLog('blueBright', res)
+      console.log(res);
+      console.log(res.status);
 
       if (res.status == 200) {
         colorLog("Graph Axios OK", 1);
         // console.log(res);
-        
         return res.data.data
       }
       

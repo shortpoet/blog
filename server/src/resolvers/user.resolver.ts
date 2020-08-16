@@ -67,12 +67,11 @@ export class UserResolver {
     const users = await usersPromise;
     try {
       chalkLog('magentaBright', '#### database fetch ####')
-      chalkLog('magenta', users)
+      // chalkLog('magenta', users)
       redis_client.setex('users', 54000, JSON.stringify(users))
     } catch (error) {
       console.log(error);
     }
-
     return usersPromise;
   }
 

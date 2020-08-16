@@ -1,7 +1,17 @@
 import { mount } from "@vue/test-utils"
 import NewPost from '../src/components/NewPost.vue'
-import { createStore } from "../src/store"
+import { createStore, initialState, State, initialStoreState, iSS } from "../src/store"
 import { IPost } from "../src/interfaces/IPost"
+import { today, thisWeek, thisMonth } from "./mocks"
+import { chalkLog } from "../utils/chalkLog"
+import { IAuthor } from "../src/interfaces/IAuthor"
+import { AxiosRequestConfig } from "axios"
+
+process.on('unhandledRejection', (error) => {
+  // Will print "unhandledRejection err is not defined"
+  console.error('unhandledRejection', error);
+});
+
 
 // simple mock implementation of vue router
 const mockRoutes = []
@@ -14,15 +24,34 @@ jest.mock('vue-router', () => ({
   })
 }))
 
-jest.mock('axios', () => ({
-  post: (url: string, payload: IPost) => {
-    return { data: payload }
+jest.mock(('axios'), () => ({
+  get: (url: string) => ({
+    posts: [today, thisWeek, thisMonth]
+  }),
+  post: (url: string, query: string, config: AxiosRequestConfig) => ({
+    data: {
+      data: {
+        createPost: today
+      }
+    },
+    status: 200  
+}),
+  interceptors: {
+    request: { use: jest.fn(), eject: jest.fn() },
+    response: { use: jest.fn(), eject: jest.fn() }
   }
 }))
 
 describe('NewPost.vue', () => {
   it('creates a post and routes', async () => {
-    const store = createStore()
+    const store = createStore({
+      ...initialState(),
+      authors: {
+        ...initialState().authors,
+        // ...iSS<IAuthor>(),
+        currentId: 1
+      }
+    })
     const wrapper = mount(
       NewPost,
       {
@@ -33,7 +62,8 @@ describe('NewPost.vue', () => {
         }
       }  
     )
-    
+    // store.setCurrentUser({ id: 1, username: 'u', password: 'p' })
+    chalkLog('green', store.getState().authors.currentId)
     expect(store.getState().posts.ids).toHaveLength(0)
     
     await wrapper.find('[data-test="submit-post"]').trigger('click')
