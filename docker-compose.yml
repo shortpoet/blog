@@ -75,4 +75,4 @@ services:
       - notused:/usr/src/app/node_modules
     networks:
       - ${COMPOSE_PROJECT_NAME}net
-    command: yarn dev:docker
+    command: yarn vite

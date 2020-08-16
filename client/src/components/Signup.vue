@@ -52,7 +52,7 @@ export default defineComponent({
     watch(username, async (uname) => {
       if (!uname) return; // defensive programming: null checks
       const user = await store.getUser(uname);
-      console.log(user);
+      // console.log(user);
     });
  
     

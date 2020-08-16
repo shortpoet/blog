@@ -27,6 +27,9 @@ export const router = createRouter({
       component: NewPost,
       meta: {
         requiresAuth: true
+      },
+      props: {
+        currentUserId: store.getState().authors.currentId
       }
     },
     {

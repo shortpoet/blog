@@ -80,14 +80,7 @@ export class UserResolver {
   async createUser(@Arg("user") userInput: UserInput): Promise<User> {
     const { username, password } = userInput;
     console.log('#### create user ####');
-    
-    console.log(username);
-    console.log(userInput);
     const repo = getRepository(User);
-    // first must make call to save else doesn't have context for sequential id
-    await repo.find();
-    const newUser = await repo.save(<User>userInput)
-    console.log(newUser.id);
-    return newUser
+    return await repo.save(<User>userInput);
   }
 }

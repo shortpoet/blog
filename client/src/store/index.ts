@@ -89,6 +89,7 @@ class Store {
     this.state.authors.ids.push(user.id.toString())
     this.state.authors.currentId = user.id.toString()
     localStorage.set(CURRENT_USER_ID_STORAGE_KEY, this.state.authors.currentId)
+    colorLog(`current id: ${this.state.authors.currentId}`)
     return this.state.authors.all[user.id]
   }
 
@@ -125,7 +126,13 @@ class Store {
           users{
             id
             username
-            password
+            posts {
+              id
+              title
+              markdown
+              html
+              created
+            }
           }
         }
       `
@@ -183,8 +190,27 @@ class Store {
 
   async createPost(input: IPost) {
     console.log(input);
+    let html = `${input.html}`
+    // console.log(html);
+    // console.log(html.replace(/"/g, '\\"'));
+    // console.log(html.replace(/(['"])/g, "\\$1"));
+    // console.log(html.replace(/(['"])/g, "\\$1"));
+    delete input['id']
+    
+
     const createPost: string = Object.entries(input).reduce((cur, [k, v]) => {
-      return cur += `${k}: "${v}", `
+      // console.log(v);
+      // console.log(`${v}`);
+      // console.log(`${v}`.replace(/\n/, '\""'));
+      // if (typeof v == 'string') {
+      //   console.log(v.replace(/"/g, '\"'));
+
+      // }
+      
+      return typeof v != 'number'
+        ? cur += `${k}: """${v.toString().replace(/"/g, '\\"')}""", `
+        : cur += `${k}: ${v}, `
+      
     }, '')
     console.log(createPost);
 
@@ -201,8 +227,8 @@ class Store {
     
     const response = await graphAxios(query);
     const post: IPost = response.post;
-    this.state.posts.all[response.data.id] = response.data
-    this.state.posts.ids.push(response.data.id.toString())
+    this.state.posts.all[response.createPost.id] = response.createPost
+    this.state.posts.ids.push(response.createPost.id.toString())
   }
 
   async fetchPosts() {

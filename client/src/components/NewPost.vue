@@ -8,22 +8,32 @@ import PostWriter from './PostWriter.vue'
 import { IPost } from '../interfaces/IPost'
 import moment from 'moment'
 import { useStore } from '../store'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { colorLog } from '../../utils/colorLog'
 
 export default defineComponent({
   name: 'NewPost',
   components: {
     PostWriter
   },
-  setup () {
+  props: {
+    currentUserId: {
+      type: Number
+    }
+  },
+  setup (props) {
+    
+    const store = useStore()
+
     const post: IPost = {
       // set id to -1 to represent post that has not yet been created in db
       id: -1,
-      title: 'New IPost',
-      markdown: '## New IPost\nEnter your post here...',
+      title: 'New Post',
+      markdown: '## New Post\nEnter your post here...',
       html: '',
       created: moment(),
-      userId: 0
+      userId: parseInt(store.getState().authors.currentId)
+
     }
 
     // composition functions
@@ -31,7 +41,6 @@ export default defineComponent({
     // if moved to within a different context eg nested function get error
     // inject can only be used within setup function
 
-    const store = useStore()
 
     const router = useRouter()
 

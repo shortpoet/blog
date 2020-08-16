@@ -2,8 +2,8 @@
   <nav class="navbar">
     <div class="navbar-end">
 
-      <div class="buttons" v-if="authenticated">
-        <router-link class="button" to="/posts/new">New Post</router-link>
+      <div class="buttons" v-if="currentUserId">
+        <router-link class="button" :to="{path: '/posts/new', params: {userId: currentUserId}}">New Post</router-link>
         <button class="button" @click="onSignOut">Sign Out</button>
       </div>
       <div class="buttons" v-else>
@@ -31,7 +31,8 @@ export default defineComponent({
   setup() {
     const modal = useModal()
     const store = useStore()
-    const authenticated = computed(() => store.getState().authors.currentId)
+    store.getState().authors.currentId
+    const currentUserId = computed(() => store.getState().authors.currentId)
     const onSignUp = async () => {
       console.log("on signup");
       modal.component.value = markRaw(Signup)
@@ -51,7 +52,7 @@ export default defineComponent({
       onSignUp,
       onSignIn,
       onSignOut,
-      authenticated,
+      currentUserId,
       component: modal.component
     }
   }

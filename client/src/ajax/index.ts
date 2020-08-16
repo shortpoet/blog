@@ -37,7 +37,7 @@ export const graphAxios
 
       if (res.status == 200) {
         colorLog("Graph Axios OK", 1);
-        console.log(res);
+        // console.log(res);
         
         return res.data.data
       }

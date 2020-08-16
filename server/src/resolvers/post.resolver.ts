@@ -38,7 +38,9 @@ export class PostResolver {
     chalkLog('magentaBright', '#### database fetch ####')
     chalkLog('magenta', await getRepository(Post).find())
     redis_client.setex('posts', 54000, JSON.stringify(await getRepository(Post).find()))
-    return getRepository(Post).find();
+    const data = await getRepository(Post).find()
+    chalkLog('red', data)
+    return data;
   }
 
   @Mutation(returns => Post)
@@ -48,9 +50,6 @@ export class PostResolver {
     
     const repo = getRepository(Post);
     // first must make call to save else doesn't have context for sequential id
-    await repo.find();
-    const newPost = await repo.save(<Post>postInput)
-    console.log(newPost.id);
-    return newPost
+    return await repo.save(<Post>postInput);
   }
 }
