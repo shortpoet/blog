@@ -6,7 +6,8 @@
         <router-link to="/" class="button">Home</router-link>
 
         <div v-if="currentUserId">
-          <router-link class="button" :to="{path: '/posts/new', params: {userId: currentUserId}}">New Post</router-link>
+          <!-- <router-link class="button" :to="{path: '/posts/new', params: {userId: currentUserId}}">New Post</router-link> -->
+          <router-link class="button" :to="{path: '/posts/new'}">New Post</router-link>
           <button class="button" @click="onSignOut">Sign Out</button>
         </div>
 

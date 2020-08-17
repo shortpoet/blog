@@ -1,8 +1,6 @@
 const chalk = require('chalk')
 import {inspect} from 'util'
 
-// const _log  = () => Function.prototype.bind.call(console.log, console, 'LOG_ALIAS')
-
 /*
 https://github.com/chalk/chalk
 Colors
