@@ -192,28 +192,13 @@ class Store {
   async createPost(input: IPost) {
     console.log(input);
     let html = `${input.html}`
-    // console.log(html);
-    // console.log(html.replace(/"/g, '\\"'));
-    // console.log(html.replace(/(['"])/g, "\\$1"));
-    // console.log(html.replace(/(['"])/g, "\\$1"));
     delete input['id']
-    
-
     const createPost: string = Object.entries(input).reduce((cur, [k, v]) => {
-      // console.log(v);
-      // console.log(`${v}`);
-      // console.log(`${v}`.replace(/\n/, '\""'));
-      // if (typeof v == 'string') {
-      //   console.log(v.replace(/"/g, '\"'));
-
-      // }
-      
       return typeof v != 'number'
         ? cur += `${k}: """${v.toString().replace(/"/g, '\\"')}""", `
         : cur += `${k}: ${v}, `
       
     }, '')
-    console.log(createPost);
 
     const query = `
       mutation {
@@ -221,23 +206,23 @@ class Store {
           id
           userId
           title
+          html
+          markdown
+          created
         }
       }
     `
-    console.log(query);
     const response = await graphAxios(query);
-    console.log(response);
-    console.log(response.createPost);
-    console.log(response.createPost.id);
-    
-    // const post: IPost = {
-    //   ...response.createPost,
-    //   created: moment(response.createPost.created)
-    // }
-    // console.log(post);
-    
-    this.state.posts.all[response.createPost.id] = response.createPost
-    this.state.posts.ids.push(response.createPost.id.toString())
+    const post: IPost = {
+      ...response.createPost,
+      created: moment(response.createPost.created)
+    }
+    this.state.posts.all[response.createPost.id] = post
+    this.state.posts.ids.push(post.id.toString())
+  }
+
+  async deletePost(id) {
+    colorLog(`delete post with id: ${id}`)
 
   }
 
@@ -260,8 +245,20 @@ class Store {
       ...p,
       created: moment(p.created)
     }))
+
+
+
     if (posts) {
       for (const post of posts) {
+        const _post = Object.entries(post).forEach(([k, v]) => {
+          if (typeof v != 'number') {
+            posts[k] = v.toString().replace(/(\\)+"/g, '"')
+          }
+        })
+        // console.log(_post);
+        // console.log(post);
+        
+        
         if (!this.state.posts.ids.includes(post.id.toString())) {
           this.state.posts.ids.push(post.id.toString())
         }
