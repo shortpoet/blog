@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { colorLog } from '../../utils/colorLog'
-// import { chalkLog } from '../../utils/chalkLog';
+import { chalkLog } from '../../utils/chalkLog';
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
   console.log('intercept before');
@@ -37,11 +37,13 @@ export const graphAxios
       )
       // chalkLog('green', 'graphAxios')
       // chalkLog('blueBright', res)
-      console.log(res);
+      // chalkLog('green', res.status)
+      // console.log(res);
       // console.log(res.status);
-
+      
       if (res.status == 200) {
-        colorLog("Graph Axios OK", 1);
+        // chalkLog('green', "Graph Axios OK")
+        // colorLog("Graph Axios OK", 1);
         // console.log(res);
         return res.data.data
       }

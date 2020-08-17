@@ -46,8 +46,21 @@ describe('Home.vue', () => {
         global: {
           provide: {
             store: createStore()
-          }
-        }
+          },
+          // to override global components
+          components: {
+            RouterLink: {
+              template: `<div />`
+            }
+          },
+          // to override local components 
+          // but this should fail because test relies on data-test attr but still passes but render warnings
+          // stubs: {
+          //   TimeLinePost: {
+          //     template: `<div />`
+          //   }
+          // }
+        },
       }
     )
   }

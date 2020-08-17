@@ -57,8 +57,6 @@ const localStorage = useStorage();
 
 const parseQuery = (input: Record<any, any>): string => {
   return Object.entries(input).reduce((cur, [k, v]) => {
-    // colorLog(`${k} is ${v}: ${typeof v}`);
-    
     return typeof v != 'number'
       ? cur += `${k}: """${v.toString().replace(/"/g, '\\"')}""", `
       : cur += `${k}: ${v}, `
@@ -282,7 +280,6 @@ class Store {
       }
     `
     const response = await graphAxios(query, 'posts')
-    // response.posts.map(p => Object.entries(p).forEach(([k,v]) => colorLog(`${k} is ${v}: ${typeof v}`)))
     const posts = response.posts.map(p => ({
       ...p,
       created: moment(p.created)

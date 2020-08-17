@@ -39,9 +39,9 @@ export default defineComponent({
     const store = useStore()
 
     if (!store.getState().posts.loaded) {
+      
       await store.fetchPosts()
     }
-
 
     const id = route.params.id as string
     const post = store.getState().posts.all[route.params.id as string]
