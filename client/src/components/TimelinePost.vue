@@ -1,19 +1,22 @@
 <template>
-  <router-link data-test="post" :to="to" class="panel-block">
-    <div>
+  <div style="display: flex; flex-direction: row; justify-content: space-between">
+    <router-link data-test="post" :to="to" class="panel-block" style="flex-grow: 2">
+      <div>
 
-      <!-- 
-        exercise for listener
-        title rendered correctly 
-      -->
+        <!-- 
+          exercise for listener
+          title rendered correctly 
+        -->
 
-      <a>{{ post.title }}</a>
-      <div>{{ post.created.format('Do MMM HH:mm:ss') }}</div>
-    </div>
-  </router-link>
-  <button class="button is-pulled-right is-rounded" @click="onDelete">
-    <i class="fa fa-trash"></i>
-  </button>
+        <a>{{ post.title }}</a>
+        <div>{{ post.created.format('Do MMM HH:mm:ss') }}</div>
+      </div>
+    </router-link>
+    <button class="button is-pulled-right is-rounded" @click.prevent="onDelete" style="">
+      <i class="fa fa-trash"></i>
+    </button>
+
+  </div>
 </template>
 
 <script lang="ts">

@@ -223,6 +223,18 @@ class Store {
 
   async deletePost(id) {
     colorLog(`delete post with id: ${id}`)
+    const query = `
+      mutation {
+        deletePost(id: "${id}")
+      }
+    `
+    console.log(query);
+    
+    colorLog(await graphAxios(query))
+    this.state.posts.loaded = false
+
+    // this.fetchPosts()
+    return await graphAxios(query);
 
   }
 
