@@ -262,15 +262,11 @@ class Store {
 
     if (posts) {
       for (const post of posts) {
-        const _post = Object.entries(post).forEach(([k, v]) => {
+        Object.entries(post).forEach(([k, v]) => {
           if (typeof v != 'number') {
-            posts[k] = v.toString().replace(/(\\)+"/g, '"')
+            post[k] = v.toString().replace(/(\\)+"/g, '"')
           }
         })
-        // console.log(_post);
-        // console.log(post);
-        
-        
         if (!this.state.posts.ids.includes(post.id.toString())) {
           this.state.posts.ids.push(post.id.toString())
         }
