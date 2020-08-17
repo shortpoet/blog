@@ -1,16 +1,22 @@
 <template>
   <nav class="navbar">
     <div class="navbar-end">
+      <div class="buttons">
 
-      <div class="buttons" v-if="currentUserId">
-        <router-link class="button" :to="{path: '/posts/new', params: {userId: currentUserId}}">New Post</router-link>
-        <button class="button" @click="onSignOut">Sign Out</button>
+        <router-link to="/" class="button">Home</router-link>
+
+        <div v-if="currentUserId">
+          <router-link class="button" :to="{path: '/posts/new', params: {userId: currentUserId}}">New Post</router-link>
+          <button class="button" @click="onSignOut">Sign Out</button>
+        </div>
+
+        <div v-else>
+          <button class="button" @click="onSignIn">Sign In</button>
+          <button class="button" @click="onSignUp">Sign Up</button>
+        </div>
+        
       </div>
-      <div class="buttons" v-else>
-        <button class="button" @click="onSignIn">Sign In</button>
-        <button class="button" @click="onSignUp">Sign Up</button>
       </div>
-    </div>
 
     <teleport to="#modal" v-if="modal.visible">
       <component :is="component" :modal="modal"/>

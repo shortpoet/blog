@@ -22,7 +22,8 @@
         but can't use with v-model - implementation here -->
 
         <!-- new kind of ref 'template ref' to keep track of user entered value instead of v-model -->
-        <div contenteditable id="markdown" ref="contentEditable" @input="handleEdit" data-test="markdown">
+        <!-- box panel message card content textarea input -->
+        <div contenteditable id="markdown" class="box" ref="contentEditable" @input="handleEdit" data-test="markdown">
         </div>
       </div>
       <div class="column is-one-half">

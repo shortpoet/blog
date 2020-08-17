@@ -50,15 +50,19 @@ export const makeRouter = () => createRouter({
   routes: routes
 })
 
-const localStorage = useStorage();
-
-router.beforeEach(async (to, from, next) => {
+const checkSessionStorage = async () => {
+  const localStorage = useStorage();
   colorLog('Check Session Storage', 1)
   const currentUserId = localStorage.get(CURRENT_USER_ID_STORAGE_KEY);
   if (currentUserId) {
     const res = await store.getUserById(parseInt(currentUserId))
     store.setCurrentUser(res.userById)
   }
+}
+
+
+router.beforeEach(async (to, from, next) => {
+  checkSessionStorage()
   console.log('Navigate');
   // if you don't check for to.meta.requiresAuth will cause infinite loop of redirection
   if (to.meta.requiresAuth && !store.getState().authors.currentId) {

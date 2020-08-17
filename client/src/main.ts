@@ -55,7 +55,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 // }
 
-console.log(App)
+// console.log(App)
 
 const app = createApp(App)
 app.use(router)

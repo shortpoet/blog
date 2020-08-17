@@ -190,8 +190,6 @@ class Store {
   }
 
   async createPost(input: IPost) {
-    console.log(input);
-    let html = `${input.html}`
     delete input['id']
     const createPost: string = Object.entries(input).reduce((cur, [k, v]) => {
       return typeof v != 'number'
@@ -228,14 +226,8 @@ class Store {
         deletePost(id: "${id}")
       }
     `
-    console.log(query);
-    
-    colorLog(await graphAxios(query))
-    this.state.posts.loaded = false
-
-    // this.fetchPosts()
+    // colorLog(await graphAxios(query))
     return await graphAxios(query);
-
   }
 
   async fetchPosts() {
@@ -252,19 +244,16 @@ class Store {
       }
     `
     const response = await graphAxios(query, 'posts')
-    // chalkLog('blueBright', response)
+    
     const posts = response.posts.map(p => ({
       ...p,
       created: moment(p.created)
     }))
-
-
-
     if (posts) {
       for (const post of posts) {
         Object.entries(post).forEach(([k, v]) => {
-          if (typeof v != 'number') {
-            post[k] = v.toString().replace(/(\\)+"/g, '"')
+          if (typeof v == 'string') {
+            post[k] = v.replace(/(\\)+"/g, '"')
           }
         })
         if (!this.state.posts.ids.includes(post.id.toString())) {

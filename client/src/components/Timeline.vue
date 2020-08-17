@@ -30,6 +30,7 @@ import { ref, computed, defineComponent } from 'vue'
 import { useStore } from '../store'
 
 import moment from 'moment'
+import { colorLog } from '../../utils/colorLog'
 
 export default defineComponent({
   components: {
@@ -43,15 +44,12 @@ export default defineComponent({
 
     const store = useStore()
     const users = await store.getUsers()
-    // const _posts = await store.fetchPosts()
 
     if (!store.getState().posts.loaded) {
       await store.fetchPosts()
     }
-    // console.log(_posts);
     
-    console.log(users);
-
+    // console.log(users);
     // this uses the mapper to return with O(1) instead of O(n) by searching by id insead of looping over an array
     const allPosts = store.getState().posts.ids.reduce<IPost[]>((accumulator, id) => {
       const post = store.getState().posts.all[id]
@@ -60,7 +58,8 @@ export default defineComponent({
 
     // computed automatically recalculates and updates the DOM anytime a reactive reference changes 
     const posts = computed(() => allPosts.filter(post => {
-      
+      // colorLog("post")
+      // colorLog(JSON.stringify(post))
       if (
         selectedPeriod.value === 'today' &&
         post.created.isAfter(moment().subtract(1, 'day'))
