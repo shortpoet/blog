@@ -9,7 +9,6 @@ type Options = {
 
 export function colorLog(message: string, options?: number): void;
 export function colorLog(message: string, options?: (number | Options)): void {
-  console.log('color log 1');
   
   let color;
   let background;
@@ -17,17 +16,14 @@ export function colorLog(message: string, options?: (number | Options)): void {
   // use strict null check double bang to account for !0 being true
   // but then !!1 is true
   if (options == null) {
-    console.log('color log 2');
     _options.color = "magenta";
     _options.background = "yellow";
     options = _options;
   }
   if (typeof options == "object") {
-    console.log('color log 3');
     color = options.color;
     background = options.background;
   } else if (typeof options == "number") {
-    console.log('color log 4');
     switch (options) {
       case 1:
         color = "green";
@@ -41,7 +37,6 @@ export function colorLog(message: string, options?: (number | Options)): void {
         }
       }
       
-  console.log('color log 5');
   // https://stackoverflow.com/a/37081135/12658653
   if(process.env.NODE_ENV != 'production') {
     const e = new Error();
@@ -70,7 +65,6 @@ export function colorLog(message: string, options?: (number | Options)): void {
     const line = trace[1].match(/(:.*)/)[0]
     console.log(`%c${message}%c\t\t\t\t\t${file}%c${line}`, `color:${color};background:${background}`, `color:#003EC5;background:white;text-align:right;` ,`color:#0086E1;background:white;text-align:right;`)
   } else {
-    console.log('color log 6');
     console.log(`%c` + `${message}`, `color:` + `${color};background:${background}`)
   }
   
