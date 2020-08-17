@@ -50,9 +50,26 @@ export const initialState = () : State => ({
   authors: iSS<IAuthor>(),
   posts: initialStoreState<IPost>({} as IPost)
 })
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const localStorage = useStorage();
+
+const parseQuery = (input: Record<any, any>): string => {
+  return Object.entries(input).reduce((cur, [k, v]) => {
+    return typeof v != 'number'
+      ? cur += `${k}: """${v.toString().replace(/"/g, '\\"')}""", `
+      : cur += `${k}: ${v}, `
+  }, '')
+}
+const unParseQuery = (input: Record<any, any>): void => {
+  return Object.entries(input).forEach(([k, v]) => {
+    if (typeof v == 'string') {
+      input[k] = v.replace(/(\\)+"/g, '"')
+    }
+  })
+}
+
 
 class Store {
   protected state: State
@@ -77,12 +94,6 @@ class Store {
     const response = await graphAxios(query);
     const user: IUser = response.createUser;
     this.setCurrentUser(user);
-    // console.log(user);
-    
-    // this.state.authors.all[user.id] = user
-    // this.state.authors.ids.push(user.id.toString())
-    // this.state.authors.currentId = user.id.toString()
-    // console.log(this.state);
   }
 
   setCurrentUser(user: IUser): IAuthor {
@@ -191,12 +202,8 @@ class Store {
 
   async createPost(input: IPost) {
     delete input['id']
-    const createPost: string = Object.entries(input).reduce((cur, [k, v]) => {
-      return typeof v != 'number'
-        ? cur += `${k}: """${v.toString().replace(/"/g, '\\"')}""", `
-        : cur += `${k}: ${v}, `
-      
-    }, '')
+
+    const createPost: string = parseQuery(input)
 
     const query = `
       mutation {
@@ -215,6 +222,7 @@ class Store {
       ...response.createPost,
       created: moment(response.createPost.created)
     }
+    unParseQuery(post)
     this.state.posts.all[response.createPost.id] = post
     this.state.posts.ids.push(post.id.toString())
   }
@@ -251,11 +259,7 @@ class Store {
     }))
     if (posts) {
       for (const post of posts) {
-        Object.entries(post).forEach(([k, v]) => {
-          if (typeof v == 'string') {
-            post[k] = v.replace(/(\\)+"/g, '"')
-          }
-        })
+        unParseQuery(post)
         if (!this.state.posts.ids.includes(post.id.toString())) {
           this.state.posts.ids.push(post.id.toString())
         }
@@ -325,6 +329,4 @@ export const useStore = (): Store => {
   // and return that value
   const store = inject<Store>('store')
   return store
-
-
 }
