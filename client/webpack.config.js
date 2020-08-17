@@ -14,7 +14,7 @@ const webpack = require('webpack')
 module.exports = {
   entry: './src/main.ts',
   output: {
-    path: path.resolve(__dirname, '../docs/dist'),
+    path: path.resolve(__dirname, '../docs/'),
     publicPath: '/dist/'
   },
   module: {
