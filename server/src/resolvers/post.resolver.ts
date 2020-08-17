@@ -1,9 +1,9 @@
 import { Resolver, Query, Arg, Info, Mutation } from "type-graphql";
 import { Post } from "../entity/Post";
-import { getRepository } from "typeorm";
+import { getRepository, DeleteResult, Any } from "typeorm";
 import { GraphQLResolveInfo } from "graphql";
 import { IPost } from "../interfaces/IPost";
-import { PostInput } from "../inputs/post.input";
+import { CreatePostInput, UpdatePostInput } from "../inputs/post.input";
 import { redis_client } from "../middleware/redisMiddleware";
 import { chalkLog } from "../utils/chalkLog";
 
@@ -43,10 +43,37 @@ export class PostResolver {
   }
 
   @Mutation(returns => Post)
-  async createPost(@Arg("post") postInput: PostInput): Promise<Post> {
+  async createPost(@Arg("post") postInput: CreatePostInput): Promise<Post> {
     console.log('#### create post ####');
     const repo = getRepository(Post);
-    // first must make call to save else doesn't have context for sequential id
-    return await repo.save(<Post>postInput);
+    const post = await repo.create(<Post>postInput);
+    const results = await repo.save(<Post>post);
+    return results;
+  }
+  @Mutation(returns => Post)
+  async updatePost(@Arg("post") postInput: UpdatePostInput): Promise<Post> {
+    console.log('#### create post ####');
+    const repo = getRepository(Post);
+    const oldPost = await repo.findOne(parseInt(postInput.id));
+    const newPost = await repo.create(<Post>{
+      ...postInput,
+      id: oldPost.id
+    });
+    const results = await repo.save(<Post>newPost);
+    return results;
+  }
+
+  @Mutation(returns => Boolean)
+  async deletePost(@Arg("id") id: string) {
+    chalkLog('greenBright' ,'#### delete post ####');
+    const repo = getRepository(Post);
+    // const result = await repo.remove(await repo.findOne(id))
+    // chalkLog('magenta', "result")
+    // chalkLog('magenta', result)
+    // return await repo.remove(await repo.findOne(id));
+    const result =  await repo.delete(id)
+    chalkLog('magenta', "result")
+    chalkLog('magenta', result)
+    return true
   }
 }

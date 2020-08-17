@@ -65,6 +65,7 @@ export class UserResolver {
   async users(): Promise<User[]> {
     const usersPromise = getRepository(User).find();
     const users = await usersPromise;
+    // users.forEach(u => Object.entries(u).forEach(([k,v]) => chalkLog('magenta',`${k} is ${v}: ${typeof v}`)))
     try {
       chalkLog('magentaBright', '#### database fetch ####')
       // chalkLog('magenta', users)
@@ -80,6 +81,8 @@ export class UserResolver {
     const { username, password } = userInput;
     console.log('#### create user ####');
     const repo = getRepository(User);
-    return await repo.save(<User>userInput);
+    const user = await repo.create(<User>userInput);
+    const results = await repo.save(<User>user);
+    return results;
   }
 }

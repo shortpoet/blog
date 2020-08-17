@@ -36,4 +36,15 @@ VALUES
  3, 'This Month','Content', '<p>Content</p>', 4, CURRENT_DATE - integer '13'
 );
 
+
 -- update content.posts set created = (select current_date - integer '6') where id = 2;
+
+SELECT setval(
+    pg_get_serial_sequence('admin.users', 'id'),
+    (SELECT MAX("id") FROM admin.users) + 1
+);
+
+SELECT setval(
+    pg_get_serial_sequence('content.posts', 'id'),
+    (SELECT MAX("id") FROM content.posts) + 1
+);
