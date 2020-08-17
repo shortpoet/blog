@@ -30,13 +30,21 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 //   }
 // }
 
-// @ts-ignore
+// // @ts-ignore
 // axios.post = async (url: string, payload: (IPost | IUser)) => {
 //   if (url === '/posts') {
 //     await delay(1000)
 //     const id = random(100, 10000)
 //     return Promise.resolve({
 //       data: {id, ...payload}
+//     })
+//   }
+// // @ts-ignore
+// axios.put = async (url: string, payload: (IPost | IUser)) => {
+//   if (url === '/posts') {
+//     await delay(1000)
+//     return Promise.resolve({
+//       data: payload
 //     })
 //   }
 

@@ -8,6 +8,11 @@
 </PeriodSelector> 
 
 -->
+  <div class="message is-info is-marginless">
+    <div class="message-header">
+      <p>Posts</p>
+    </div>
+  </div>
   <nav class="is-primary panel">
     <p class="panel-tabs">
       <!-- define a test specific selector so that future code changes to tag, class, or id, which don't nec change functionality, don't break test eg a => div -->
@@ -59,6 +64,7 @@ export default defineComponent({
     // computed automatically recalculates and updates the DOM anytime a reactive reference changes 
     const posts = computed(() => allPosts.filter(post => {
       // colorLog("post")
+      // Object.entries(post).forEach(([k,v]) => colorLog(`${k} is ${v}: ${typeof v}`))
       // colorLog(JSON.stringify(post))
       if (
         selectedPeriod.value === 'today' &&

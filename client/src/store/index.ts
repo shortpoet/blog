@@ -57,6 +57,8 @@ const localStorage = useStorage();
 
 const parseQuery = (input: Record<any, any>): string => {
   return Object.entries(input).reduce((cur, [k, v]) => {
+    // colorLog(`${k} is ${v}: ${typeof v}`);
+    
     return typeof v != 'number'
       ? cur += `${k}: """${v.toString().replace(/"/g, '\\"')}""", `
       : cur += `${k}: ${v}, `
@@ -144,11 +146,14 @@ class Store {
               markdown
               html
               created
+              userId
             }
           }
         }
       `
       const data = await graphAxios(query, 'users');
+      // data.users.map(p => Object.entries(p).forEach(([k,v]) => colorLog(`${k} is ${v}: ${typeof v}`)))
+
       return data.users
     } catch (error) {
       console.log(`Error fetching users ${error}`);
@@ -226,6 +231,31 @@ class Store {
     this.state.posts.all[response.createPost.id] = post
     this.state.posts.ids.push(post.id.toString())
   }
+  async updatePost(input: IPost) {
+    // delete input['id']
+
+    const createPost: string = parseQuery(input)
+
+    const query = `
+      mutation {
+        updatePost (post: {${createPost}}) {
+          id
+          userId
+          title
+          html
+          markdown
+          created
+        }
+      }
+    `
+    const response = await graphAxios(query);
+    const post: IPost = {
+      ...response.updatePost,
+      created: moment(response.updatePost.created)
+    }
+    unParseQuery(post)
+    this.state.posts.all[response.updatePost.id] = post
+  }
 
   async deletePost(id) {
     colorLog(`delete post with id: ${id}`)
@@ -252,7 +282,7 @@ class Store {
       }
     `
     const response = await graphAxios(query, 'posts')
-    
+    // response.posts.map(p => Object.entries(p).forEach(([k,v]) => colorLog(`${k} is ${v}: ${typeof v}`)))
     const posts = response.posts.map(p => ({
       ...p,
       created: moment(p.created)

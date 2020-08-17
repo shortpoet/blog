@@ -37,7 +37,7 @@ export const graphAxios
       )
       // chalkLog('green', 'graphAxios')
       // chalkLog('blueBright', res)
-      // console.log(res);
+      console.log(res);
       // console.log(res.status);
 
       if (res.status == 200) {
