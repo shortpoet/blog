@@ -14,18 +14,35 @@ const host = process.env.DOCKER == 1
 console.log("$# POSTGRES_HOST @7");
 console.log(host);
 
+const config = process.env.PROVIDER == 'postgres'
+  ? {
+    "type": "postgres",
+    "host": process.env.DOCKER == 1 
+       ? process.env.POSTGRES_HOST
+       : process.env.POSTGRES_HOST_LOCAL,
+    "port": 5432,
+    "username": process.env.POSTGRES_USER,
+    "password": process.env.POSTGRES_PASSWORD,
+    "database": process.env.POSTGRES_DB,
+    "synchronize": false,
+    "logging": true, 
+  }
+  : {
+    "type": "postgres",
+    "host": process.env.DOCKER == 1 
+       ? process.env.POSTGRES_HOST
+       : process.env.POSTGRES_HOST_LOCAL,
+    "port": 5432,
+    "username": process.env.POSTGRES_USER,
+    "password": process.env.POSTGRES_PASSWORD,
+    "database": process.env.POSTGRES_DB,
+    "synchronize": false,
+    "logging": true, 
+  }
+
 module.exports = {
-   "type": "postgres",
-   "host": process.env.DOCKER == 1 
-      ? process.env.POSTGRES_HOST
-      : process.env.POSTGRES_HOST_LOCAL,
-   "port": 5432,
-   "username": process.env.POSTGRES_USER,
-   "password": process.env.POSTGRES_PASSWORD,
-   "database": process.env.POSTGRES_DB,
-   "synchronize": false,
-   "logging": true,
-   "entities": [
+    ...config,
+  "entities": [
       "src/entity/**/*.ts"
    ],
    "migrations": [
