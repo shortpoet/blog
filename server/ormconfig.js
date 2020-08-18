@@ -8,18 +8,19 @@ require("dotenv").config();
 // https://github.com/typeorm/typeorm/issues/510
 console.log("$# DOCKER @7");
 console.log(process.env.DOCKER);
-const host = process.env.DOCKER == 1 
+const postgresHost = process.env.DOCKER == 1 
   ? process.env.POSTGRES_HOST
   : process.env.POSTGRES_HOST_LOCAL
-console.log("$# POSTGRES_HOST @7");
-console.log(host);
+const mssqlHost = process.env.DOCKER == 1 
+  ? process.env.MSSQL_HOST
+  : process.env.MSSQL_HOST_LOCAL
+// console.log("$# POSTGRES_HOST @7");
+// console.log(postgresHost);
 
 const config = process.env.PROVIDER == 'POSTGRES'
   ? {
     "type": "postgres",
-    "host": process.env.DOCKER == 1 
-       ? process.env.POSTGRES_HOST
-       : process.env.POSTGRES_HOST_LOCAL,
+    "host": postgresHost,
     "port": 5432,
     "username": process.env.POSTGRES_USER,
     "password": process.env.POSTGRES_PASSWORD,
@@ -29,15 +30,13 @@ const config = process.env.PROVIDER == 'POSTGRES'
   }
   : {
     "type": "mssql",
-    "host": process.env.MSSQL_HOST,
-    "port": 5432,
+    "host": mssqlHost,
     "username": process.env.MSSQL_USER,
     "password": process.env.MSSQL_PASSWORD,
     "database": process.env.MSSQL_DB,
     "synchronize": false,
     "logging": true, 
   }
-
 module.exports = {
     ...config,
   "entities": [
