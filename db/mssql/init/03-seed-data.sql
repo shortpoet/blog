@@ -1,8 +1,8 @@
-\connect shortpoetdb test
+\connect vcc test
 
 
 -- Insert rows into table 'users'
-INSERT INTO "vcc"."admin_users"
+INSERT INTO "admin"."users"
 ( -- columns to insert data into
  id, username, password
 )
@@ -21,7 +21,7 @@ VALUES
 );
 
 -- Insert rows into table 'posts'
-INSERT INTO "vcc"."content_posts"
+INSERT INTO "content"."posts"
 ( -- columns to insert data into
  id, title, markdown, html, user_id, created
 )
@@ -37,14 +37,14 @@ VALUES
 );
 
 
--- update content_posts set created = (select current_date - integer '6') where id = 2;
+-- update content.posts set created = (select current_date - integer '6') where id = 2;
 
 SELECT setval(
-    pg_get_serial_sequence('"vcc"."admin_users"', 'id'),
-    (SELECT MAX("id") FROM "vcc"."admin_users") + 1
+    pg_get_serial_sequence('admin.users', 'id'),
+    (SELECT MAX("id") FROM admin.users) + 1
 );
 
 SELECT setval(
-    pg_get_serial_sequence('"vcc"."content_posts"', 'id'),
-    (SELECT MAX("id") FROM "vcc"."content_posts") + 1
+    pg_get_serial_sequence('content.posts', 'id'),
+    (SELECT MAX("id") FROM content.posts) + 1
 );

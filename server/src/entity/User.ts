@@ -5,7 +5,7 @@ import { Post } from "./Post";
 import { ICreateUser } from "../interfaces/ICreateUser";
 
 @ObjectType()
-@Entity({ name: 'users', schema: 'admin' })
+@Entity({ name: `admin_users`, schema: 'vcc' })
 export class User implements IUser {
 
   @Field(type => ID)

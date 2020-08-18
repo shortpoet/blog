@@ -6,7 +6,7 @@ import { User } from "./User";
 
 
 @ObjectType()
-@Entity({ name: 'posts', schema: 'content' })
+@Entity({ name: `content_posts`, schema: 'vcc' })
 export class Post implements IPost {
   
   @Field(type => ID)

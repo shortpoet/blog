@@ -1,11 +1,11 @@
 -- ####
 -- don't forget to connect to test before creating schema or seeding
 
-\connect vcc test
+\connect shortpoetdb test
 
-CREATE SCHEMA "content";
+CREATE SCHEMA "vcc";
 
-CREATE TABLE "content"."posts" (
+CREATE TABLE "vcc"."content_posts" (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   markdown TEXT NULL,
@@ -14,29 +14,28 @@ CREATE TABLE "content"."posts" (
   created TIMESTAMP NOT NULL
 );
 
-COMMENT ON TABLE "content"."posts" IS
+COMMENT ON TABLE "vcc"."content_posts" IS
 'This holds blog posts for vue composition course db.';
 
-CREATE SCHEMA "admin";
 
-CREATE TABLE "admin"."users" (
+CREATE TABLE "vcc"."admin_users" (
   id serial primary key,
   username TEXT NOT NULL,
   password TEXT CHECK(CHAR_LENGTH(password) > 9) NOT NULL
 );
 
-CREATE UNIQUE INDEX users_username_idx ON "admin"."users"(username);
+CREATE UNIQUE INDEX users_username_idx ON "vcc"."admin_users"(username);
 
-COMMENT ON TABLE "admin"."users" IS
+COMMENT ON TABLE "vcc"."admin_users" IS
 'This holds users for vue composition course db.';
 
-ALTER TABLE "content"."posts" ADD FOREIGN KEY (user_id) REFERENCES "admin"."users"(id) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "vcc"."content_posts" ADD FOREIGN KEY (user_id) REFERENCES "vcc"."admin_users"(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 \connect vcc_test test
 
-CREATE SCHEMA "content";
+CREATE SCHEMA "vcc";
 
-CREATE TABLE "content"."posts" (
+CREATE TABLE "vcc"."content_posts" (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   markdown TEXT NULL,
@@ -45,20 +44,19 @@ CREATE TABLE "content"."posts" (
   created TIMESTAMP NOT NULL
 );
 
-COMMENT ON TABLE "content"."posts" IS
-'This holds blog posts for vue composition course test db.';
+COMMENT ON TABLE "vcc"."content_posts" IS
+'This holds blog posts for vue composition course db.';
 
-CREATE SCHEMA "admin";
 
-CREATE TABLE "admin"."users" (
+CREATE TABLE "vcc"."admin_users" (
   id serial primary key,
   username TEXT NOT NULL,
-  password TEXT NOT NULL
+  password TEXT CHECK(CHAR_LENGTH(password) > 9) NOT NULL
 );
 
-CREATE UNIQUE INDEX users_username_idx ON "admin"."users"(username);
+CREATE UNIQUE INDEX users_username_idx ON "vcc"."admin_users"(username);
 
-COMMENT ON TABLE "admin"."users" IS
-'This holds users for vue composition course test db.';
+COMMENT ON TABLE "vcc"."admin_users" IS
+'This holds users for vue composition course db.';
 
-ALTER TABLE "content"."posts" ADD FOREIGN KEY (user_id) REFERENCES "admin"."users"(id) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE "vcc"."content_posts" ADD FOREIGN KEY (user_id) REFERENCES "vcc"."admin_users"(id) ON DELETE CASCADE ON UPDATE NO ACTION;

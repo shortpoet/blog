@@ -14,7 +14,7 @@ const host = process.env.DOCKER == 1
 console.log("$# POSTGRES_HOST @7");
 console.log(host);
 
-const config = process.env.PROVIDER == 'postgres'
+const config = process.env.PROVIDER == 'POSTGRES'
   ? {
     "type": "postgres",
     "host": process.env.DOCKER == 1 
@@ -28,14 +28,12 @@ const config = process.env.PROVIDER == 'postgres'
     "logging": true, 
   }
   : {
-    "type": "postgres",
-    "host": process.env.DOCKER == 1 
-       ? process.env.POSTGRES_HOST
-       : process.env.POSTGRES_HOST_LOCAL,
+    "type": "mssql",
+    "host": process.env.MSSQL_HOST,
     "port": 5432,
-    "username": process.env.POSTGRES_USER,
-    "password": process.env.POSTGRES_PASSWORD,
-    "database": process.env.POSTGRES_DB,
+    "username": process.env.MSSQL_USER,
+    "password": process.env.MSSQL_PASSWORD,
+    "database": process.env.MSSQL_DB,
     "synchronize": false,
     "logging": true, 
   }
