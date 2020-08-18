@@ -21,7 +21,7 @@ COPY ./server .
 
 EXPOSE 8080
 
-COPY docker/docker-entrypoint-server-a.sh docker/colors.cfg /usr/local/bin/
+COPY docker/server/docker-entrypoint-server-a.sh docker/colors.cfg /usr/local/bin/
 
 # RUN chmod +x /docker-entrypoint-client.sh
 

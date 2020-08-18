@@ -25,8 +25,8 @@ services:
     image: postgres:12
     restart: unless-stopped
     volumes:
-      - ./db/postgres/init:/docker-entrypoint-initdb.d/:ro
-      - ${PWD}/db/postgres/postgres-data:${PGVOLUME}
+      - ../db/postgres/init:/docker-entrypoint-initdb.d/:ro
+      - ../db/postgres/postgres-data:${PGVOLUME}
 
     env_file:
       - ".env"
@@ -51,7 +51,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./server:/usr/src/app
+      - ../server:/usr/src/app
       - /usr/src/app/node_modules
     networks:
       - ${COMPOSE_PROJECT_NAME}net
@@ -71,7 +71,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./client:/usr/src/app
+      - ../client:/usr/src/app
       - notused:/usr/src/app/node_modules
     networks:
       - ${COMPOSE_PROJECT_NAME}net

@@ -8,6 +8,12 @@ require("dotenv").config();
 // https://github.com/typeorm/typeorm/issues/510
 console.log("$# DOCKER @7");
 console.log(process.env.DOCKER);
+const host = process.env.DOCKER == 1 
+  ? process.env.POSTGRES_HOST
+  : process.env.POSTGRES_HOST_LOCAL
+console.log("$# POSTGRES_HOST @7");
+console.log(host);
+
 module.exports = {
    "type": "postgres",
    "host": process.env.DOCKER == 1 

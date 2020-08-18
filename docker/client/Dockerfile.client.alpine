@@ -16,7 +16,7 @@ COPY ./client .
 
 EXPOSE 8080
 
-COPY docker/docker-entrypoint-client-a.sh /usr/local/bin/
+COPY docker/client/docker-entrypoint-client-a.sh /usr/local/bin/
 
 # RUN chmod +x /docker-entrypoint-client.sh
 
