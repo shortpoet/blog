@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-source "$DIR/colors.cfg"
+source "$PARENT/colors.cfg"
 
 if [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
     echo -e "${Cyan}The ${Yellow}postgres windows ${Cyan}shell script has been executed"
