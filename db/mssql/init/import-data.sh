@@ -32,6 +32,15 @@ echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script h
 
 # serious issues
 # https://github.com/Microsoft/mssql-docker/issues/2
+# https://github.com/microsoft/sql-server-samples/tree/master/samples/containers/dtc
+# https://github.com/microsoft/mssql-docker/tree/master/linux/preview/examples/mssql-customize
+# https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-mssql-conf?view=sql-server-2017
+# https://github.com/microsoft/sql-server-samples/tree/master/samples/tutorials
+# https://github.com/lkurzyniec/netcore-boilerplate/tree/master/db/mssql
+# https://www.mrjamiebowman.com/devops/docker-devops/docker-mssql-server/
+# https://towardsdatascience.com/build-a-mssql-docker-container-800166ecca21
+# https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker?view=sql-server-ver15#customcontainer
+# https://stackoverflow.com/questions/56728643/how-to-iterate-over-bash-sqlcmd-output
 
 # # RESULT=`/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -S localhost -U sa -P 8H7g6F5d -d shortpoetdb -Q "set nocount on; select count(*) from vcc.admin_users"`
 # RESULT=`/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -S localhost -U sa -P 8H7g6F5d -d master -Q "SELECT name FROM master.sys.databases WHERE name = 'shortpoetdb'"`

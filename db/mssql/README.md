@@ -4,7 +4,46 @@
 
 - some of this is old
 
-[source](https://github.com/twright-msft/mssql-node-docker-demo-app)
+### serious issues
+
+- github issues and examples
+  - <https://github.com/Microsoft/mssql-docker/issues/2>
+  - <https://github.com/microsoft/sql-server-samples/tree/master/samples/containers/dtc>
+  - <https://github.com/microsoft/mssql-docker/tree/master/linux/preview/examples/mssql-customize>
+  - <https://github.com/microsoft/sql-server-samples/tree/master/samples/tutorials>
+  - <https://github.com/lkurzyniec/netcore-boilerplate/tree/master/db/mssql>
+- other
+  - <https://www.mrjamiebowman.com/devops/docker-devops/docker-mssql-server/>
+  - <https://towardsdatascience.com/build-a-mssql-docker-container-800166ecca21>
+  - <https://www.mssqltips.com/sqlservertip/4925/using-sql-server-sqlcmd-scripting-variables/>
+- stackoverflow
+  - <https://stackoverflow.com/questions/56728643/how-to-iterate-over-bash-sqlcmd-output>
+  - <https://stackoverflow.com/questions/27624252/how-to-set-a-sqlcmd-output-to-a-batch-variable>
+  - <https://stackoverflow.com/questions/28444873/sqlcmd-in-shell-script-loop>
+- sql tips
+  - <https://www.mssqltips.com/sqlservertip/5889/introduction-to-bash-scripting-pipes-and-redirections/>
+  - <https://www.mssqltips.com/sqlservertip/5682/sql-server-scripts-to-use-with-sqlcmd/>
+  - <https://www.mssqltips.com/sqlservertip/1543/using-sqlcmd-to-execute-multiple-sql-server-scripts/>
+  - <https://www.mssqltips.com/sqlservertip/5353/automate-sql-server-backup-and-restore-tasks-in-linux/>
+- microsoft
+  - <https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-mssql-conf?view=sql-server-2017>
+  - <https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker?view=sql-server-ver15#customcontainer>
+  - <https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-use-with-scripting-variables?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-migrate-bcp?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools?view=sql-server-ver15#ubuntu>
+  - <https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash>
+  - <https://docs.microsoft.com/en-us/sql/linux/tutorial-restore-backup-in-sql-server-container?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/database-engine/install-windows/install-sql-server-from-the-command-prompt?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/tools/mssql-cli?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15#download-the-latest-version-of-sqlcmd-utility>
+  - <https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-use-the-utility?view=sql-server-ver15>
+  - <https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-use-with-scripting-variables?view=sql-server-ver15>
+- docker
+  - <https://docs.docker.com/compose/aspnet-mssql-compose/>
+
+
+[original source of below](https://github.com/twright-msft/mssql-node-docker-demo-app)
 
 This is a demo application created to show how  SQL Server can operate in a DevOps scenario where an application developer can check in code to GitHub and then trigger a build in Red Hat Open Shift to deploy the changes automatically as pods (containers).  This demo was first shown at the Nordic Infrastructure Conference (NIC) 2017 in Oslo, Norway on Feb 3, 2017.  This demo application is notable for showing a few things:
 

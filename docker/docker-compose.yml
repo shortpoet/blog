@@ -79,21 +79,21 @@ services:
     # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
 
-  # vcc.client:
-  #   image: ${COMPOSE_PROJECT_NAME}.client:alpine
-  #   depends_on:
-  #     - db.${PROVIDER}
-  #   build:
-  #     context: ../
-  #     dockerfile: docker/client/Dockerfile.client.alpine
-  #   tty: true
-  #   environment:
-  #     NODE_ENV: development
-  #   ports:
-  #     - 8080:8080
-  #   volumes:
-  #     - ../client:/usr/src/app
-  #     - notused:/usr/src/app/node_modules
-  #   networks:
-  #     - ${COMPOSE_PROJECT_NAME}net
-  #   command: yarn vite
+  vcc.client:
+    image: ${COMPOSE_PROJECT_NAME}.client:alpine
+    depends_on:
+      - db.${PROVIDER}
+    build:
+      context: ../
+      dockerfile: docker/client/Dockerfile.client.alpine
+    tty: true
+    environment:
+      NODE_ENV: development
+    ports:
+      - 8080:8080
+    volumes:
+      - ../client:/usr/src/app
+      - notused:/usr/src/app/node_modules
+    networks:
+      - ${COMPOSE_PROJECT_NAME}net
+    command: yarn vite
