@@ -15,6 +15,10 @@
 --  DROP LOGIN test
 -- :setvar MSSQL_PASSWORD '8H7g6F5d'
 
+-- https://github.com/lkurzyniec/netcore-boilerplate/blob/master/db/mssql/mssql-cars.sql
+IF DB_ID('shortpoetdb') IS NOT NULL
+  set noexec on               -- prevent creation when already exists
+
 CREATE DATABASE shortpoetdb;
 
 GO

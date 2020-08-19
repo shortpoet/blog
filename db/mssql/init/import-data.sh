@@ -30,17 +30,36 @@ echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script h
 # shift
 # cmd="$@"
 
-echo -e "${Green}Starting ${BrownOrange}test ${Green}- now"
+# serious issues
+# https://github.com/Microsoft/mssql-docker/issues/2
 
+# # RESULT=`/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -S localhost -U sa -P 8H7g6F5d -d shortpoetdb -Q "set nocount on; select count(*) from vcc.admin_users"`
+# RESULT=`/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -S localhost -U sa -P 8H7g6F5d -d master -Q "SELECT name FROM master.sys.databases WHERE name = 'shortpoetdb'"`
+
+# if [ $RESULT -gt 0 ]; then
+#   echo "${LightPurple}There appears to be a database with $RESULT users. Skipping initialization.${NC}"
+# else
+#   echo -e "${Green}Starting Database ${BrownOrange}init process test ${Green}- now"
+#   until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 8H7g6F5d -d master -i $DIR/run.sql; do
+#     >&2 echo -e "${Green}Mssql is ${BrownOrange}unavailable ${Green}- sleeping"
+#     sleep 2
+#   done
+#   echo -e "${Green}Ending ${BrownOrange}init process test ${Green}- now"
+    
+#   >&2 echo -e "${LightBlue}Mssql is up - ${Red}executing command sql startup command${NC}"
+# fi
+
+
+echo -e "${Green}Starting Database ${BrownOrange}init process test ${Green}- now"
 until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 8H7g6F5d -d master -i $DIR/run.sql; do
   >&2 echo -e "${Green}Mssql is ${BrownOrange}unavailable ${Green}- sleeping"
   sleep 2
 done
+echo -e "${Green}Ending ${BrownOrange}init process test ${Green}- now"
   
->&2 echo -e "${LightBlue}Mssql is up - ${Red}executing command${NC}"
-# exec $cmd
+>&2 echo -e "${LightBlue}Mssql is up - ${Red}executing command sql startup command${NC}"
 
-echo -e "${Green}Ending ${BrownOrange}test ${Green}- now"
+
 
 # echo test
 
