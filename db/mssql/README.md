@@ -1,5 +1,9 @@
 # Overview
 
+## NOTICE
+
+- some of this is old
+
 [source](https://github.com/twright-msft/mssql-node-docker-demo-app)
 
 This is a demo application created to show how  SQL Server can operate in a DevOps scenario where an application developer can check in code to GitHub and then trigger a build in Red Hat Open Shift to deploy the changes automatically as pods (containers).  This demo was first shown at the Nordic Infrastructure Conference (NIC) 2017 in Oslo, Norway on Feb 3, 2017.  This demo application is notable for showing a few things:
@@ -154,6 +158,17 @@ The entrypoint.sh script is executed when the container first starts.  The scrip
 ```terminal
 /opt/mssql/bin/sqlservr.sh & /usr/src/app/import-data.sh & npm start 
 ```
+
+- [ms docs on docker and sql server](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker?view=sql-server-ver15)
+
+Create a customized container
+
+It is possible to create your own Dockerfile to create a customized SQL Server container. For more information, see a demo that combines SQL Server and a Node application. If you do create your own Dockerfile, be aware of the foreground process, because this process controls the life of the container. If it exits, the container will shutdown. For example, if you want to run a script and start SQL Server, make sure that the SQL Server process is the right-most command. All other commands are run in the background. The following command illustrates this inside a Dockerfile:
+Bash
+
+/usr/src/app/do-my-sql-commands.sh & /opt/mssql/bin/sqlservr
+
+If you reversed the commands in the previous example, the container would shutdown when the do-my-sql-commands.sh script completes.
 
 ### import-data.sh
 

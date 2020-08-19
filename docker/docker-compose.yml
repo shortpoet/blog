@@ -35,22 +35,22 @@ services:
     networks:
       - ${COMPOSE_PROJECT_NAME}net
   
-  # db.mssql:
-  #   image: ${COMPOSE_PROJECT_NAME}.db.mssql
-  #   restart: on-failure
-  #   # volumes:
-  #   #   - ../db/postgres/init:/docker-entrypoint-initdb.d/:ro
-  #   #   - ../db/postgres/postgres-data:${PGVOLUME}
-  #   build:
-  #     context: ../
-  #     dockerfile: docker/mssql/Dockerfile.db.mssql
-  #   env_file:
-  #     - ".env"
-  #   ports:
-  #     - 1433:1433
-  #   networks:
-  #     - ${COMPOSE_PROJECT_NAME}net
-  #   command: ['/bin/bash', './usr/src/app/mssql-entrypoint.sh']
+  db.mssql:
+    image: ${COMPOSE_PROJECT_NAME}.db.mssql
+    restart: on-failure
+    # volumes:
+    #   - ../db/postgres/init:/docker-entrypoint-initdb.d/:ro
+    #   - ../db/postgres/postgres-data:${PGVOLUME}
+    build:
+      context: ../
+      dockerfile: docker/mssql/Dockerfile.db.mssql
+    env_file:
+      - ".env"
+    ports:
+      - 1433:1433
+    networks:
+      - ${COMPOSE_PROJECT_NAME}net
+    command: ['/bin/bash', './usr/src/app/mssql-entrypoint.sh']
   
   vcc.server:
     # image: ${COMPOSE_PROJECT_NAME}.server:alpine
@@ -76,7 +76,7 @@ services:
       - ${COMPOSE_PROJECT_NAME}net
     # command: ["docker-entrypoint-server-a.sh", "db.${PROVIDER}", "yarn", "start"]
     command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}", "yarn", "start"]
-    # command: ["docker-entrypoint-server-a.sh", "${POSTGRES_HOST}"]
+    # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
 
   # vcc.client:

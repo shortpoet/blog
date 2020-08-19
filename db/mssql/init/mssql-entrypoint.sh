@@ -12,7 +12,7 @@ filename=$(basename ${BASH_SOURCE[0]})
 
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
-/opt/mssql/bin/sqlservr & $DIR/import-data.sh
+$DIR/import-data.sh & /opt/mssql/bin/sqlservr
 
 # echo test
 
