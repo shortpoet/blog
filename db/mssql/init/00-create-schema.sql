@@ -1,0 +1,7 @@
+USE Shortpoet;
+
+GO;
+
+CREATE SCHEMA VCC;
+
+GO;

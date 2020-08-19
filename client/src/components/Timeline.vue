@@ -51,6 +51,8 @@ export default defineComponent({
     const users = await store.getUsers()
 
     if (!store.getState().posts.loaded) {
+      console.log('timeline');
+      
       await store.fetchPosts()
     }
     
@@ -63,7 +65,7 @@ export default defineComponent({
 
     // computed automatically recalculates and updates the DOM anytime a reactive reference changes 
     const posts = computed(() => allPosts.filter(post => {
-      // colorLog("post")
+      colorLog("post")
       // Object.entries(post).forEach(([k,v]) => colorLog(`${k} is ${v}: ${typeof v}`))
       // colorLog(JSON.stringify(post))
       if (
@@ -90,7 +92,9 @@ export default defineComponent({
     const setPeriod = (period: IPeriod) => {
       selectedPeriod.value = period
     }
-
+    colorLog('posts')
+    console.log(posts.value);
+    
     return {
       periods,
       selectedPeriod,
