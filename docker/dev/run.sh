@@ -20,7 +20,7 @@ if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
 else
     echo -e "${Green}Not running under ${LightBlue}GNU/Linux"
-    POSTGRES_HOST=db
+    POSTGRES_HOST=db.postgres
     PGVOLUME=/var/lib/postgresql/data
     echo -e "${Yellow}Setting POSTGRES_HOST to ${LightBlue}${POSTGRES_HOST}"
     echo -e "${Yellow}Setting PGVOLUME to ${LightBlue}${PGVOLUME}"

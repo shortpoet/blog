@@ -41,7 +41,9 @@ const util = require('util');
     // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
     const app = express();
     app.use(cors());
-    // app.use(redisMiddleware);
+    if (process.env.DOCKER) {
+      app.use(redisMiddleware);
+    }
     app.use(loggingMiddleware);
     const schema = await generateSchema(UserResolver, PostResolver);
     app.use('/graphql', graphqlHTTP((req) => ({

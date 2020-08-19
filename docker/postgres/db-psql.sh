@@ -13,4 +13,4 @@ source "$PARENT/colors.cfg"
 filename=$(basename ${BASH_SOURCE})
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
-winpty docker exec -it "${COMPOSE_PROJECT_NAME}_db_1" psql -U ${POSTGRES_USER} ${POSTGRES_DB} "$@"
+winpty docker exec -it "${COMPOSE_PROJECT_NAME}_db.${PROVIDER}_1" psql -U ${POSTGRES_USER} ${POSTGRES_DB} "$@"

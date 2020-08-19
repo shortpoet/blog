@@ -14,7 +14,7 @@
 -- uncomment for local
 -- https://stackoverflow.com/questions/10352695/grant-all-on-a-specific-schema-in-the-db-to-a-group-role-in-postgresql
 
-\connect shortpoetdb postgres
+-- \connect shortpoetdb postgres
 
 GRANT USAGE ON SCHEMA "vcc" TO test;
 GRANT USAGE ON SCHEMA "vcc" TO test;
@@ -22,7 +22,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "vcc" TO test;
 GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA "vcc" TO test;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA "vcc" TO test;
 
-\connect vcc_test postgres
+-- \connect vcc_test postgres
+\connect vcc_test test
 
 GRANT USAGE ON SCHEMA "vcc" TO test;
 GRANT USAGE ON SCHEMA "vcc" TO test;

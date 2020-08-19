@@ -17,7 +17,7 @@ const mssqlHost = process.env.DOCKER == 1
 // console.log("$# POSTGRES_HOST @7");
 // console.log(postgresHost);
 
-const config = process.env.PROVIDER == 'POSTGRES'
+const config = process.env.PROVIDER == 'postgres'
   ? {
     "type": "postgres",
     "host": postgresHost,
