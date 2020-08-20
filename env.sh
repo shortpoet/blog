@@ -33,12 +33,16 @@ POSTGRES_PASSWORD=test
 POSTGRES_DB=shortpoetdb
 POSTGRES_PORT=5432
 PGDATA=/var/lib/postgresql/postgres-data
+PGVOLUME=/var/lib/postgresql/data
 # mssql
 MSSQL_HOST=db.mssql
 MSSQL_HOST_LOCAL=localhost
 MSSQL_USER=test
-MSSQL_PASSWORD=8H7g6F5d
+MSSQL_PASSWORD=
+SA_PASSWORD=
 MSSQL_DB=shortpoetdb
 MSSQL_PORT=1433
+ACCEPT_EULA=Y
 # redis
 REDIS_PORT=6379
+REDIS_SERVICE=redis

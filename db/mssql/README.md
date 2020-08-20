@@ -15,13 +15,13 @@
 - other
   - <https://www.mrjamiebowman.com/devops/docker-devops/docker-mssql-server/>
   - <https://towardsdatascience.com/build-a-mssql-docker-container-800166ecca21>
-  - <https://www.mssqltips.com/sqlservertip/4925/using-sql-server-sqlcmd-scripting-variables/>
 - stackoverflow
   - <https://stackoverflow.com/questions/56728643/how-to-iterate-over-bash-sqlcmd-output>
   - <https://stackoverflow.com/questions/27624252/how-to-set-a-sqlcmd-output-to-a-batch-variable>
   - <https://stackoverflow.com/questions/28444873/sqlcmd-in-shell-script-loop>
 - sql tips
   - <https://www.mssqltips.com/sqlservertip/5889/introduction-to-bash-scripting-pipes-and-redirections/>
+  - <https://www.mssqltips.com/sqlservertip/4925/using-sql-server-sqlcmd-scripting-variables/>
   - <https://www.mssqltips.com/sqlservertip/5682/sql-server-scripts-to-use-with-sqlcmd/>
   - <https://www.mssqltips.com/sqlservertip/1543/using-sqlcmd-to-execute-multiple-sql-server-scripts/>
   - <https://www.mssqltips.com/sqlservertip/5353/automate-sql-server-backup-and-restore-tasks-in-linux/>

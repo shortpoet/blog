@@ -13,7 +13,7 @@
 --  DROP USER test
 --  DROP ROLE VCCAppUser_Role
 --  DROP LOGIN test
--- :setvar MSSQL_PASSWORD '8H7g6F5d'
+-- :setvar MSSQL_PASSWORD ''
 
 -- https://github.com/lkurzyniec/netcore-boilerplate/blob/master/db/mssql/mssql-cars.sql
 IF DB_ID('shortpoetdb') IS NOT NULL
@@ -37,14 +37,23 @@ DECLARE @defaultSchema varchar(32);
 DECLARE @role varchar(32);
 DECLARE @authorization varchar(32);
 DECLARE @pass varchar(64);
+DECLARE @test varchar(64);
 
 
 SET @user = 'test';
 SET @defaultSchema = 'VCC';
 SET @role = 'VCCAppUser_Role';
 SET @authorization = 'dbo';
-SET @pass = '8H7g6F5d';
-
+SET @pass = '$(MSSQL_PASSWORD)';
+-- PRINT('##########################')
+-- PRINT(@pass)
+-- PRINT('##########################')
+-- SET @test = '$(MSSQL_PASSWORD)';
+-- PRINT(@test)
+-- vs --
+-- w/o single quote which fails
+-- SET @test = $(MSSQL_PASSWORD);
+-- PRINT(@test)
 
 --create @user user login
 --create user in  database
@@ -84,7 +93,7 @@ SET @cmd =
 	
 	GRANT CONNECT TO ' + @user +
 ' END';
-PRINT(@cmd)
+-- PRINT(@cmd)
 EXEC sp_executesql @cmd;
 
 GO
