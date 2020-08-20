@@ -9,13 +9,14 @@ RUN apk add --no-cache bash
 
 WORKDIR /app
 
-COPY package.json ./
+COPY client/package*.json ./
 
-RUN npm install
+RUN npm install --quiet --silent --no-optional && npm cache clean --force
 
 COPY ./client .
 
-COPY ./docker/client-prod/nginx.conf /etc/nginx/conf.d/default.conf
+# COPY ./docker/client-prod/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./docker/client-prod/default.conf.template /etc/nginx/templates/.
 
 COPY ./docker/client-prod/nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
 
@@ -23,4 +24,4 @@ COPY ./docker/client-prod/colors.cfg /usr/local/bin/colors.cfg
 
 RUN chmod +x /usr/local/bin/nginx-entrypoint.sh
 
-CMD ["/bin/bash", "-c", "/usr/local/bin/nginx-entrypoint.sh && nginx -g 'daemon off;'"]
+# CMD ["/bin/bash", "-c", "/usr/local/bin/nginx-entrypoint.sh && nginx -g 'daemon off;'"]

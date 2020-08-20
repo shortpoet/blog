@@ -38,6 +38,6 @@ perl -i -pe "s#PGVOLUME=.*#PGVOLUME=${PGVOLUME}#g" "${env_file}"
 grep -n "POSTGRES_HOST=.*" "${env_file}" | xargs echo -e "${Green}Current value and line number =>${LightBlue}"
 grep -n "PGVOLUME=.*" "${env_file}" | xargs echo -e "${Green}Current value and line number =>${LightBlue}"
 
-docker-compose up
+docker-compose -f docker-compose.prod.yml up
 
 # echo -e "Current value and line number => `grep -n "POSTGRES_HOST=.*" "${env_file}"`"

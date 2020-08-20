@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server",
     "dev:docker": "webpack-dev-server --host 0.0.0.0",
     "vite": "vite",
-    "build": "yarn webpack --mode production"
+    "build": "yarn webpack --mode production",
+    "build:docker": "webpack --mode production"
   },
   "devDependencies": {
     "@babel/node": "^7.8.7",

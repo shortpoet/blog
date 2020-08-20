@@ -79,7 +79,7 @@ services:
     # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
 
-  vcc.client:
+  vcc.client.dev:
     image: ${COMPOSE_PROJECT_NAME}.client:alpine
     depends_on:
       - db.${PROVIDER}

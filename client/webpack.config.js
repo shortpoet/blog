@@ -24,7 +24,9 @@ module.exports = {
   context: path.resolve(__dirname, './'),
   entry: './src/main.ts',
   output: {
-    path: path.resolve(__dirname, '../docs/'),
+    path: process.env.DOCKER
+      ? path.resolve(__dirname, './dist')
+      : path.resolve(__dirname, '../docs/'),
     publicPath: '/dist/'
   },
   module: {

@@ -4,20 +4,24 @@ filename=$(basename ${BASH_SOURCE})
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
 #!/bin/bash
+# https://stackoverflow.com/questions/37403759/what-is-the-meaning-of-d-in-this-bash-command
 
 if [ ! -d "/app/dist" ] 
 then
-    npm run build
+  npm run build:docker
 
-    echo "${LightCyan}Build finished...";
+  echo -e "${LightCyan}Build finished...";
 
-    echo "${LightGreen}Delete node_modules folder";
+  pwd
+  ls
 
-    rm -rf node_modules
+  echo -e "${LightRed}Delete node_modules folder";
 
-    echo "${LightRed}START COPY";
+  rm -rf node_modules
 
-    cp -rf  /app/dist/. /usr/share/nginx/html/
+  echo -e "${LightGreen}START COPY";
 
-    echo "${Red}END COPY${NC}";
+  cp -rf  /app/dist/. /usr/share/nginx/html/
+
+  echo -e "${Purlple}END COPY${NC}";
 fi
