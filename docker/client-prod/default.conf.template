@@ -132,6 +132,12 @@ server {
         # Context: http, server, location
     }
 
+    location /blog {
+        index  index.html index.htm;
+        expires -1;
+        try_files $uri $uri/ /index.html;
+    }
+
     # location /api {
     #     proxy_pass http://todoapi;
     # }

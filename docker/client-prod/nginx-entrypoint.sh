@@ -23,5 +23,5 @@ then
 
   cp -rf  /app/dist/. /usr/share/nginx/html/
 
-  echo -e "${Purlple}END COPY${NC}";
+  echo -e "${Purple}END COPY${NC}";
 fi

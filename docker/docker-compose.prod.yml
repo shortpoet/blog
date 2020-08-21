@@ -1,7 +1,7 @@
 version: "3.5"
 
 networks:
-  vccnet:
+  blognet:
     name: ${COMPOSE_PROJECT_NAME}net
     # driver: bridge
 
