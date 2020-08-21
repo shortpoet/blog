@@ -44,7 +44,7 @@ done
 
 else
   echo -e "${Green}Running under ${LightBlue}Sql Server"
-  until /opt/mssql-tools/bin/sqlcmd -S localhost -U test -P 8H7g6F5d -d shortpoetdb; do
+  until /opt/mssql-tools/bin/sqlcmd -S localhost -U test -P ${MSSQL_PASSWORD} -d shortpoetdb; do
   >&2 echo -e "${Green}Mssql is ${BrownOrange}unavailable ${Green}- sleeping"
   sleep 2
 done
