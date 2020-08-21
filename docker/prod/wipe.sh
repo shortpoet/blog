@@ -13,4 +13,4 @@ echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${dir_file} ${Cyan}script h
 
 docker-compose -f docker-compose.prod.yml down --rmi local --remove-orphans --volumes
 
-docker image rm vcc.client.prod vcc.server:ubuntu
+docker image rm ${COMPOSE_PROJECT_NAME}.client.prod ${COMPOSE_PROJECT_NAME}.server:ubuntu

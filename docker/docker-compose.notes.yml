@@ -11,12 +11,12 @@ volumes:
 
 services:
 
-  vcc.client:
+  blog.client:
     image: ${COMPOSE_PROJECT_NAME}.client:alpine
     # depends_on:
     #   db:
     #     condition: service_healthy
-    #   vcc.server:
+    #   blog.server:
     #     condition: service_healthy
     build:
       context: .
@@ -44,7 +44,7 @@ services:
     # command: yarn dev:docker
 
 
-  vcc.server:
+  blog.server:
     image: ${COMPOSE_PROJECT_NAME}.server:alpine
     # depends_on:
     #   db:

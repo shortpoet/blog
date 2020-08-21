@@ -8,6 +8,9 @@ echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script h
 
 if [ ! -d "/app/dist" ] 
 then
+  export VUE_APP_DOCKER=1 
+  export DOCKER=1 
+  
   npm run build:docker
 
   echo -e "${LightCyan}Build finished...";
@@ -24,4 +27,10 @@ then
   cp -rf  /app/dist/. /usr/share/nginx/html/
 
   echo -e "${Purple}END COPY${NC}";
+  
+  echo -e "${Yellow}Node env is: ${NODE_ENV}${NC}";
+
+  echo -e "${LightPurple}Docker is: ${DOCKER}${NC}";
+
+  # cat /etc/nginx/conf.d/default.conf
 fi

@@ -52,7 +52,7 @@ services:
       - ${COMPOSE_PROJECT_NAME}net
     command: ['/bin/bash', './usr/src/app/mssql-entrypoint.sh']
   
-  vcc.server:
+  blog.server:
     # image: ${COMPOSE_PROJECT_NAME}.server:alpine
     image: ${COMPOSE_PROJECT_NAME}.server:ubuntu
     depends_on:
@@ -79,7 +79,7 @@ services:
     # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
 
-  vcc.client.prod:
+  blog.client.prod:
     image: ${COMPOSE_PROJECT_NAME}.client.prod
     depends_on:
       - db.${PROVIDER}
@@ -89,13 +89,17 @@ services:
     tty: true
     env_file:
       - ".env"
-    environment:
-      NODE_ENV: production
+    # environment:
+    #   NODE_ENV: production
     ports:
       - 80:80
-    # volumes:
+    volumes:
       # - ./client:/usr/src/app
       # - notused:/usr/src/app/node_modules
+      # - ../docker/client-prod/templates/default.conf.template:/etc/nginx/templates/default.conf.template
+      - ../docker/client-prod/templates/default.conf.template:/etc/nginx/templates/default.conf.template
+      # - ../docker/client-prod/default.conf:/etc/nginx/conf.d/default.conf
+
     networks:
       - ${COMPOSE_PROJECT_NAME}net
-    command: ["/bin/bash", "-c", "/usr/local/bin/nginx-entrypoint.sh && nginx -g 'daemon off;'"]
+    # command: ["/bin/bash", "-c", "/usr/local/bin/nginx-entrypoint.sh && nginx -g 'daemon off;'"]
