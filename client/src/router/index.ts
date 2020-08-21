@@ -42,10 +42,10 @@ export const routes =  [
 
 export const router = createRouter({
   // this sets baseurl
-  // https://github.com/shortpoet/vuejs-composition-course
-  // http://localhost/vuejs-composition-course/
+  // https://github.com/shortpoet/blog
+  // http://localhost/blog/
 
-  history: createWebHistory(process.env.NODE_ENV === 'production' ? 'vuejs-composition-course' : ''),
+  history: createWebHistory(process.env.NODE_ENV === 'production' ? 'blog' : ''),
   routes: routes
 })
 

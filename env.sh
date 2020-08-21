@@ -1,4 +1,4 @@
-export COMPOSE_PROJECT_NAME=vcc
+export COMPOSE_PROJECT_NAME=
 # https://stackoverflow.com/a/55449975/12658653
 # https://stackoverflow.com/questions/48546124/what-is-linux-equivalent-of-host-docker-internal
 # https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
@@ -24,23 +24,23 @@ PGDATA=/var/lib/postgresql/postgres-data
 # docker
 DOCKER=1
 PROVIDER=mssql
-export COMPOSE_PROJECT_NAME=vcc
+export COMPOSE_PROJECT_NAME=
 # postgres
 POSTGRES_HOST=db.postgres
 POSTGRES_HOST_LOCAL=localhost
-POSTGRES_USER=test
-POSTGRES_PASSWORD=test
-POSTGRES_DB=shortpoetdb
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
 POSTGRES_PORT=5432
 PGDATA=/var/lib/postgresql/postgres-data
 PGVOLUME=/var/lib/postgresql/data
 # mssql
 MSSQL_HOST=db.mssql
 MSSQL_HOST_LOCAL=localhost
-MSSQL_USER=test
+MSSQL_USER=
 MSSQL_PASSWORD=
 SA_PASSWORD=
-MSSQL_DB=shortpoetdb
+MSSQL_DB=
 MSSQL_PORT=1433
 ACCEPT_EULA=Y
 # redis
