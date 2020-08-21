@@ -1,7 +1,7 @@
 version: "3.5"
 
 networks:
-  vccnet:
+  blognet:
     name: ${COMPOSE_PROJECT_NAME}net
     # driver: bridge
 
@@ -52,7 +52,7 @@ services:
       - ${COMPOSE_PROJECT_NAME}net
     command: ['/bin/bash', './usr/src/app/mssql-entrypoint.sh']
   
-  vcc.server:
+  blog.server:
     # image: ${COMPOSE_PROJECT_NAME}.server:alpine
     image: ${COMPOSE_PROJECT_NAME}.server:ubuntu
     depends_on:
@@ -79,7 +79,7 @@ services:
     # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
 
-  vcc.client.dev:
+  blog.client.dev:
     image: ${COMPOSE_PROJECT_NAME}.client:alpine
     depends_on:
       - db.${PROVIDER}

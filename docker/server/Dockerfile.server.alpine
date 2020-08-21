@@ -31,4 +31,4 @@ LABEL maintainer="Carlos Soriano <shortpoet@github>"
 
 # CMD ["yarn", "--help"]
 
-# docker run --rm -it -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules -p 3000:3000 vcc.server:alpine
+# docker run --rm -it -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules -p 3000:3000 ${COMPOSE_PROJECT_NAME}.server:alpine

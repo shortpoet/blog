@@ -3,7 +3,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const dotenv = require("dotenv").config({path: __dirname + '/.env'});
+console.log(dotenv.parsed);
 // from console warning
 // https://github.com/vuejs/vue-next/tree/master/packages/vue#bundler-build-feature-flags
 // https://webpack.js.org/plugins/define-plugin/
@@ -18,13 +19,20 @@ const copyWebpackPlugin = new CopyWebpackPlugin({
     { from: 'static' }
   ]
 })
+// https://stackoverflow.com/questions/30030031/passing-environment-dependent-variables-in-webpack
+// https://veerasundar.com/blog/2019/01/how-to-inject-environment-values-in-javascript-app-with-webpack/
+// https://stackoverflow.com/questions/28572380/conditional-build-based-on-environment-using-webpack
+
+const environmentPlugin = new webpack.DefinePlugin({
+  "process.env": dotenv.parsed
+})
 
 module.exports = {
   // https://webpack.js.org/configuration/entry-context/#root
   context: path.resolve(__dirname, './'),
   entry: './src/main.ts',
   output: {
-    path: process.env.DOCKER
+    path: process.env.DOCKER == '1'
       ? path.resolve(__dirname, './dist')
       : path.resolve(__dirname, '../docs/'),
     publicPath: '/dist/'
@@ -60,7 +68,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new VueLoaderPlugin(),
     vueBundlerBuildFeatureFlagsPlugin,
-    copyWebpackPlugin
+    copyWebpackPlugin,
+    environmentPlugin
   ],
   devServer: {
     overlay: true,

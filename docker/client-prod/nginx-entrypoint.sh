@@ -23,5 +23,11 @@ then
 
   cp -rf  /app/dist/. /usr/share/nginx/html/
 
-  echo -e "${Purlple}END COPY${NC}";
+  echo -e "${Purple}END COPY${NC}";
+  
+  echo -e "${Yellow}Node env is: ${NODE_ENV}${NC}";
+
+  echo -e "${LightPurple}Docker is: ${DOCKER}${NC}";
+
+  # cat /etc/nginx/conf.d/default.conf
 fi

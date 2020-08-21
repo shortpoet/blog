@@ -8,4 +8,4 @@ filename=$(basename ${BASH_SOURCE})
 
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
-docker-compose run --rm vcc.server bash "$@"
+docker-compose run --rm ${COMPOSE_PROJECT_NAME}.server bash "$@"

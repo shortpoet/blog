@@ -8,4 +8,4 @@ filename=$(basename ${BASH_SOURCE})
 
 echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
 
-winpty docker exec -it ${COMPOSE_PROJECT_NAME}_${COMPOSE_PROJECT_NAME}.server_1 sh "$@"
+winpty docker exec -it ${COMPOSE_PROJECT_NAME}_${COMPOSE_PROJECT_NAME}.client.dev_1 sh "$@"

@@ -4,7 +4,7 @@ set -e
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 PARENT=$(dirname $DIR)
 filename=$(basename ${BASH_SOURCE})
-dir_file="$(basename $PARENT)/$filename"
+dir_file="$(basename $DIR)/$filename"
 env_file="$PARENT/.env"
 source $env_file
 source "$PARENT/colors.cfg"
