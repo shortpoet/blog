@@ -100,3 +100,17 @@ yarn add --dev mssql
 ## vite
 
 - make sure to add `<script type="module" src="/src/main.ts"></script>`
+
+- [tsconfig.json](https://github.com/vitejs/vite/issues/416#issuecomment-647100554)
+
+```json
+
+{
+  "compilerOptions": {
+     "esModuleInterop": true,
+     "module": "esnext",
+     "types": [ "vite" ]
+    },
+}
+
+```

@@ -8,9 +8,6 @@ echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script h
 
 if [ ! -d "/app/dist" ] 
 then
-  export VUE_APP_DOCKER=1 
-  export DOCKER=1 
-  
   npm run build:docker
 
   echo -e "${LightCyan}Build finished...";

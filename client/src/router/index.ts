@@ -47,13 +47,18 @@ export const routes =  [
 console.log("$# DOCKER @7");
 console.log(process.env);
 console.log(process.env.DOCKER);
+console.log('meta');
+// console.log(import.meta.env.VITE_DOCKER);
+console.log('after');
+console.log(process.env.VITE_DOCKER);
+console.log(process.env.NODE_ENV);
 console.log(process.env.VUE_APP_DOCKER);
 console.log(process.env.NODE_ENV);
 
 const base = process.env.DOCKER == '1'
   ? ''
     : process.env.NODE_ENV == 'production'
-    ? ''
+    ? 'blog'
   : ''
 
 export const router = createRouter({

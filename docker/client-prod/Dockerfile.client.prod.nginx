@@ -25,7 +25,7 @@ COPY ./docker/client-prod/nginx-entrypoint.sh /docker-entrypoint.d
 
 COPY ./docker/client-prod/colors.cfg /usr/local/bin/colors.cfg
 
-COPY ./docker/client-prod/.env .
+COPY ./docker/client-prod/.env /app/.env
 
 # RUN chmod +x /usr/local/bin/nginx-entrypoint.sh
 
