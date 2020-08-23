@@ -10,8 +10,8 @@ PARENT=$(dirname $DIR)
 source "$PARENT/.env"
 source "$PARENT/colors.cfg"
 filename=$(basename ${BASH_SOURCE})
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
-echo -e "${Green}The parent dir is ${Yellow}${PARENT} ${Green}and project name is ${Cyan}${COMPOSE_PROJECT_NAME}${NC}"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
+echo -e "${GR}The parent dir is ${YL}${PARENT} ${GR}and project name is ${CY}${COMPOSE_PROJECT_NAME}${NC}"
 
 # winpty docker run --rm \
 #   --env-file docker.env \

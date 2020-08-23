@@ -11,23 +11,23 @@
 {
 # Create a resource group.
 echo =================================================================================
-echo = Creating Resource group $rg
+echo = Creating Resource group $RG
 echo =================================================================================
-az group create --location northcentralus --name $rg
+az group create --location northcentralus --name $RG
 
 # Create an App Service plan in FREE tier
 # or S1 STANDARD tier (minimum required by deployment slots).
 echo =================================================================================
 echo = Creating App Service Plan
 echo =================================================================================
-az appservice plan create --name $webappname --resource-group $rg --sku FREE
+az appservice plan create --name $WEBAPPNAME --resource-group $RG --sku FREE
 
 # Create a web app.
 echo =================================================================================
-echo = Creating Web App $webappname
+echo = Creating Web App $WEBAPPNAME
 echo =================================================================================
-az webapp create --name $webappname --resource-group $rg \
---plan $webappname
+az webapp create --name $WEBAPPNAME --resource-group $RG \
+--plan $WEBAPPNAME
 
 # Set the account-level deployment credentials
 echo =================================================================================
@@ -43,8 +43,8 @@ password=
 echo =================================================================================
 echo = "Configure local Git and get deployment URL"
 echo =================================================================================
-url=$(az webapp deployment source config-local-git --name $webappname \
---resource-group $rg --query url --output tsv)
+url=$(az webapp deployment source config-local-git --name $WEBAPPNAME \
+--resource-group $RG --query url --output tsv)
 echo "url => ${url}"
 
 # Add the Azure remote to your local Git respository and push your code
@@ -54,12 +54,12 @@ echo ===========================================================================
 
 cd $gitdirectory
 git remote add azure $url
-git push azure $branch
+git push azure $BRANCH
 git push
 
 # Copy the result of the following command into a browser to see the web app in the production slot.
 echo =================================================================================
 echo = Browse to Deployment
 echo =================================================================================
-echo http://$webappname.azurewebsites.net
-} | tee ./logs/$target
+echo http://$WEBAPPNAME.azurewebsites.net
+} | tee ./logs/$TARGET

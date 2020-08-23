@@ -9,7 +9,7 @@ env_file="$PARENT/.env"
 source $env_file
 source "$PARENT/colors.cfg"
 
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${dir_file} ${Cyan}script has been executed${NC}"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${dir_file} ${CY}script has been executed${NC}"
 
 
 docker-compose down --rmi local --remove-orphans --volumes

@@ -10,6 +10,6 @@ PARENT=$(dirname $DIR)
 source "$PARENT/.env"
 source "$PARENT/colors.cfg"
 filename=$(basename ${BASH_SOURCE})
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
 winpty docker exec -it ${COMPOSE_PROJECT_NAME}_db.${PROVIDER}_1 psql -U test kanban -a -f sql/seed_data.sql "$@"

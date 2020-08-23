@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 . $DIR/colors.cfg
 filename=$(basename ${BASH_SOURCE[0]})
 
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
 # cmd='sqlcmd -S localhost -U test -P  -d shortpoetdb -q ":exit(select count(*) from vcc.admin_users)"'
 # echo "command is $cmd"
@@ -51,13 +51,13 @@ fi
 # ($cmd)
 
 # if ('sqlcmd -S localhost -U test -P  -d shortpoetdb -q ":exit(select count(*) from vcc.admin_users)"'); then
-#   echo -e "${Green}Starting ${BrownOrange}test ${Green}- now"
+#   echo -e "${GR}Starting ${BO}test ${GR}- now"
 # fi
 
 
-echo -e "${Green}Ending ${BrownOrange}test ${Green}- now"
+echo -e "${GR}Ending ${BO}test ${GR}- now"
   
-# >&2 echo -e "${LightBlue}Mssql is up - ${Red}executing command${NC}"
+# >&2 echo -e "${LB}Mssql is up - ${RD}executing command${NC}"
 
 
 

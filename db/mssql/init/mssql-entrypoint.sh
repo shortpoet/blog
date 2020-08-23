@@ -10,7 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 filename=$(basename ${BASH_SOURCE[0]})
 # filename=docker-entrypoint-db.sh
 
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
 $DIR/import-data.sh & /opt/mssql/bin/sqlservr
 

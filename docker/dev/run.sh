@@ -9,23 +9,23 @@ env_file="$PARENT/.env"
 source $env_file
 source "$PARENT/colors.cfg"
 
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${dir_file} ${Cyan}script has been executed${NC}"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${dir_file} ${CY}script has been executed${NC}"
 
 
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    echo -e "${Green}Running under ${LightBlue}GNU/Linux"
+    echo -e "${GR}Running under ${LB}GNU/Linux"
     POSTGRES_HOST=172.17.0.1
     PGVOLUME=/var/lib/postgresql/pgdata
-    echo -e "${Yellow}Setting POSTGRES_HOST to ${LightBlue}${POSTGRES_HOST}"
-    echo -e "${Yellow}Setting PGVOLUME to ${LightBlue}${PGVOLUME}"
+    echo -e "${YL}Setting POSTGRES_HOST to ${LB}${POSTGRES_HOST}"
+    echo -e "${YL}Setting PGVOLUME to ${LB}${PGVOLUME}"
     
     # Do something under GNU/Linux platform
 else
-    echo -e "${Green}Not running under ${LightBlue}GNU/Linux"
+    echo -e "${GR}Not running under ${LB}GNU/Linux"
     POSTGRES_HOST=db.postgres
     PGVOLUME=/var/lib/postgresql/data
-    echo -e "${Yellow}Setting POSTGRES_HOST to ${LightBlue}${POSTGRES_HOST}"
-    echo -e "${Yellow}Setting PGVOLUME to ${LightBlue}${PGVOLUME}"
+    echo -e "${YL}Setting POSTGRES_HOST to ${LB}${POSTGRES_HOST}"
+    echo -e "${YL}Setting PGVOLUME to ${LB}${PGVOLUME}"
 fi
 # export POSTGRES_HOST=$POSTGRES_HOST
 
@@ -35,8 +35,8 @@ perl -i -pe "s/POSTGRES_HOST=.*/POSTGRES_HOST=${POSTGRES_HOST}/g" "${env_file}"
     # use different separator '#'
 perl -i -pe "s#PGVOLUME=.*#PGVOLUME=${PGVOLUME}#g" "${env_file}"
 
-grep -n "POSTGRES_HOST=.*" "${env_file}" | xargs echo -e "${Green}Current value and line number =>${LightBlue}"
-grep -n "PGVOLUME=.*" "${env_file}" | xargs echo -e "${Green}Current value and line number =>${LightBlue}"
+grep -n "POSTGRES_HOST=.*" "${env_file}" | xargs echo -e "${GR}Current value and line number =>${LB}"
+grep -n "PGVOLUME=.*" "${env_file}" | xargs echo -e "${GR}Current value and line number =>${LB}"
 
 docker-compose up
 

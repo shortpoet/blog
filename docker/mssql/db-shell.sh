@@ -6,9 +6,9 @@ source $env_file
 source "$PARENT/colors.cfg"
 
 if [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
-    echo -e "${Cyan}The ${Yellow}postgres windows ${Cyan}shell script has been executed"
+    echo -e "${CY}The ${YL}postgres windows ${CY}shell script has been executed"
     winpty docker exec -it ${COMPOSE_PROJECT_NAME}_db.${PROVIDER}_1 bash "$@"
 else 
-    echo -e "${Cyan}The ${Yellow}postgres ${Cyan}shell script has been executed"
+    echo -e "${CY}The ${YL}postgres ${CY}shell script has been executed"
     docker exec -it ${COMPOSE_PROJECT_NAME}_db.${PROVIDER}_1 bash "$@"
 fi;

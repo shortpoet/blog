@@ -23,7 +23,7 @@ filename=$(basename ${BASH_SOURCE[0]})
 # remove extension
 # filename=`echo $filename | grep -oP '.*?(?=\.)'`
 filename=`echo $filename | awk -F\. '{print $1}'`
-log=$DIR/logs/$filename-$target
+log=$DIR/logs/$filename-$TARGET
 
 if [ -f $log ]; then
   cp $log "$log.bak"
@@ -46,12 +46,12 @@ log(){
 }
 
 echo "=================================================================================" >&3
-log "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed${NC}"
+log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
 # Create a resource group.
-log "${Green}Creating Resource group $rg${NC}"
-az group create --location northcentralus --name $rg
+log "${GR}Creating Resource group $RG${NC}"
+az group create --location northcentralus --name $RG
 
 # # Create registry
-log "${Green}Creating Registry${NC}"
-az acr create --resource-group $rg --name $acr --sku Basic
+log "${GR}Creating Registry${NC}"
+az acr create --resource-group $RG --name $ACR --sku Basic

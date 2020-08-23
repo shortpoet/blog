@@ -10,17 +10,17 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 filename=$(basename ${BASH_SOURCE[0]})
 # filename=docker-entrypoint-db.sh
 
-echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script has been executed"
+echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
 # for i in {1..50};
 # do
 #     /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P  -d master -i $DIR/run.sql
 #     if [ $? -eq 0 ]
 #     then
-#         echo -e "${Green}setup.sql completed${NC}"
+#         echo -e "${GR}setup.sql completed${NC}"
 #         break
 #     else
-#         echo "${LightPurple}not ready yet...${NC}"
+#         echo "${LP}not ready yet...${NC}"
 #         sleep 1
 #     fi
 # done
@@ -46,27 +46,27 @@ echo -e "${Cyan}The ${Yellow}${COMPOSE_PROJECT_NAME} ${filename} ${Cyan}script h
 # RESULT=`/opt/mssql-tools/bin/sqlcmd -h -1 -t 1 -S localhost -U sa -P  -d master -Q "SELECT name FROM master.sys.databases WHERE name = 'shortpoetdb'"`
 
 # if [ $RESULT -gt 0 ]; then
-#   echo "${LightPurple}There appears to be a database with $RESULT users. Skipping initialization.${NC}"
+#   echo "${LP}There appears to be a database with $RESULT users. Skipping initialization.${NC}"
 # else
-#   echo -e "${Green}Starting Database ${BrownOrange}init process test ${Green}- now"
+#   echo -e "${GR}Starting Database ${BO}init process test ${GR}- now"
 #   until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 8H7gF5d -d master -i $DIR/run.sql; do
-#     >&2 echo -e "${Green}Mssql is ${BrownOrange}unavailable ${Green}- sleeping"
+#     >&2 echo -e "${GR}Mssql is ${BO}unavailable ${GR}- sleeping"
 #     sleep 2
 #   done
-#   echo -e "${Green}Ending ${BrownOrange}init process test ${Green}- now"
+#   echo -e "${GR}Ending ${BO}init process test ${GR}- now"
     
-#   >&2 echo -e "${LightBlue}Mssql is up - ${Red}executing command sql startup command${NC}"
+#   >&2 echo -e "${LB}Mssql is up - ${RD}executing command sql startup command${NC}"
 # fi
 
 
-echo -e "${Green}Starting Database ${BrownOrange}init process test ${Green}- now"
+echo -e "${GR}Starting Database ${BO}init process test ${GR}- now"
 until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_PASSWORD} -d master -i $DIR/run.sql; do
-  >&2 echo -e "${Green}Mssql is ${BrownOrange}unavailable ${Green}- sleeping"
+  >&2 echo -e "${GR}Mssql is ${BO}unavailable ${GR}- sleeping"
   sleep 2
 done
-echo -e "${Green}Ending ${BrownOrange}init process test ${Green}- now"
+echo -e "${GR}Ending ${BO}init process test ${GR}- now"
   
->&2 echo -e "${LightBlue}Mssql is up - ${Red}executing command sql startup command${NC}"
+>&2 echo -e "${LB}Mssql is up - ${RD}executing command sql startup command${NC}"
 
 
 

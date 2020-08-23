@@ -3,11 +3,15 @@
 set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# shellcheck source=$DIR/dev.env
 . $DIR/dev.env
+# shellcheck source=$DIR/colors.cfg
 . $DIR/colors.cfg
 
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
+
+# shellcheck source=$DIR/colors.cfg
 log=$DIR/logs/$filename-$TARGET
 
 if [ -f $log ]; then
@@ -32,17 +36,9 @@ log(){
 echo "=================================================================================" >&3
 log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
-log "${GR}Display full login server name for acr $RG${NC}"
-# login server = acr_full
-acr_full=$(az acr show --name $ACR --query loginServer --output tsv) 
-# options
-# --output -o: Output format.  Allowed values: json, jsonc, none, table, tsv, yaml, yamlc.  Default: json.
+log "${GR}Show tags for image ${PP}$image ${GR}in res grp ${PP}$RG${NC}"
 
-log "${PP}The login server is ${LP}$ACR_full${NC}" 2>&1
-
-log "${GR}Logging in${NC}" 2>&1
-# save retval of pipe
-TEST="$( az acr login --name $ACR --verbose 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+TEST="$( az acr repository show-tags --name $ACR --repository $image --output tsv 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 declare -a PIPESTATUS2=( ${TEST##*:} )  # make array w/ content after final colon
 if [[ -n "${TEST%:*}" ]]; then          # if there was original output
   TEST="${TEST%:*}"                     # remove trailing results from $TEST
@@ -51,8 +47,15 @@ else
   TEST=""                               # no original output -> empty string
 fi
 
+# log "Setting ${YL}\$tag${NC} to ${LB}$TEST${NC}" #| sed -r "s/[[:space:]]//g"
+log "Setting ${YL}\$tag${NC} to ${LB}$TEST${NC}" | sed -r "s/[\r\n\s\t]//g"
+# not sure why the export won't work here
+# export tag=`echo $TEST | sed -r "s/[[:space:]]//g"`
+export tag=$TEST
+# log $tag
+
 # exit if fail
-log "$TEST"
+log "${YL}Tag${NC} is ${LB}$TEST${NC}" | sed -r "s/[\r\n\s\t]//g"
 if [ ${PIPESTATUS2[*]} -eq 1 ]; then
   exit;
 fi
