@@ -6,22 +6,28 @@ shopt -s execfail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck disable=SC1091
-. "$DIR"/dev.env
-# shellcheck disable=SC1091
-. "$DIR"/colors.cfg
+# shellcheck source=$DIR/dev.env
+. $DIR/dev.env
+# shellcheck source=$DIR/colors.cfg
+. $DIR/colors.cfg
+# shellcheck source=$DIR/log.sh
+. $DIR/log.sh
 
 filename=$(basename "${BASH_SOURCE[0]}")
 filename=$(echo "$filename" | awk -F\. '{print $1}')
-logfile=$DIR/logs/$filename-$TARGET
+logfile="$DIR/logs/$filename-${TARGET:?'Set this in env file'}"
+env_file=$DIR/image.env
+
+# shellcheck source=$DIR/image.env
+. $env_file
 
 source=$1
 image=$(echo "$source" | grep -oP '.*?(?=\:)')
 # uncomment to make fail due to double ':'
 # image=$source
-version=$2
+version=$TAG
 # shellcheck disable=SC2154
-target=$ACR_full/$image:$version
+target=$ACR_FULL/$image:$version
 
 if [ -f "$logfile" ]; then
   cp "$logfile" "$logfile.bak"
@@ -33,24 +39,10 @@ trap 'exec 2>&4 1>&3' 0 1 2 3
 #  ^-- SC2069: To redirect stdout+stderr, 2>&1 must be last (or use '{ cmd > file; } 2>&1' to clarify).
 exec 1>"$logfile" 2>&1
 
-# log message
-log(){
-    local m="$*"
-    echo -e "*** ${m} ***" >&3
-    echo "=================================================================================" >&3
-  local r="$*"
-    echo "================================================================================="
-    echo -e "*** $r ***" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"
-    echo "================================================================================="
-  # echo $PIPESTATUS
-}
-
 echo "=================================================================================" >&3
-# shellcheck disable=SC2154
 log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
 # apply tag
-# shellcheck disable=SC2154
 log "${GR}Apply tag to image $source with version $version${NC}"
 
 # https://stackoverflow.com/questions/41716616/get-exit-codes-of-a-pipe-when-output-is-assigned-to-variable-command-substituti/44314883#44314883

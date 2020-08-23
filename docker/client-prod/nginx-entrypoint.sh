@@ -1,5 +1,7 @@
+#!/bin/bash
 source colors.cfg
-filename=$(basename ${BASH_SOURCE})
+# filename=$(basename ${BASH_SOURCE})
+filename=$(basename "${BASH_SOURCE[0]}")
 
 echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
