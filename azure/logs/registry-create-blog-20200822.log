@@ -1,0 +1,62 @@
+=================================================================================
+*** The  registry-create script has been executed ***
+=================================================================================
+=================================================================================
+*** Creating Resource group BlogResGrp ***
+=================================================================================
+{
+  "id": "/subscriptions/060cfbfe-45ab-4a1c-84fc-c056e94221be/resourceGroups/BlogResGrp",
+  "location": "northcentralus",
+  "managedBy": null,
+  "name": "BlogResGrp",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+=================================================================================
+*** Creating Registry ***
+=================================================================================
+{
+  "adminUserEnabled": false,
+  "creationDate": "2020-08-22T17:19:53.988174+00:00",
+  "dataEndpointEnabled": false,
+  "dataEndpointHostNames": [],
+  "encryption": {
+    "keyVaultProperties": null,
+    "status": "disabled"
+  },
+  "id": "/subscriptions/060cfbfe-45ab-4a1c-84fc-c056e94221be/resourceGroups/BlogResGrp/providers/Microsoft.ContainerRegistry/registries/shortpoet",
+  "identity": null,
+  "location": "northcentralus",
+  "loginServer": "shortpoet.azurecr.io",
+  "name": "shortpoet",
+  "networkRuleSet": null,
+  "policies": {
+    "quarantinePolicy": {
+      "status": "disabled"
+    },
+    "retentionPolicy": {
+      "days": 7,
+      "lastUpdatedTime": "2020-08-22T17:19:54.847182+00:00",
+      "status": "disabled"
+    },
+    "trustPolicy": {
+      "status": "disabled",
+      "type": "Notary"
+    }
+  },
+  "privateEndpointConnections": [],
+  "provisioningState": "Succeeded",
+  "resourceGroup": "BlogResGrp",
+  "sku": {
+    "name": "Basic",
+    "tier": "Basic"
+  },
+  "status": null,
+  "storageAccount": null,
+  "tags": {},
+  "type": "Microsoft.ContainerRegistry/registries"
+}
+./azure/registry-create.sh: line 57: y: command not found

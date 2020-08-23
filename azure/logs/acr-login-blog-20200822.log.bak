@@ -1,0 +1,19 @@
+=================================================================================
+*** The vcc acr-login script has been executed ***
+=================================================================================
+=================================================================================
+*** Display full login server name for acr BlogResGrp ***
+=================================================================================
+=================================================================================
+*** The login server is shortpoet.azurecr.io ***
+=================================================================================
+=================================================================================
+*** Logging in ***
+=================================================================================
+=================================================================================
+*** WARNING: The resource with name 'shortpoet.azurecr.io' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription 'Shortpoet (060cfbfe-45ab-4a1c-84fc-c056e94221be)'.
+Using 'shortpoet.azurecr.io.azurecr.io' as the default registry login server.
+ERROR: Could not connect to the registry login server 'shortpoet.azurecr.io.azurecr.io'. Please verify that the registry exists and the URL 'https://shortpoet.azurecr.io.azurecr.io/v2/' is reachable from your environment.
+Try running 'az acr check-health -n shortpoet.azurecr.io --yes' to diagnose this issue.
+INFO: command ran in 1.366 seconds. ***
+=================================================================================

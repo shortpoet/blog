@@ -1,0 +1,41 @@
+=================================================================================
+*** The vcc tag-push script has been executed ***
+=================================================================================
+=================================================================================
+*** Apply tag to image blog.client.prod:latest with version v1 ***
+=================================================================================
+=================================================================================
+***  ***
+=================================================================================
+=================================================================================
+*** Push shortpoet.azurecr.io/blog.client.prod:v1 to acr ***
+=================================================================================
+=================================================================================
+*** The push refers to repository [shortpoet.azurecr.io/blog.client.prod]
+2b23e83f2aa6: Preparing
+f5bbedd69930: Preparing
+4aa9a51c0d54: Preparing
+53b7987c19d6: Preparing
+3a11243fe99d: Preparing
+5bfdcaa7b7d1: Preparing
+1cae91de16ce: Preparing
+041061041f79: Preparing
+6781c860103d: Preparing
+e89b63e9cf52: Preparing
+6ad8d562c843: Preparing
+425ee8569962: Preparing
+5d9ee84be1ec: Preparing
+6bcd003260b2: Preparing
+50644c29ef5a: Preparing
+5bfdcaa7b7d1: Waiting
+1cae91de16ce: Waiting
+6bcd003260b2: Waiting
+5d9ee84be1ec: Waiting
+6ad8d562c843: Waiting
+50644c29ef5a: Waiting
+e89b63e9cf52: Waiting
+425ee8569962: Waiting
+6781c860103d: Waiting
+041061041f79: Waiting
+unauthorized: authentication required, visit https://aka.ms/acr/authorization for more information. ***
+=================================================================================
