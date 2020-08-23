@@ -1,50 +1,56 @@
 #!/bin/bash
 
-set -e
+# set shell options
+set -Eeu
+set -o pipefail
+shopt -s execfail
+
+# az=`where az.cmd`
+
+# $dir for imports
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-env_file=$dir/project.env
+# config / env
+project_env_file=$dir/project.env
 # shellcheck source=$dir/project.env
-. $env_file
+. $project_env_file
 # shellcheck source=$dir/colors.cfg
 . $dir/colors.cfg
 # shellcheck source=$dir/log.sh
 . $dir/log.sh
+# shellcheck source=$dir/set_env.sh
+. $dir/set_env.sh
 
+# local vars
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
 log=$dir/logs/$filename-$TARGET
+image_env_file=$dir/image.env
+# shellcheck source=$dir/image.env
+. $image_env_file
 
+
+
+# backup logfile
 if [ -f $log ]; then
   cp $log "$log.bak"
 fi
 
+# set redirection
 exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>$log 2>&1
 
+# header
 echo "=================================================================================" >&3
 log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
-log "${GR}Display full login server name for acr $RG${NC}"
-# login server = acr_full
-acr_full=$(az acr show --name $ACR --query loginServer --output tsv) 
-# options
-# --output -o: Output format.  Allowed values: json, jsonc, none, table, tsv, yaml, yamlc.  Default: json.
-
-log "${PP}The login server is ${LP}$acr_full${NC}" 2>&1
-
-env_var='ACR_FULL'
-env_value=$acr_full
-
-log "Setting ${YL}\$env_var${NC} to ${LB}${env_value}${NC}"
-
-perl -i -pe "s#${env_var}=.*#${env_var}=${env_value}#g" "${env_file}"
-log "Current value and line number => $(grep -n "${env_var}=.*" "${env_file}")"
-
-log "${GR}Logging in${NC}" 2>&1
+# get acr reg id
+log "${GR}Creating container${NC}" 2>&1
 # save retval of pipe
-TEST="$( az acr login --name $ACR --verbose 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+cmd="az container create --resource-group $RG --name $ACR --image "$ACR_FULL/$IMAGE:$TAG" --cpu 1 --memory 1 --registry-login-server $ACR_FULL --registry-username $SP_APP_ID --registry-password $SP_PASS --dns-name-label shortpoet-blog --ports 80"
+log "$cmd"
+TEST="$( $cmd 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
 if [[ -n "${TEST%:*}" ]]; then          # if there was original output
   TEST="${TEST%:*}"                     # remove trailing results from $TEST
@@ -58,5 +64,13 @@ log "$TEST"
 if [ ${PIPESTATUS2[*]} -eq 1 ]; then
   exit;
 fi
+
+# set_env in file
+env_var='ACR_REGISTRY_ID'
+env_value=$TEST
+log "$(set_env $env_var $env_value $project_env_file $log 2>&1)" 
+
+# docker run -p 80:80 --env-file ./.env shortpoet.azurecr.io/blog.client.prod:v1
+
 
 exit

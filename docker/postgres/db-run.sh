@@ -5,8 +5,8 @@
 # filename="${filename%.*}"
 
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-PARENT=$(dirname $DIR)
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+PARENT=$(dirname $dir)
 source "$PARENT/.env"
 source "$PARENT/colors.cfg"
 filename=$(basename ${BASH_SOURCE})

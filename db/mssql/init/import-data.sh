@@ -5,8 +5,8 @@ set -e
 # also weird that there was no way to source colors file
 # might be because it's run from another script
 # was because this image uses ubuntu or something that uses bash not sh
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-. $DIR/colors.cfg
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+. $dir/colors.cfg
 filename=$(basename ${BASH_SOURCE[0]})
 # filename=docker-entrypoint-db.sh
 
@@ -14,7 +14,7 @@ echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been 
 
 # for i in {1..50};
 # do
-#     /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P  -d master -i $DIR/run.sql
+#     /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P  -d master -i $dir/run.sql
 #     if [ $? -eq 0 ]
 #     then
 #         echo -e "${GR}setup.sql completed${NC}"
@@ -49,7 +49,7 @@ echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been 
 #   echo "${LP}There appears to be a database with $RESULT users. Skipping initialization.${NC}"
 # else
 #   echo -e "${GR}Starting Database ${BO}init process test ${GR}- now"
-#   until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 8H7gF5d -d master -i $DIR/run.sql; do
+#   until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 8H7gF5d -d master -i $dir/run.sql; do
 #     >&2 echo -e "${GR}Mssql is ${BO}unavailable ${GR}- sleeping"
 #     sleep 2
 #   done
@@ -60,7 +60,7 @@ echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been 
 
 
 echo -e "${GR}Starting Database ${BO}init process test ${GR}- now"
-until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_PASSWORD} -d master -i $DIR/run.sql; do
+until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${MSSQL_PASSWORD} -d master -i $dir/run.sql; do
   >&2 echo -e "${GR}Mssql is ${BO}unavailable ${GR}- sleeping"
   sleep 2
 done

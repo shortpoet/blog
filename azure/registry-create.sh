@@ -14,20 +14,20 @@
 # https://stackoverflow.com/questions/3515208/can-colorized-output-be-captured-via-shell-redirect
 
 set -e
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck source=$DIR/dev.env
-. $DIR/dev.env
-# shellcheck source=$DIR/colors.cfg
-. $DIR/colors.cfg
-# shellcheck source=$DIR/log.sh
-. $DIR/log.sh
+# shellcheck source=$dir/project.env
+. $dir/project.env
+# shellcheck source=$dir/colors.cfg
+. $dir/colors.cfg
+# shellcheck source=$dir/log.sh
+. $dir/log.sh
 
 filename=$(basename ${BASH_SOURCE[0]})
 # remove extension
 # filename=`echo $filename | grep -oP '.*?(?=\.)'`
 filename=`echo $filename | awk -F\. '{print $1}'`
-log=$DIR/logs/$filename-$TARGET
+log=$dir/logs/$filename-$TARGET
 
 if [ -f $log ]; then
   cp $log "$log.bak"

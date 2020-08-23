@@ -4,21 +4,21 @@ set -Eeu
 set -o pipefail
 shopt -s execfail
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck source=$DIR/dev.env
-. $DIR/dev.env
-# shellcheck source=$DIR/colors.cfg
-. $DIR/colors.cfg
-# shellcheck source=$DIR/log.sh
-. $DIR/log.sh
+# shellcheck source=$dir/project.env
+. $dir/project.env
+# shellcheck source=$dir/colors.cfg
+. $dir/colors.cfg
+# shellcheck source=$dir/log.sh
+. $dir/log.sh
 
 filename=$(basename "${BASH_SOURCE[0]}")
 filename=$(echo "$filename" | awk -F\. '{print $1}')
-logfile="$DIR/logs/$filename-${TARGET:?'Set this in env file'}"
-env_file=$DIR/image.env
+logfile="$dir/logs/$filename-${TARGET:?'Set this in env file'}"
+env_file=$dir/image.env
 
-# shellcheck source=$DIR/image.env
+# shellcheck source=$dir/image.env
 . $env_file
 
 source=$1
@@ -79,6 +79,7 @@ if [ "${PIPESTATUS2[*]}" -eq 1 ]; then
   exit;
 fi
 
+exit
 
 # some stuff I tried
 
@@ -194,3 +195,10 @@ fi
 # docker tag blog.client.prod:latest shortpoet.azurecr.io/blog.client.prod:v1
 
 # docker tag blog.client.prod:latest blog.client.test:v1 && echo $?
+
+# from tag-show.sh
+# log "Setting ${YL}\$tag${NC} to ${LB}$TEST${NC}" #| sed -r "s/[[:space:]]//g"
+# not sure why the export won't work here
+# export tag=`echo $TEST | sed -r "s/[[:space:]]//g"`
+# export tag=$TEST
+# log $tag

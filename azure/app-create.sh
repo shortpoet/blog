@@ -6,7 +6,7 @@
 # . test.conf
 
 # dev version of app
-. dev.env
+. project.env
 
 {
 # Create a resource group.

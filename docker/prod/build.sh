@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-PARENT=$(dirname $DIR)
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+PARENT=$(dirname $dir)
 filename=$(basename ${BASH_SOURCE})
-dir_file="$(basename $DIR)/$filename"
+dir_file="$(basename $dir)/$filename"
 env_file="$PARENT/.env"
 source $env_file
 source "$PARENT/colors.cfg"

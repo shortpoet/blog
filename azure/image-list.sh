@@ -1,19 +1,21 @@
 #!/bin/bash
 
 set -e
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck source=$DIR/dev.env
-. $DIR/dev.env
-# shellcheck source=$DIR/colors.cfg
-. $DIR/colors.cfg
-# shellcheck source=$DIR/log.sh
-. $DIR/log.sh
+# shellcheck source=$dir/project.env
+. $dir/project.env
+# shellcheck source=$dir/colors.cfg
+. $dir/colors.cfg
+# shellcheck source=$dir/log.sh
+. $dir/log.sh
+# shellcheck source=$dir/set_env.sh
+. $dir/set_env.sh
 
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
-log=$DIR/logs/$filename-$TARGET
-env_file=$DIR/image.env
+log=$dir/logs/$filename-$TARGET
+env_file=$dir/image.env
 
 if [ -f $log ]; then
   cp $log "$log.bak"
@@ -37,17 +39,20 @@ else
   TEST=""                               # no original output -> empty string
 fi
 
+
+
 # exit if fail
 log "Setting ${YL}\$image${NC} to ${LB}$TEST${NC}" | sed -r "s/[\n\r\s\t]//g"
 if [ ${PIPESTATUS2[*]} -eq 1 ]; then
   exit;
 fi
 
+# TEST=$(echo "$TEST" | sed -r "s/[\n\r\s\t]//g")
+log "test is $TEST"
 # export image=$TEST
 env_var='IMAGE'
 env_value=$TEST
 
-log "Setting ${YL}\$env_var${NC} to ${LB}${env_value}${NC}"
+set_env $env_var $env_value $env_file $log
 
-perl -i -pe "s#${env_var}=.*#${env_var}=${env_value}#g" "${env_file}"
-log "Current value and line number => $(grep -n "${env_var}=.*" "${env_file}")"
+exit

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+AZURE_CLI_PATH="/c/Program Files (x86)/Microsoft SDKs/Azure/CLI2"
+
+export PATH="${PATH}:${AZURE_CLI_PATH}:${AZURE_CLI_PATH}/Scripts"
+export PYTHONPATH="${AZURE_CLI_PATH}/src"
+export PYTHON_CMD="$(which python)"
+
+winpty "${PYTHON_CMD}" -m 'azure.cli' "${@}"

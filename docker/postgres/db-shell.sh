@@ -1,11 +1,11 @@
 #!/bin/bash
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-PARENT=$(dirname $DIR)
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+PARENT=$(dirname $dir)
 env_file="$PARENT/.env"
 source $env_file
 source "$PARENT/colors.cfg"
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$PARENT/colors.cfg"
 
 if [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then

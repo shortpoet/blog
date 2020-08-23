@@ -17,7 +17,7 @@ COPY ./client .
 
 COPY ./docker/client-prod/default.conf /etc/nginx/conf.d/default.conf
 # COPY ./docker/client-prod/templates /etc/nginx/templates
-# COPY ./docker/client-prod/templates/default.conf.template /etc/nginx/templates/default.conf.template
+COPY ./docker/client-prod/templates/default.conf.template /etc/nginx/templates/default.conf.template
 # COPY ./docker/client-prod/templates/default.conf.template /usr/local/bin/default.conf.template
 
 # COPY ./docker/client-prod/nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
@@ -26,6 +26,8 @@ COPY ./docker/client-prod/nginx-entrypoint.sh /docker-entrypoint.d
 COPY ./docker/client-prod/colors.cfg /usr/local/bin/colors.cfg
 
 COPY ./docker/client-prod/.env /app/.env
+
+ENV NODE_ENV production
 
 # RUN chmod +x /usr/local/bin/nginx-entrypoint.sh
 

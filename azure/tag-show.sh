@@ -1,24 +1,27 @@
 #!/bin/bash
 
+echo hello
 set -e
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck source=$DIR/dev.env
-. $DIR/dev.env
-# shellcheck source=$DIR/colors.cfg
-. $DIR/colors.cfg
-# shellcheck source=$DIR/log.sh
-. $DIR/log.sh
+# shellcheck source=$dir/project.env
+. $dir/project.env
+# shellcheck source=$dir/colors.cfg
+. $dir/colors.cfg
+# shellcheck source=$dir/log.sh
+. $dir/log.sh
+# shellcheck source=$dir/set_env.sh
+. $dir/set_env.sh
 
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
-env_file=$DIR/image.env
+env_file=$dir/image.env
 
-# shellcheck source=$DIR/image.env
+# shellcheck source=$dir/image.env
 . $env_file
 
-# shellcheck source=$DIR/colors.cfg
-log=$DIR/logs/$filename-$TARGET
+# shellcheck source=$dir/colors.cfg
+log=$dir/logs/$filename-$TARGET
 
 if [ -f $log ]; then
   cp $log "$log.bak"
@@ -48,17 +51,11 @@ if [ "${PIPESTATUS2[*]}" -eq 1 ]; then
   exit;
 fi
 # export image=$TEST
-env_var='IMAGE'
+env_var='TAG'
 env_value=$TEST
 
-log "Setting ${YL}\$env_var${NC} to ${LB}${env_value}${NC}"
+log "Setting ${YL}\$${env_var}{NC} to ${LB}$TEST${NC}" | sed -r "s/[\r\n\s\t]//g"
 
-perl -i -pe "s#${env_var}=.*#${env_var}=${env_value}#g" "${env_file}"
-log "Current value and line number => $(grep -n "${env_var}=.*" "${env_file}")"
+set_env $env_var $env_value $env_file
 
-# log "Setting ${YL}\$tag${NC} to ${LB}$TEST${NC}" #| sed -r "s/[[:space:]]//g"
-log "Setting ${YL}\$tag${NC} to ${LB}$TEST${NC}" | sed -r "s/[\r\n\s\t]//g"
-# not sure why the export won't work here
-# export tag=`echo $TEST | sed -r "s/[[:space:]]//g"`
-# export tag=$TEST
-# log $tag
+exit
