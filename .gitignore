@@ -58,3 +58,8 @@ config
 
 # private info
 *data.json
+
+#logs
+logs/
+*.log.*
+*.log
