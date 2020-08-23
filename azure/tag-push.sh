@@ -12,7 +12,7 @@ shopt -s execfail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-. $DIR/dev.conf
+. $DIR/dev.env
 . $DIR/colors.cfg
 
 filename=$(basename ${BASH_SOURCE[0]})
