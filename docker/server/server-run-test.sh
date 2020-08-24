@@ -8,4 +8,4 @@ filename=$(basename ${BASH_SOURCE})
 
 echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
-docker-compose run --rm ${COMPOSE_PROJECT_NAME}.server yarn test "$@"
+docker-compose run --rm ${COMPOSE_PROJECT_NAME}.server.dev yarn test "$@"

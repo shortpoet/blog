@@ -52,7 +52,7 @@ services:
       - ${COMPOSE_PROJECT_NAME}net
     command: ['/bin/bash', './usr/src/app/mssql-entrypoint.sh']
   
-  blog.server:
+  blog.server.prod:
     # image: ${COMPOSE_PROJECT_NAME}.server:alpine
     image: ${COMPOSE_PROJECT_NAME}.server:ubuntu
     depends_on:

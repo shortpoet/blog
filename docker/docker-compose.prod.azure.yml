@@ -1,0 +1,52 @@
+version: "3.5"
+
+volumes:
+  redis: {} # or :ro ; :rw
+
+services:
+
+  redis:
+    image: 'redis:3.2-alpine'
+    ports: 
+      - '${REDIS_PORT}:${REDIS_PORT}'
+    volumes:
+      - 'redis:/data'
+    networks:
+      - ${COMPOSE_PROJECT_NAME}net
+  
+  blog.server.prod:
+    # image: ${COMPOSE_PROJECT_NAME}.server:alpine
+    image: ${COMPOSE_PROJECT_NAME}.server:ubuntu
+    depends_on:
+      - redis
+    tty: true
+    stdin_open: true
+    working_dir: /usr/src/app
+    env_file:
+      - ".env"
+    ports:
+      - 5000:5000
+    volumes:
+      - ../server:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - ${COMPOSE_PROJECT_NAME}net
+    command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}", "yarn", "start"]
+    # command: ["docker-entrypoint-server-a.sh", "db.${PROVIDER}", "yarn", "start"]
+    # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
+    # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
+
+  blog.client.prod:
+    image: ${COMPOSE_PROJECT_NAME}.client.prod
+    depends_on:
+      - blog.client.server
+    tty: true
+    env_file:
+      - ".env"
+    # environment:
+    #   NODE_ENV: production
+    ports:
+      - 80:80
+    volumes:
+      - ../docker/client-prod/templates/default.conf.template:/etc/nginx/templates/default.conf.template
+    # command: ["/bin/bash", "-c", "/usr/local/bin/nginx-entrypoint.sh && nginx -g 'daemon off;'"]
