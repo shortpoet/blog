@@ -14,29 +14,51 @@ const postgresHost = process.env.DOCKER === "1"
 const mssqlHost = process.env.DOCKER === "1" 
   ? process.env.MSSQL_HOST
   : process.env.MSSQL_HOST_LOCAL
+const azureHost = process.env.DOCKER === "1" 
+  ? process.env.AZURE_HOST
+  : process.env.AZURE_HOST_LOCAL
 // console.log("$# POSTGRES_HOST @7");
 // console.log(postgresHost);
 
+const postgresConfig = {
+  "type": "postgres",
+  "host": postgresHost,
+  "port": 5432,
+  "username": process.env.POSTGRES_USER,
+  "password": process.env.POSTGRES_PASSWORD,
+  "database": process.env.POSTGRES_DB,
+  "synchronize": false,
+  "logging": true
+}
+
+const mssqlConfig = {
+  "type": "mssql",
+  "host": mssqlHost,
+  "username": process.env.MSSQL_USER,
+  "password": process.env.MSSQL_PASSWORD,
+  "database": process.env.MSSQL_DB,
+  "synchronize": false,
+  "logging": true, 
+}
+
+const azureConfig = {
+  "type": "mssql",
+  "host": azureHost,
+  "username": process.env.AZURE_USER,
+  "password": process.env.AZURE_PASSWORD,
+  "database": process.env.AZURE_DB,
+  "synchronize": false,
+  "logging": true, 
+}
+
 const config = process.env.PROVIDER === 'postgres'
-  ? {
-    "type": "postgres",
-    "host": postgresHost,
-    "port": 5432,
-    "username": process.env.POSTGRES_USER,
-    "password": process.env.POSTGRES_PASSWORD,
-    "database": process.env.POSTGRES_DB,
-    "synchronize": false,
-    "logging": true, 
-  }
-  : {
-    "type": "mssql",
-    "host": mssqlHost,
-    "username": process.env.MSSQL_USER,
-    "password": process.env.MSSQL_PASSWORD,
-    "database": process.env.MSSQL_DB,
-    "synchronize": false,
-    "logging": true, 
-  }
+  ? postgresConfig
+    : process.env.PROVIDER === 'mssql'
+      ? mssqlConfig
+        : process.env.PROVIDER === 'azure'
+          ? azureConfig
+  : () => {throw new Error('Must supply correct value for config')}
+
 module.exports = {
     ...config,
   "entities": [

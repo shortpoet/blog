@@ -39,6 +39,7 @@
   - <https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15#download-the-latest-version-of-sqlcmd-utility>
   - <https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-use-the-utility?view=sql-server-ver15>
   - <https://docs.microsoft.com/en-us/sql/ssms/scripting/sqlcmd-use-with-scripting-variables?view=sql-server-ver15>
+  - [comprehensive guide](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker?view=sql-server-ver15)
 - docker
   - <https://docs.docker.com/compose/aspnet-mssql-compose/>
 
