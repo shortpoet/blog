@@ -3,8 +3,8 @@
 set -e
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-env_file=$dir/project.env
-# shellcheck source=$dir/project.env
+env_file=$dir/registry.env
+# shellcheck source=$dir/registry.env
 . $env_file
 # shellcheck source=$dir/colors.cfg
 . $dir/colors.cfg

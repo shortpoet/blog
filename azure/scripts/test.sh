@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# while read -r line; do echo "$line"; done < ./project.env
+# while read -r line; do echo "$line"; done < ./registry.env
 
 #!/bin/bash
 

@@ -6,8 +6,8 @@ shopt -s execfail
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck source=$dir/project.env
-. $dir/project.env
+# shellcheck source=$dir/registry.env
+. $dir/registry.env
 # shellcheck source=$dir/colors.cfg
 . $dir/colors.cfg
 # shellcheck source=$dir/log.sh
@@ -16,10 +16,10 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 filename=$(basename "${BASH_SOURCE[0]}")
 filename=$(echo "$filename" | awk -F\. '{print $1}')
 logfile="$dir/logs/$filename-${TARGET:?'Set this in env file'}"
-env_file=$dir/image.env
-
-# shellcheck source=$dir/image.env
-. $env_file
+service_env_file=$dir/server.env
+# shellcheck source=$dir/client.env
+# shellcheck source=$dir/server.env
+. $service_env_file
 
 source=$1
 image=$(echo "$source" | grep -oP '.*?(?=\:)')
@@ -78,8 +78,6 @@ log "$TEST"
 if [ "${PIPESTATUS2[*]}" -eq 1 ]; then
   exit;
 fi
-
-exit
 
 log "${PP}Remove $target from local docker${NC}"
 

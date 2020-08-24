@@ -11,9 +11,9 @@ shopt -s execfail
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # config / env
-project_env_file=$dir/project.env
-# shellcheck source=$dir/project.env
-. $project_env_file
+registry_env_file=$dir/registry.env
+# shellcheck source=$dir/registry.env
+. $registry_env_file
 # shellcheck source=$dir/colors.cfg
 . $dir/colors.cfg
 # shellcheck source=$dir/log.sh
@@ -62,7 +62,7 @@ fi
 # set_env in file
 env_var='ACR_REGISTRY_ID'
 env_value=$TEST
-log "$(set_env $env_var $env_value $project_env_file $log 2>&1)" 
+log "$(set_env $env_var $env_value $registry_env_file $log 2>&1)" 
 
 # Create the service principal with rights scoped to the registry.
 # Default permissions are for docker pull access. Modify the '--role'
@@ -73,8 +73,8 @@ log "$(set_env $env_var $env_value $project_env_file $log 2>&1)"
 log "${GR}Getting service principal password${NC}" 2>&1
 log "${GR}ACR reg is: ${LB}$ACR_REGISTRY_ID${NC}" 2>&1
 # resource env file in case first time setting val
-# shellcheck source=$dir/project.env
-. $project_env_file
+# shellcheck source=$dir/registry.env
+. $registry_env_file
 
 # az ad sp create-for-rbac  --debug --name http://--scopes --role owner --query password --output tsv
 
@@ -100,7 +100,7 @@ fi
 # set_env in file
 env_var='SP_PASS'
 env_value=$TEST
-log "$(set_env $env_var $env_value $project_env_file $log 2>&1)" 
+log "$(set_env $env_var $env_value $registry_env_file $log 2>&1)" 
 
 
 log "${GR}Getting service principal app id${NC}" 2>&1
@@ -123,11 +123,16 @@ fi
 # set_env in file
 env_var='SP_APP_ID'
 env_value=$TEST
-log "$(set_env $env_var $env_value $project_env_file $log 2>&1)" 
+log "$(set_env $env_var $env_value $registry_env_file $log 2>&1)" 
 
 # Output the service principal's credentials; use these in your services and
 # applications to authenticate to the container registry.
-log "${PP}Service principal ID: ${LG}$SP_APP_ID${NC}"
-log "${PP}Service principal password: ${LG}${SP_PASS:?Must be assigned}${NC}"
+log "${PP}*Old* Service principal password: ${LG}${SP_PASS:?Must be assigned}${NC}"
+
+# shellcheck source=$dir/registry.env
+. $registry_env_file
+
+log "${PP}Current Service principal ID: ${LG}$SP_APP_ID${NC}"
+log "${PP}Currnet Service principal password: ${LG}${SP_PASS:?Must be assigned}${NC}"
 
 exit

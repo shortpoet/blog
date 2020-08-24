@@ -4,8 +4,8 @@ echo hello
 set -e
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# shellcheck source=$dir/project.env
-. $dir/project.env
+# shellcheck source=$dir/registry.env
+. $dir/registry.env
 # shellcheck source=$dir/colors.cfg
 . $dir/colors.cfg
 # shellcheck source=$dir/log.sh
@@ -15,10 +15,13 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
-env_file=$dir/image.env
+service_env_file=$dir/server.env
+# shellcheck source=$dir/client.env
+# shellcheck source=$dir/server.env
+. $service_env_file
 
 # shellcheck source=$dir/image.env
-. $env_file
+. $service_env_file
 
 # shellcheck source=$dir/colors.cfg
 log=$dir/logs/$filename-$TARGET
@@ -56,6 +59,6 @@ env_value=$TEST
 
 log "Setting ${YL}\$${env_var}{NC} to ${LB}$TEST${NC}" | sed -r "s/[\r\n\s\t]//g"
 
-set_env $env_var $env_value $env_file
+set_env $env_var $env_value $service_env_file
 
 exit

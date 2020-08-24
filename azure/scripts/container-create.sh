@@ -11,9 +11,9 @@ shopt -s execfail
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # config / env
-project_env_file=$dir/project.env
-# shellcheck source=$dir/project.env
-. $project_env_file
+registry_env_file=$dir/registry.env
+# shellcheck source=$dir/registry.env
+. $registry_env_file
 # shellcheck source=$dir/colors.cfg
 . $dir/colors.cfg
 # shellcheck source=$dir/log.sh
@@ -25,12 +25,10 @@ project_env_file=$dir/project.env
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
 log=$dir/logs/$filename-$TARGET
-image_env_file=$dir/image.env
-# shellcheck source=$dir/image.env
-. $image_env_file
-container_env_file=$dir/container.env
-# shellcheck source=$dir/image.env
-. $container_env_file
+service_env_file=$dir/server.env
+# shellcheck source=$dir/client.env
+# shellcheck source=$dir/server.env
+. $service_env_file
 
 
 
@@ -68,13 +66,5 @@ log "$TEST"
 if [ ${PIPESTATUS2[*]} -eq 1 ]; then
   exit;
 fi
-
-# set_env in file
-env_var='ACR_REGISTRY_ID'
-env_value=$TEST
-log "$(set_env $env_var $env_value $project_env_file $log 2>&1)" 
-
-# docker run -p 80:80 --env-file ./.env shortpoet.azurecr.io/blog.client.prod:v1
-
 
 exit
