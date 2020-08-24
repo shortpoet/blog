@@ -15,7 +15,10 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
 log=$dir/logs/$filename-$TARGET
-env_file=$dir/image.env
+service_env_file=$dir/server.env
+# shellcheck source=$dir/client.env
+# shellcheck source=$dir/server.env
+. $service_env_file
 
 if [ -f $log ]; then
   cp $log "$log.bak"
@@ -53,6 +56,6 @@ log "test is $TEST"
 env_var='IMAGE'
 env_value=$TEST
 
-set_env $env_var $env_value $env_file $log
+set_env $env_var $env_value $service_env_file $log
 
 exit

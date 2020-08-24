@@ -9,6 +9,9 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 . $dir/colors.cfg
 # shellcheck source=$dir/log.sh
 . $dir/log.sh
+service_env_file=$1
+# shellcheck source=$1
+. "$service_env_file"
 
 filename=$(basename ${BASH_SOURCE[0]})
 # remove extension
@@ -28,5 +31,5 @@ echo "==========================================================================
 log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
 # Create a resource group.
-log "${GR}Deleting container ${BL}$1${NC}"
-az container delete -y --name "$1" --resource-group "$RG" 
+log "${GR}Deleting container ${BL}$CONTAINER in $1 from $ACR_FULL${NC}"
+az container delete -y --name "$CONTAINER" --resource-group "$RG" 

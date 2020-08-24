@@ -24,6 +24,8 @@ export class Context {
   }
 }
 
+
+
 const util = require('util');
 (async () => {
   console.log("$# START @7");
@@ -34,8 +36,7 @@ const util = require('util');
   // console.log(Object.keys(connection));
   const context = await getConnection().getRepository(User).find()
   console.log(context);
-  
-  
+    
   // console.log(`name ${connection.name}`);
   if (connection) {
     // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
@@ -51,6 +52,6 @@ const util = require('util');
       graphiql: true,
       // context: req
     })))
-    app.listen(5000)
+    app.listen(process.env.APP_PORT || 5000)
   }
 })();

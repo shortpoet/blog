@@ -25,10 +25,10 @@
     // #
     // vite
     // #
-    // "module": "esnext",
-    // "types": [
-    //   "vite"
-    // ]
+    "module": "esnext",
+    "types": [
+      "vite"
+    ]
   },
   //   "include": [
   //     "src/**/*.ts",

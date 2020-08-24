@@ -25,10 +25,13 @@ registry_env_file=$dir/registry.env
 filename=$(basename ${BASH_SOURCE[0]})
 filename=`echo $filename | awk -F\. '{print $1}'`
 log=$dir/logs/$filename-$TARGET
-service_env_file=$dir/server.env
-# shellcheck source=$dir/client.env
-# shellcheck source=$dir/server.env
-. $service_env_file
+
+# service_env_file=$dir/server.env
+# # shellcheck source=$dir/server.env
+# service_env_file=$dir/client.env
+service_env_file=$1
+# shellcheck source=$1
+. "$service_env_file"
 
 
 
@@ -47,10 +50,23 @@ echo "==========================================================================
 log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
 # get acr reg id
-log "${GR}Creating container${NC}" 2>&1
+log "${GR}Creating container $CONTAINER${NC}" 2>&1
 # save retval of pipe
-env_vars="NGINX_PORT=80"
-cmd="az container create --resource-group $RG --name $CONTAINER --image "$ACR_FULL/$IMAGE:$TAG" --cpu 1 --memory 1 --registry-login-server $ACR_FULL --registry-username $SP_APP_ID --registry-password $SP_PASS --dns-name-label shortpoet-blog --ports 80 --environment-variables $env_vars"
+
+
+cmd="az container create \
+  --resource-group $RG \
+  --name $CONTAINER \
+  --image "$ACR_FULL/$IMAGE:$TAG" \
+  --cpu 1 \
+  --memory 1 \
+  --registry-login-server $ACR_FULL \
+  --registry-username $SP_APP_ID \
+  --registry-password $SP_PASS \
+  --dns-name-label $DNS_NAME_LABEL \
+  --ports $PORTS \
+  --environment-variables $ENV_VARS"
+
 log "$cmd"
 TEST="$( $cmd 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon

@@ -29,9 +29,10 @@ export const graphAxios
       validateStatus: (status) => status < 500
     }
     config.params = queryType ? { queryType: queryType } : null
+    const url = `${import.meta.env.VITE_APP_API ? import.meta.env.VITE_APP_API : process.env.VUE_APP_API}/graphql`
     try {
       const res = await axios.post(
-        'http://localhost:5000/graphql',
+        url,
         query,
         config
       )
