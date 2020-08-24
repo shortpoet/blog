@@ -81,6 +81,26 @@ fi
 
 exit
 
+log "${PP}Remove $target from local docker${NC}"
+
+TEST="$( docker rmi "$target" 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
+if [[ -n "${TEST%:*}" ]]; then          # if there was original output
+  TEST="${TEST%:*}"                     # remove trailing results from $TEST
+  TEST="${TEST%$'\n'}"                  # remove trailing \n like plain $(…)
+else
+  TEST=""                               # no original output -> empty string
+fi
+
+log "$TEST"
+if [ "${PIPESTATUS2[*]}" -eq 1 ]; then
+  exit;
+fi
+
+exit
+
+
+
 # some stuff I tried
 
 # false | true

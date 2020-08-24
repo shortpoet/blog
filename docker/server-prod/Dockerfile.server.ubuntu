@@ -45,15 +45,15 @@ RUN mkdir -p /usr/src/app/node_modules && chown -R node:node /usr/src/app
 
 WORKDIR /usr/src/app
 
-# RUN npm install -g --quiet --silent  webpack-dev-server tsc
+# RUN npm install -g --quiet --silent ts-node typescript
 
 COPY server/package*.json ./
 
-COPY docker/server/docker-entrypoint-server-u.sh docker/colors.cfg /usr/local/bin/
+COPY docker/server-prod/docker-entrypoint-server-u.sh docker/colors.cfg /usr/local/bin/
 
 USER node
 
-RUN npm install --quiet --silent --only=production && npm cache clean --force
+RUN npm install --quiet --silent && npm cache clean --force
 
 ENV PATH /usr/src/node_modules/.bin:$PATH
 

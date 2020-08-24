@@ -8,6 +8,8 @@ require("dotenv").config();
 // https://github.com/typeorm/typeorm/issues/510
 console.log("$# DOCKER @7");
 console.log(process.env.DOCKER);
+console.log("$# PROVIDER @7");
+console.log(process.env.PROVIDER);
 const postgresHost = process.env.DOCKER === "1" 
   ? process.env.POSTGRES_HOST
   : process.env.POSTGRES_HOST_LOCAL

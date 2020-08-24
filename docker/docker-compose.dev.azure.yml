@@ -20,13 +20,13 @@ services:
   blog.server.dev.azure:
     # image: ${COMPOSE_PROJECT_NAME}.server:alpine
     # image is different from service because azure doesn't use build step
-    image: ${COMPOSE_PROJECT_NAME}.client.prod.azure:ubuntu
+    image: ${COMPOSE_PROJECT_NAME}.server.prod.azure:ubuntu
     depends_on:
       - redis
     build:
       context: ../
       # dockerfile: docker/server/Dockerfile.server.alpine
-      dockerfile: docker/server/Dockerfile.server.ubuntu
+      dockerfile: docker/server-prod/Dockerfile.server.ubuntu
     tty: true
     stdin_open: true
     working_dir: /usr/src/app
@@ -37,9 +37,7 @@ services:
     volumes:
       - ../server:/usr/src/app
       - /usr/src/app/node_modules
-    command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}", "yarn", "start"]
-    # command: ["docker-entrypoint-server-a.sh", "db.${PROVIDER}", "yarn", "start"]
-    # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
+    command: ["docker-entrypoint-server-u.sh", "yarn", "start"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
     networks:
       - ${COMPOSE_PROJECT_NAME}net

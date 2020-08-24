@@ -32,9 +32,7 @@ services:
     volumes:
       - ../server:/usr/src/app
       - /usr/src/app/node_modules
-    command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}", "yarn", "start"]
-    # command: ["docker-entrypoint-server-a.sh", "db.${PROVIDER}", "yarn", "start"]
-    # command: ["docker-entrypoint-server-u.sh", "db.${PROVIDER}"]
+    command: ["docker-entrypoint-server-u.sh", "yarn", "start"]
     # entrypoint: /usr/local/bin/docker-entrypoint-server-a.sh
     networks:
       - ${COMPOSE_PROJECT_NAME}net

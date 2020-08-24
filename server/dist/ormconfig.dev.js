@@ -16,6 +16,8 @@ require("dotenv").config(); // require("dotenv").config(require('path').resolve(
 
 console.log("$# DOCKER @7");
 console.log(process.env.DOCKER);
+console.log("$# PROVIDER @7");
+console.log(process.env.PROVIDER);
 var postgresHost = process.env.DOCKER === "1" ? process.env.POSTGRES_HOST : process.env.POSTGRES_HOST_LOCAL;
 var mssqlHost = process.env.DOCKER === "1" ? process.env.MSSQL_HOST : process.env.MSSQL_HOST_LOCAL;
 var azureHost = process.env.DOCKER === "1" ? process.env.AZURE_HOST : process.env.AZURE_HOST_LOCAL; // console.log("$# POSTGRES_HOST @7");
