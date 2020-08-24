@@ -57,7 +57,7 @@ const config = process.env.PROVIDER === 'postgres'
       ? mssqlConfig
         : process.env.PROVIDER === 'azure'
           ? azureConfig
-  : () => {throw new Error('Must supply correct value for config')}
+  : {}
 
 module.exports = {
     ...config,

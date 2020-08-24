@@ -49,9 +49,7 @@ var azureConfig = {
   "synchronize": false,
   "logging": true
 };
-var config = process.env.PROVIDER === 'postgres' ? postgresConfig : process.env.PROVIDER === 'mssql' ? mssqlConfig : process.env.PROVIDER === 'azure' ? azureConfig : function () {
-  throw new Error('Must supply correct value for config');
-};
+var config = process.env.PROVIDER === 'postgres' ? postgresConfig : process.env.PROVIDER === 'mssql' ? mssqlConfig : process.env.PROVIDER === 'azure' ? azureConfig : {};
 module.exports = _objectSpread({}, config, {
   "entities": ["src/entity/**/*.ts"],
   "migrations": ["src/migration/**/*.ts"],

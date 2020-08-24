@@ -17,11 +17,16 @@ services:
     networks:
       - ${COMPOSE_PROJECT_NAME}net
   
-  blog.server.prod.azure:
+  blog.server.dev.azure:
     # image: ${COMPOSE_PROJECT_NAME}.server:alpine
-    image: ${COMPOSE_PROJECT_NAME}.server.prod.azure:ubuntu
+    # image is different from service because azure doesn't use build step
+    image: ${COMPOSE_PROJECT_NAME}.client.prod.azure:ubuntu
     depends_on:
       - redis
+    build:
+      context: ../
+      # dockerfile: docker/server/Dockerfile.server.alpine
+      dockerfile: docker/server/Dockerfile.server.ubuntu
     tty: true
     stdin_open: true
     working_dir: /usr/src/app
@@ -39,10 +44,13 @@ services:
     networks:
       - ${COMPOSE_PROJECT_NAME}net
 
-  blog.client.prod.azure:
+  blog.client.dev.azure:
     image: ${COMPOSE_PROJECT_NAME}.client.prod.azure
     depends_on:
-      - blog.server.prod.azure
+      - blog.server.dev.azure
+    build:
+      context: ../
+      dockerfile: docker/client-prod/Dockerfile.client.prod.nginx
     tty: true
     env_file:
       - ".env"

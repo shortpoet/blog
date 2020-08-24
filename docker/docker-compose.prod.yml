@@ -27,7 +27,6 @@ services:
     volumes:
       - ../db/postgres/init:/docker-entrypoint-initdb.d/:ro
       - ../db/postgres/postgres-data:${PGVOLUME}
-
     env_file:
       - ".env"
     ports:
