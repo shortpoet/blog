@@ -78,9 +78,10 @@ log "${GR}ACR reg is: ${LB}$ACR_REGISTRY_ID${NC}" 2>&1
 
 # az ad sp create-for-rbac  --debug --name http://--scopes --role owner --query password --output tsv
 
-# TEST="$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes ${ACR_REGISTRY_ID} --role $SP_ROLE --query password --output tsv 2>&1; printf :%s "${PIPESTATUS[*]}" )"
-# if exists use this otherwise throws error
-TEST="$(az ad sp create-for-rbac --skip-assignment --scopes ${ACR_REGISTRY_ID} --role $SP_ROLE --query password --output tsv 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+TEST="$(az ad sp create-for-rbac --only-show-errors --name http://$SERVICE_PRINCIPAL_NAME --scopes ${ACR_REGISTRY_ID} --role $SP_ROLE --query password --output tsv 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+# if exists use this otherwise throws error - but not correct options
+# instead `--only-show-errors`
+# TEST="$(az ad sp create-for-rbac --skip-assignment --scopes ${ACR_REGISTRY_ID} --role $SP_ROLE --query password --output tsv 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 # save retval of pipe
 declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
 if [[ -n "${TEST%:*}" ]]; then          # if there was original output
@@ -127,6 +128,6 @@ log "$(set_env $env_var $env_value $project_env_file $log 2>&1)"
 # Output the service principal's credentials; use these in your services and
 # applications to authenticate to the container registry.
 log "${PP}Service principal ID: ${LG}$SP_APP_ID${NC}"
-log "${PP}Service principal password: ${LG}${SP_PASS:?Must be assigned}{NC}"
+log "${PP}Service principal password: ${LG}${SP_PASS:?Must be assigned}${NC}"
 
 exit

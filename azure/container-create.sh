@@ -28,6 +28,9 @@ log=$dir/logs/$filename-$TARGET
 image_env_file=$dir/image.env
 # shellcheck source=$dir/image.env
 . $image_env_file
+container_env_file=$dir/container.env
+# shellcheck source=$dir/image.env
+. $container_env_file
 
 
 
@@ -48,7 +51,8 @@ log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been exec
 # get acr reg id
 log "${GR}Creating container${NC}" 2>&1
 # save retval of pipe
-cmd="az container create --resource-group $RG --name $ACR --image "$ACR_FULL/$IMAGE:$TAG" --cpu 1 --memory 1 --registry-login-server $ACR_FULL --registry-username $SP_APP_ID --registry-password $SP_PASS --dns-name-label shortpoet-blog --ports 80"
+env_vars="NGINX_PORT=80"
+cmd="az container create --resource-group $RG --name $CONTAINER --image "$ACR_FULL/$IMAGE:$TAG" --cpu 1 --memory 1 --registry-login-server $ACR_FULL --registry-username $SP_APP_ID --registry-password $SP_PASS --dns-name-label shortpoet-blog --ports 80 --environment-variables $env_vars"
 log "$cmd"
 TEST="$( $cmd 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
