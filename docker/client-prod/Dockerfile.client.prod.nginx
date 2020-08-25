@@ -21,6 +21,7 @@ COPY ./docker/client-prod/templates/default.conf.template /etc/nginx/templates/d
 # COPY ./docker/client-prod/templates/default.conf.template /usr/local/bin/default.conf.template
 
 # COPY ./docker/client-prod/nginx-entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
+# this step is crucial to start up the service
 COPY ./docker/client-prod/nginx-entrypoint.sh /docker-entrypoint.d
 
 COPY ./docker/client-prod/colors.cfg /usr/local/bin/colors.cfg

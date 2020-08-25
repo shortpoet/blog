@@ -63,10 +63,11 @@ EXPOSE 8080
 
 # RUN chmod +x /docker-entrypoint-client.sh
 
-# ENTRYPOINT ["docker-entrypoint-server-u.sh"]
+ENTRYPOINT ["docker-entrypoint-server-u.sh"]
 
 LABEL maintainer="Carlos Soriano <shortpoet@github>"
 
 # CMD ["yarn", "--help"]
+# CMD ["/bin/bash", "-c" "docker-entrypoint-server-u.sh", "yarn", "start"]
 
 # docker run --rm -it -v ${PWD}:/usr/src/app -v /usr/src/app/node_modules -p 3000:3000 ${COMPOSE_PROJECT_NAME}.server:ubuntu

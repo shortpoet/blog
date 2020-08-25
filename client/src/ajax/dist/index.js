@@ -65,7 +65,7 @@ exports.graphAxios = function (query, queryType) { return __awaiter(void 0, void
                     validateStatus: function (status) { return status < 500; }
                 };
                 config.params = queryType ? { queryType: queryType } : null;
-                url = (import.meta.env.VITE_APP_API ? import.meta.env.VITE_APP_API : process.env.VUE_APP_API) + "/graphql";
+                url = process.env.VUE_APP_API + "/graphql";
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);

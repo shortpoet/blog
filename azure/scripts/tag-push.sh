@@ -16,13 +16,11 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 filename=$(basename "${BASH_SOURCE[0]}")
 filename=$(echo "$filename" | awk -F\. '{print $1}')
 logfile="$dir/logs/$filename-${TARGET:?'Set this in env file'}"
-service_env_file=$dir/server.env
-# shellcheck source=$dir/client.env
-# shellcheck source=$dir/server.env
+service_env_file=$1
+# shellcheck source=$1
 . $service_env_file
 
-source=$1
-image=$(echo "$source" | grep -oP '.*?(?=\:)')
+image=$(echo "$SOURCE" | grep -oP '.*?(?=\:)')
 # uncomment to make fail due to double ':'
 # image=$source
 version=$TAG
@@ -43,11 +41,11 @@ echo "==========================================================================
 log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed${NC}"
 
 # apply tag
-log "${GR}Apply tag to image $source with version $version${NC}"
+log "${GR}Apply tag to image $SOURCE with version $version${NC}"
 
 # https://stackoverflow.com/questions/41716616/get-exit-codes-of-a-pipe-when-output-is-assigned-to-variable-command-substituti/44314883#44314883
 # save retval of pipe
-TEST="$( docker tag "$source" "$target" 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+TEST="$( docker tag "$SOURCE" "$target" 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
 #                        ^-- SC2206: Quote to prevent word splitting/globbing, or split robustly with mapfile or read -a.
 if [[ -n "${TEST%:*}" ]]; then          # if there was original output

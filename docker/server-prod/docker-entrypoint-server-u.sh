@@ -18,9 +18,11 @@ fi
 
 echo -e "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been executed"
 
-cmd="$@"
+yarn start
 
-exec $cmd
+# cmd="$@"
+
+# exec $cmd
 
 # while ! nc -z rabbitmq 5672; do sleep 3; done
 
