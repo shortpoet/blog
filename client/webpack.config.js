@@ -24,7 +24,8 @@ const copyWebpackPlugin = new CopyWebpackPlugin({
 // https://stackoverflow.com/questions/28572380/conditional-build-based-on-environment-using-webpack
 
 const environmentPlugin = new webpack.DefinePlugin({
-  "process.env": dotenv.parsed
+  // if you don't stringify this fails miserably XD
+  "process.env": JSON.stringify(dotenv.parsed)
 })
 
 module.exports = {
@@ -63,7 +64,18 @@ module.exports = {
           'style-loader',
           'css-loader',
         ]
-      }
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ]
   },
   resolve: {

@@ -21,7 +21,7 @@
     //    "scripthost",
     //    "es5",
     //    "es6"
-    //  ]
+    //  ],
     // #
 
     // vite
@@ -29,18 +29,20 @@
     // "module": "esnext",
     "types": [
       // "vite",
-      "moment"
+      "moment",
+      "node",
+      "jest"
     ]
     
   },
-  //   "include": [
-  //     "src/**/*.ts",
-  //     "src/**/*.tsx",
-  //     "src/**/*.vue",
-  //     "tests/**/*.ts",
-  //     "tests/**/*.tsx",
-  //     "shims-vue.d.ts"
-  //     // "shims-tsx.d.ts"
-  //   ],
-  //   "exclude": ["node_modules"]
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.vue",
+      "tests/**/*.ts",
+      "tests/**/*.tsx",
+      "shims-vue.d.ts"
+      // "shims-tsx.d.ts"
+    ],
+    "exclude": ["node_modules"]
 }

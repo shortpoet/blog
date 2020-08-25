@@ -31,5 +31,7 @@ then
 
   echo -e "${LP}Docker is: ${DOCKER}${NC}";
 
+  echo -e "${LP}API is: ${VUE_APP_API}${NC}";
+
   # cat /etc/nginx/conf.d/default.conf
 fi

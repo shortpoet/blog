@@ -1,6 +1,6 @@
 console.log("$# ORM CONFIG @7");
 // console.log(require('dotenv').config())
-require("dotenv").config();
+// require("dotenv").config();
 // require("dotenv").config(require('path').resolve(__dirname, '..'));
 // console.log(require('path').resolve(__dirname, '..'));
 // https://stackoverflow.com/questions/26973484/how-do-i-setup-the-dotenv-file-in-node-js#43973629

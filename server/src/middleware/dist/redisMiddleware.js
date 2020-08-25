@@ -3,6 +3,10 @@ exports.__esModule = true;
 exports.redisMiddleware = exports.redis_client = void 0;
 var chalkLog_1 = require("../utils/chalkLog");
 var redis = require("redis");
+// i'm thinking because the client was being exported it was hit earlier in the build chain
+// moved it here so env var is not undefined
+require("dotenv").config();
+console.log("$# REDIS Config @7");
 var RedisMock = /** @class */ (function () {
     function RedisMock() {
     }
@@ -17,6 +21,7 @@ var RedisMock = /** @class */ (function () {
 var redis_mock = new RedisMock();
 var makeClient = function () {
     console.log('redis client');
+    console.log(process.env.REDIS_CACHE_DISABLE);
     if (process.env.REDIS_CACHE_DISABLE == 'true') {
         chalkLog_1.chalkLog('blueBright', "redis disable true");
         return redis_mock;
@@ -36,7 +41,7 @@ exports.redisMiddleware = function (req, res, next) {
     var queryType = req.query.queryType;
     if (queryType) {
         chalkLog_1.chalkLog('blueBright', "queryType: " + queryType);
-        // chalkLog('green', redis_client)
+        chalkLog_1.chalkLog('green', exports.redis_client);
         exports.redis_client.get(queryType, function (err, data) {
             chalkLog_1.chalkLog("yellow", "redis_client get");
             if (err) {
