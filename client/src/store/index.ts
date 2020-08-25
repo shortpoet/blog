@@ -281,10 +281,10 @@ class Store {
       }
     `
     const response = await graphAxios(query, 'posts')
-    const posts = response.posts.map(p => ({
+    const posts = [mockData.today].concat(response.posts.map(p => ({
       ...p,
       created: moment(p.created)
-    }))
+    })))
     if (posts) {
       for (const post of posts) {
         unParseQuery(post)

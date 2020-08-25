@@ -1,5 +1,5 @@
 CREATE TABLE [VCC].[content_posts] (
-  id INT PRIMARY KEY CLUSTERED,
+  id INT PRIMARY KEY CLUSTERED IDENTITY(1,1),
   title VARCHAR(100) NOT NULL,
   markdown VARCHAR(max) NULL,
   html VARCHAR(max) NULL,

@@ -15,7 +15,7 @@ export const basePost : IPost = {
 
 export const today: IPost = {
   ...basePost,
-  id: 1,
+  id: 888888888888888,
   title: 'Today'
 }
 export const thisWeek: IPost = {

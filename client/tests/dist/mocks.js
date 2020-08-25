@@ -21,6 +21,6 @@ exports.basePost = {
     userId: 1,
     created: moment_1["default"]()
 };
-exports.today = __assign(__assign({}, exports.basePost), { id: 1, title: 'Today' });
+exports.today = __assign(__assign({}, exports.basePost), { id: 888888888888888, title: 'Today' });
 exports.thisWeek = __assign(__assign({}, exports.basePost), { id: 2, title: 'This Week', created: moment_1["default"]().subtract(2, 'days') });
 exports.thisMonth = __assign(__assign({}, exports.basePost), { id: 3, title: 'This Month', created: moment_1["default"]().subtract(2, 'weeks') });

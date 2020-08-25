@@ -277,7 +277,7 @@ var Store = /** @class */ (function () {
                         return [4 /*yield*/, ajax_1.graphAxios(query, 'posts')];
                     case 1:
                         response = _a.sent();
-                        posts = response.posts.map(function (p) { return (__assign(__assign({}, p), { created: moment_1["default"](p.created) })); });
+                        posts = [mockData.today].concat(response.posts.map(function (p) { return (__assign(__assign({}, p), { created: moment_1["default"](p.created) })); }));
                         if (posts) {
                             for (_i = 0, posts_1 = posts; _i < posts_1.length; _i++) {
                                 post = posts_1[_i];
