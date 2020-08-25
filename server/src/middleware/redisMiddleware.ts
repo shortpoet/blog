@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import { chalkLog } from '../utils/chalkLog';
 const redis = require("redis");
-// i'm thinking because the client was being exported it was hit earlier in the build chain
-// moved it here so env var is not undefined
-require("dotenv").config();
 console.log("$# REDIS Config @7");
 
 class RedisMock {

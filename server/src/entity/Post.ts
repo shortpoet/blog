@@ -3,6 +3,19 @@ import { ObjectType, Field, ID, Int, GraphQLISODateTime } from "type-graphql";
 import { IPost } from "../interfaces/IPost";
 import moment, { Moment } from "moment";
 import { User } from "./User";
+// i'm thinking because 
+// entity imports happen first then 
+// the redis client was being exported 
+// so it was hit earlier in the build chain
+// moved it here so env var is not undefined
+require("dotenv").config();
+console.log("$# Entity Config @7");
+
+
+console.log("$# PROVIDER @7");
+console.log(process.env.PROVIDER);
+const dateType = process.env.PROVIDER == 'postgres' ? 'timestamp' : 'datetime'
+console.log(dateType);
 
 
 @ObjectType()
@@ -26,7 +39,7 @@ export class Post implements IPost {
   html?: string;
   
   @Field(type => GraphQLISODateTime)
-  @Column({ type: 'datetime', default: moment() })
+  @Column({ type: dateType, default: moment() })
   created: Moment;
 
   @Field(type => Int)

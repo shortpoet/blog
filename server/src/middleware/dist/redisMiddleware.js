@@ -3,9 +3,6 @@ exports.__esModule = true;
 exports.redisMiddleware = exports.redis_client = void 0;
 var chalkLog_1 = require("../utils/chalkLog");
 var redis = require("redis");
-// i'm thinking because the client was being exported it was hit earlier in the build chain
-// moved it here so env var is not undefined
-require("dotenv").config();
 console.log("$# REDIS Config @7");
 var RedisMock = /** @class */ (function () {
     function RedisMock() {

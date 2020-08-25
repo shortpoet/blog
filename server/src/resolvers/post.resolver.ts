@@ -46,26 +46,9 @@ export class PostResolver {
   async createPost(@Arg("post") postInput: CreatePostInput): Promise<Post> {
     console.log('#### create post ####');
     const repo = getRepository(Post);
-    console.log(postInput);
-    
-    const postNum = await repo.findAndCount();
-    const newId = postNum[1] + 1;
-    const post = await repo.create({
-      ...postInput,
-      id: newId
-    });
-    console.log('test 1');
-    
-    console.log(post);
-    console.log('test 2');
-    console.log('test 3');
-    const options: SaveOptions = {
-      
-    }
-    const results = await repo.save(<Post>post, options);
-    console.log(results);
-    console.log('test 4');
-    
+    const results = await repo.save(<Post>postInput);
+    return results;
+
     // below is for upsert
     // https://github.com/typeorm/typeorm/issues/1090
     // const data = post;
@@ -86,7 +69,6 @@ export class PostResolver {
     //   .execute()
 
     // const results = await repo.findOne(newId);
-    return results;
   }
   @Mutation(returns => Post)
   async updatePost(@Arg("post") postInput: UpdatePostInput): Promise<Post> {

@@ -107,48 +107,15 @@ var PostResolver = /** @class */ (function () {
     };
     PostResolver.prototype.createPost = function (postInput) {
         return __awaiter(this, void 0, Promise, function () {
-            var repo, postNum, newId, post, options, results;
+            var repo, results;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log('#### create post ####');
                         repo = typeorm_1.getRepository(Post_1.Post);
-                        console.log(postInput);
-                        return [4 /*yield*/, repo.findAndCount()];
+                        return [4 /*yield*/, repo.save(postInput)];
                     case 1:
-                        postNum = _a.sent();
-                        newId = postNum[1] + 1;
-                        return [4 /*yield*/, repo.create(__assign(__assign({}, postInput), { id: newId }))];
-                    case 2:
-                        post = _a.sent();
-                        console.log('test 1');
-                        console.log(post);
-                        console.log('test 2');
-                        console.log('test 3');
-                        options = {};
-                        return [4 /*yield*/, repo.save(post, options)];
-                    case 3:
                         results = _a.sent();
-                        console.log(results);
-                        console.log('test 4');
-                        // below is for upsert
-                        // https://github.com/typeorm/typeorm/issues/1090
-                        // const data = post;
-                        // const row = Array.isArray(data) ? data[0] : data;
-                        // const keys = Object.keys(row);
-                        // if (keys.length < 1) {
-                        //   throw new Error("Cannot upsert without any values specified");
-                        // }
-                        // const primaryKey = 'id';
-                        // const updateStr = keys.map(key => `"${key}" = EXCLUDED."${key}"`).join(",");
-                        // const rest = keys.filter(key => key != primaryKey)
-                        // const results = repo
-                        //   .createQueryBuilder()
-                        //   .insert()
-                        //   .values(post)
-                        //   .orUpdate({ conflict_target: [`${primaryKey}`], overwrite: rest })
-                        //   .execute()
-                        // const results = await repo.findOne(newId);
                         return [2 /*return*/, results];
                 }
             });

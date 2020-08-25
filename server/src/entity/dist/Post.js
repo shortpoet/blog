@@ -11,6 +11,17 @@ var typeorm_1 = require("typeorm");
 var type_graphql_1 = require("type-graphql");
 var moment_1 = require("moment");
 var User_1 = require("./User");
+// i'm thinking because 
+// entity imports happen first then 
+// the redis client was being exported 
+// so it was hit earlier in the build chain
+// moved it here so env var is not undefined
+require("dotenv").config();
+console.log("$# Entity Config @7");
+console.log("$# PROVIDER @7");
+console.log(process.env.PROVIDER);
+var dateType = process.env.PROVIDER == 'postgres' ? 'timestamp' : 'datetime';
+console.log(dateType);
 var Post = /** @class */ (function () {
     function Post() {
     }
@@ -32,7 +43,7 @@ var Post = /** @class */ (function () {
     ], Post.prototype, "html");
     __decorate([
         type_graphql_1.Field(function (type) { return type_graphql_1.GraphQLISODateTime; }),
-        typeorm_1.Column({ type: 'datetime', "default": moment_1["default"]() })
+        typeorm_1.Column({ type: dateType, "default": moment_1["default"]() })
     ], Post.prototype, "created");
     __decorate([
         type_graphql_1.Field(function (type) { return type_graphql_1.Int; }),
