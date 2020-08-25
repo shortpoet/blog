@@ -14,7 +14,7 @@ EXEC sys.sp_addextendedproperty @name=N'Comment',
 
 
 CREATE TABLE [VCC].[admin_users] (
-  id INT PRIMARY KEY CLUSTERED,
+  id INT PRIMARY KEY CLUSTERED IDENTITY(1,1),
   username VARCHAR(100) NOT NULL,
   password VARCHAR(100) CHECK(DATALENGTH(password) > 9) NOT NULL
 );

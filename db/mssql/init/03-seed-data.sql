@@ -4,20 +4,20 @@ USE shortpoetdb
 -- Insert rows into table 'users'
 INSERT INTO [VCC].[admin_users]
 ( -- columns to insert data into
- id, username, password
+ username, password
 )
 VALUES
 ( 
- 1, 'Shortpoet', 'haikuukiah'
+ 'Shortpoet', 'haikuukiah'
 ),
 ( 
- 2, 'Poetshort', 'loekutterr'
+ 'Poetshort', 'loekutterr'
 ),
 ( 
- 3, 'Ryuken', 'uprkutterr'
+ 'Ryuken', 'uprkutterr'
 ),
 ( 
- 4, 'username', 'passwordkk'
+ 'username', 'passwordkk'
 );
 
 -- Insert rows into table 'posts'
