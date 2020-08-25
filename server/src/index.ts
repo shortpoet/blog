@@ -36,15 +36,23 @@ const util = require('util');
   // console.log(Object.keys(connection));
   const context = await getConnection().getRepository(User).find()
   console.log(context);
-    
+  
   // console.log(`name ${connection.name}`);
   if (connection) {
     // console.log(util.inspect(connection.options, false, null, true /* enable colors */));
     const app = express();
     app.use(cors());
-    if (process.env.DOCKER) {
+    console.log("$# REDIS @7");
+    console.log(process.env.REDIS_CACHE_DISABLE);
+    
+    
+    console.log("$# TEST @7");
+    if (process.env.DOCKER && process.env.REDIS_CACHE_DISABLE != 'true') {
+      console.log("$# USING REDIS @7");
       app.use(redisMiddleware);
+      console.log("$# TEST 2 @7");
     }
+    console.log("$# TEST 3 @7");
     app.use(loggingMiddleware);
     const schema = await generateSchema(UserResolver, PostResolver);
     app.use('/graphql', graphqlHTTP((req) => ({

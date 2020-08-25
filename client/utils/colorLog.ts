@@ -57,12 +57,12 @@ export function colorLog(message: string, options?: (number | Options)): void {
     // message = `${message}\n${stack[1]}`
     
     // console.log(`%c` + `${message}`, `color:` + `${color};background:${background}`)
-    const trace = stack[1].split('src/')
+    const trace = stack[1] ? stack[1].split('src/') : null;
     // const file = trace[1].match(/(.+?):/)[1]
-    const file = trace[1].match(/.+?(?=:)/)[0]
+    const file = trace[1] ? trace[1].match(/.+?(?=:)/)[0] : null;
     // const line = trace[1].match(/:(.*)/)[1]
     // const line = trace[1].match(/(?<=:).*/)[0]
-    const line = trace[1].match(/(:.*)/)[0]
+    const line = trace[1] ? trace[1].match(/(:.*)/)[0] : null;
     console.log(`%c${message}%c\t\t\t\t\t${file}%c${line}`, `color:${color};background:${background}`, `color:#003EC5;background:white;text-align:right;` ,`color:#0086E1;background:white;text-align:right;`)
   } else {
     console.log(`%c` + `${message}`, `color:` + `${color};background:${background}`)

@@ -69,7 +69,7 @@ export class UserResolver {
     try {
       chalkLog('magentaBright', '#### database fetch ####')
       // chalkLog('magenta', users)
-      redis_client.setex('users', 54000, JSON.stringify(users))
+      // redis_client.setex('users', 54000, JSON.stringify(users))
     } catch (error) {
       console.log(error);
     }

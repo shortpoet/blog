@@ -38,7 +38,7 @@ export class PostResolver {
     chalkLog('magentaBright', '#### database fetch ####')
     const data = await getRepository(Post).find()
     // chalkLog('magenta', data)
-    redis_client.setex('posts', 54000, JSON.stringify(data))
+    // redis_client.setex('posts', 54000, JSON.stringify(data))
     return data;
   }
 

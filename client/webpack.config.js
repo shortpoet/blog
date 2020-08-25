@@ -31,12 +31,17 @@ module.exports = {
   // https://webpack.js.org/configuration/entry-context/#root
   context: path.resolve(__dirname, './'),
   entry: './src/main.ts',
-  output: {
-    path: process.env.DOCKER == '1'
-      ? path.resolve(__dirname, './dist')
-      : path.resolve(__dirname, '../docs/'),
-    publicPath: '/dist/'
-  },
+  output: process.env.NODE_ENV == 'production'
+    ? { 
+      path: process.env.DOCKER == '1'
+        ? path.resolve(__dirname, './dist')
+        : path.resolve(__dirname, '../docs/'),
+      publicPath: '/dist/'
+    }
+    : {
+      publicPath: '/dist/'
+    }
+    ,
   module: {
     rules: [
       {
@@ -62,7 +67,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   plugins: [
     new CleanWebpackPlugin(),

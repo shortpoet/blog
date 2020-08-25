@@ -72,9 +72,15 @@ var util = require('util');
                 if (!connection) return [3 /*break*/, 4];
                 app = express();
                 app.use(cors());
-                if (process.env.DOCKER) {
+                console.log("$# REDIS @7");
+                console.log(process.env.REDIS_CACHE_DISABLE);
+                console.log("$# TEST @7");
+                if (process.env.DOCKER && process.env.REDIS_CACHE_DISABLE != 'true') {
+                    console.log("$# USING REDIS @7");
                     app.use(redisMiddleware_1.redisMiddleware);
+                    console.log("$# TEST 2 @7");
                 }
+                console.log("$# TEST 3 @7");
                 app.use(loggingMiddleware_1.loggingMiddleware);
                 return [4 /*yield*/, generateSchema_1.generateSchema(user_resolver_1.UserResolver, post_resolver_1.PostResolver)];
             case 3:

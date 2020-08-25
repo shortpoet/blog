@@ -30,7 +30,13 @@ export const graphAxios
     }
     config.params = queryType ? { queryType: queryType } : null
     // const url = `${import.meta.env.VITE_APP_API ? import.meta.env.VITE_APP_API : process.env.VUE_APP_API}/graphql`
-    const url = `${process.env.VUE_APP_API}/graphql`
+    // const base = `${process.env.VUE_APP_API_BASE}`
+    const port = process.env.VUE_APP_API_PORT
+    // console.log(process.env);
+    
+
+    const url = `http://localhost:5000/graphql`
+    // const url = `http://${process.env.VUE_APP_API_BASE}:${port}/graphql`
     try {
       const res = await axios.post(
         url,

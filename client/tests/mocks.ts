@@ -1,5 +1,8 @@
 import { IPost } from "../src/interfaces/IPost";
-import moment from "moment";
+import moment from 'moment'
+
+
+;
 
 export const basePost : IPost = {
   id: 1,

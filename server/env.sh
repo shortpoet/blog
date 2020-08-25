@@ -1,6 +1,8 @@
 # overall
 PROVIDER=postgres
 export COMPOSE_PROJECT_NAME=
+#server
+APP_PORT=
 # postgres
 POSTGRES_HOST_LOCAL=localhost
 POSTGRES_USER=
@@ -22,3 +24,4 @@ AZURE_PORT=1433
 # redis
 REDIS_PORT=6379
 REDIS_SERVICE=redis
+REDIS_CACHE_DISABLE=false
