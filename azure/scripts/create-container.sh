@@ -67,7 +67,7 @@ cmd="az container create \
   --ports $PORTS \
   --environment-variables $ENV_VARS"
 
-log "$cmd"
+# log "$cmd"
 TEST="$( $cmd 2>&1; printf :%s "${PIPESTATUS[*]}" )"
 declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
 if [[ -n "${TEST%:*}" ]]; then          # if there was original output
@@ -82,5 +82,72 @@ log "$TEST"
 if [ ${PIPESTATUS2[*]} -eq 1 ]; then
   exit;
 fi
+
+cmd="az container show \
+-n $CONTAINER \
+--query ipAddress.fqdn \
+-o tsv \
+-g $RG"
+
+# log "$cmd"
+TEST="$( $cmd 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
+if [[ -n "${TEST%:*}" ]]; then          # if there was original output
+  TEST="${TEST%:*}"                     # remove trailing results from $TEST
+  TEST="${TEST%$'\n'}"                  # remove trailing \n like plain $(…)
+else
+  TEST=""                               # no original output -> empty string
+fi
+
+# exit if fail
+log "$TEST"
+if [ ${PIPESTATUS2[*]} -eq 1 ]; then
+  exit;
+fi
+env_var='FQDN'
+env_value=$TEST
+
+log "$(set_env $env_var $env_value $service_env_file $log 2>&1)" 
+# vs - the bottom doesn't redirect pipe 4
+# set_env $env_var $env_value $service_env_file
+
+cmd="az container show \
+-n $CONTAINER \
+--query ipAddress.ip \
+-o tsv \
+-g $RG"
+
+# log "$cmd"
+# TEST="$( $cmd 2>&1; printf :%s "${PIPESTATUS[*]}" )"
+# declare -a PIPESTATUS2=( "${TEST##*:}" )  # make array w/ content after final colon
+# if [[ -n "${TEST%:*}" ]]; then          # if there was original output
+#   TEST="${TEST%:*}"                     # remove trailing results from $TEST
+#   TEST="${TEST%$'\n'}"                  # remove trailing \n like plain $(…)
+# else
+#   TEST=""                               # no original output -> empty string
+# fi
+
+# # exit if fail
+# log "$TEST"
+# if [ ${PIPESTATUS2[*]} -eq 1 ]; then
+#   exit;
+# fi
+# env_var='IP'
+# env_value=$TEST
+
+# log "$(set_env $env_var $env_value $service_env_file $log 2>&1)" 
+# vs - the bottom doesn't redirect pipe 4
+# set_env $env_var $env_value $service_env_file
+
+# shellcheck source=$1
+# . $service_env_file
+
+if [[ $CONTAINER == *"server"* ]]; then
+  log "Creating firewall rule${YL}$FIREWALL_RULE${NC} for ip ${LB}$TEST${NC} in $DB_SERVER"
+
+  az sql server firewall-rule create -g $DB_RG -s $DB_SERVER -n $FIREWALL_RULE --start-ip-address $IP --end-ip-address $IP
+fi
+
+
 
 exit

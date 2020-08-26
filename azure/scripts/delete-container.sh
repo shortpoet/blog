@@ -33,3 +33,7 @@ log "${CY}The ${YL}${COMPOSE_PROJECT_NAME} ${filename} ${CY}script has been exec
 # Create a resource group.
 log "${GR}Deleting container ${BL}$CONTAINER in $1 from $ACR_FULL${NC}"
 az container delete -y --name "$CONTAINER" --resource-group "$RG" 
+
+log "Deleting firewall rule ${YL}$FIREWALL_RULE${NC} in $service_env_file"
+
+az sql server firewall-rule delete -g $DB_RG -s $DB_SERVER -n $FIREWALL_RULE

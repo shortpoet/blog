@@ -19,7 +19,7 @@ set_env(){
   exec 1>$log 2>&1
 
 
-  log "Setting ${YL}\$$env_var${NC} to ${LB}${env_value}${NC}"
+  log "Setting ${YL}$env_var${NC} to ${LB}${env_value}${NC}"
 
   perl -i -pe "s#${env_var}=.*#${env_var}=${env_value}#g" "${env_file}"
   log "${GR}Current value and line number => ${LB}$(grep -n "${env_var}=.*" "${env_file}")${NC}"
