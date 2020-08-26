@@ -145,7 +145,12 @@ cmd="az container show \
 if [[ $CONTAINER == *"server"* ]]; then
   log "Creating firewall rule${YL}$FIREWALL_RULE${NC} for ip ${LB}$TEST${NC} in $DB_SERVER"
 
-  az sql server firewall-rule create -g $DB_RG -s $DB_SERVER -n $FIREWALL_RULE --start-ip-address $IP --end-ip-address $IP
+  az sql server firewall-rule create \
+  -g $DB_RG \
+  -s $DB_SERVER \
+  -n $FIREWALL_RULE \
+  --start-ip-address $IP \
+  --end-ip-address $IP
 fi
 
 
