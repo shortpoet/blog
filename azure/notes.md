@@ -1,6 +1,14 @@
 # azure Containers
 
+## test
+
+docker run -p 8080:8080 --env-file ./.env shortpoet.azurecr.io/blog.server.prod.azure:v1
+
+docker run -p 80:80 --env-file ./.env shortpoet.azurecr.io/blog.client.prod.azure:v1
+
+
 ## microsoft docs
+
 
 - <https://docs.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-acr>
 
@@ -19,6 +27,7 @@ az acr create --resource-group myResourceGroup --name <acrName> --sku Basic
 ```
 
 ... output
+
 
 ```json
 {
